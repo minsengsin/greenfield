@@ -1,12 +1,15 @@
-import React form 'react';
+import React from 'react';
+import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import oneTask from './oneTask.js'
+
 
 const TaskList = (props) => (
   <div>
   <div>Task List</div>
   <ul>
     {
-      props.TaskList.map((task) => (
-        <TaskListItem handleClick={props.handleClick} task={task}/>
+      props.TaskList.map((task, i) => (
+        <TaskListItem handleClick={props.handleClick} task={task} key={i}/>
       ))
     }
   </ul>
@@ -14,14 +17,17 @@ const TaskList = (props) => (
 )
 
 const TaskListItem = (props) => (
-  <li onClick={() => {
-    props.handleClick(props.task)
-  }}>
-    <div>{props.task.name}</div>
-    <img src={props.task.image_url}/>
-    <div>{props.task.description.slice(200)}</div> // show only first 200 symbols
-    <div>{props.task.restrictions}</div>
-  </li>
+  <div>
+    <li onClick={() => {props.handleClick(props.task)}}>
+      <Link to="/task">
+        // <div>{props.task.name}</div>
+        <div><h1>EACH THING</h1></div>
+      </Link>
+    </li>
+  </div>
 )
+
+
+
 
 export default TaskList;
