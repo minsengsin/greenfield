@@ -9,7 +9,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 
 // Declare static files
-app.use(express.static(__dirname + '/../client/build'));
+app.use(express.static(__dirname + '/client/build'));
 
 app.get('/hello', function(req, res) {
   res.send('hello');

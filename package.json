@@ -4,6 +4,7 @@
   "main": "server.js",
   "license": "MIT",
   "scripts": {
+    "install": "cd client && yarn install && yarn run build",
     "dev": "nodemon server.js",
     "start": "node server.js"
   },
