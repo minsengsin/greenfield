@@ -1,7 +1,8 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const models = require('./database/models.js');
-
+const Sequelize = require('sequelize'); 
+const db = require('./database/models.js').db;
+const {User, Task, Organization} = require('./database/models.js');
 let app = express();
 
 // Parse JSON (uniform resource locators)
@@ -17,22 +18,39 @@ app.use(express.static(__dirname + '/../client/build'));
 // Should authenticate a user, creating a session token and assigning it
 // to this user.
 app.post('/login', function(req, res) {
-  const {username, password} = req.body;
-  // Find the username in our database
-  models.User.find({
+    User.find({
+      where: {
+        username: req.body.username,
+      }
+    }).then((e)=>{
+      if (e.dataValues && e.dataValues.password === req.body.password) {
+        res.redirect('/mainPage')
+      } else {
+        res.redirect('/login')
+      }
+    })
+});
+
+app.post('/signup', function(req, res) {
+  User.find({
     where: {
-      username,
-    },
-  }).then(results => {
-    // if the user does not exist, reject the login.
-    // else, create a session and redirect the user to the landing page.
-    console.log(results);
-  });
+      username: req.body.username,
+    }
+  }).then((e)=>{
+    if (e && e.dataValues.username === req.body.username) {
+      res.redirect('/signup')
+    } else {
+        User.create({
+          username: req.body.username,
+          password: req.body.password
+        }).then(()=>{res.redirect('/login')})
+    }
+  })
 });
 
 // Returns a list of all users from the database.
 app.get('/users', function(req, res) {
-  models.User.all().then(results => {
+  User.all().then(results => {
     console.log(results);
   });
 });
@@ -42,7 +60,7 @@ app.get('/users/:username', function(req, res) {});
 
 // Returns all tasks from the database.
 app.get('/tasks', function(req, res) {
-  models.Task.all().then(results => {
+  Task.all().then(results => {
     res.send(results);
   });
 });
@@ -52,14 +70,14 @@ app.get('/tasks', function(req, res) {
 app.post('/tasks', function(req, res) {
   // TODO: Need UserId for Task object creation, acquired from session.
   const {date, description, location} = req.body;
-  models.Task.create({date, description, location}).then(results => {
+  Task.create({date, description, location}).then(results => {
     res.status(201).send(`Created new task`);
   });
 });
 
 // Returns information for a single task.
 app.get('/tasks/:taskId', function(req, res) {
-  models.Task.find({
+  Task.find({
     where: {
       id: req.params.taskId,
     },
