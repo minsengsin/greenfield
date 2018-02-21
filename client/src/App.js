@@ -19,7 +19,7 @@ class App extends Component {
           <Route path='/login' component={Login} />
           <Route path='/signup' component={Signup} />
           <Route path='/mainPage' component={mainPage} />
-          <Route path='/tasks/:taskId' component={OneTask} />
+          <Route path='/tasks/:taskId' component={TaskDetails} />
         </div>
       </div>
     );

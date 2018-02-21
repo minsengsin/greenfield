@@ -5,7 +5,7 @@ const TaskListItem = props => (
   <div class="ui raised card">
     <div class="content">
       <div class="header">
-        <Link to={`tasks/${props.task.id}`}>Task title goes here</Link>
+        <Link to={`/tasks/${props.task.id}`}>Task title goes here</Link>
       </div>
       <div class="meta">
         <span class="category">Volunteer Oporuntity</span>
