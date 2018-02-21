@@ -1,6 +1,6 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const Sequelize = require('sequelize'); 
+const Sequelize = require('sequelize');
 const db = require('./database/models.js').db;
 const {User, Task, Organization} = require('./database/models.js');
 let app = express();
