@@ -19,21 +19,13 @@ const Organization = db.define('Organizations', {
 const Task = db.define('Tasks', { 
     date: Sequelize.STRING,
     description: Sequelize.STRING,
-    location: Sequelize.STRING,
+    location: Sequelize.STRING
 })
 
 Task.belongsTo(User)
 
-// Sync all models that aren't already in the database
-// db.sync({force: true}).then((res)=> {
-  
-// }).catch((error)=> {
-//     console.log(error)
-// })
 
 db.sync({force: true})
-
-// db.drop()
 
 
 exports.User = User;
