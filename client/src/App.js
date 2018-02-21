@@ -11,7 +11,6 @@ import sampleText from './SampleText.js';
 import TaskDetails from './TaskDetails.js'
 import Traits from './Traits.js';
 
-
 class App extends Component {
   render() {
     return (
@@ -20,7 +19,7 @@ class App extends Component {
           <Route path='/login' component={Login} />
           <Route path='/signup' component={Signup} />
           <Route path='/mainPage' component={mainPage} />
-          <Route path='/task' component={OneTask} />
+          <Route path='/tasks/:taskId' component={OneTask} />
         </div>
         <div className="App">
           <Header />
@@ -32,7 +31,6 @@ class App extends Component {
             To get started, edit <code>src/App.js</code> and save to reload.
         </p>
         </div>
-        <Route path='/tasks/:taskId' component={OneTask} />
       </div>
     );
   }
