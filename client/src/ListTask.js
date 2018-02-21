@@ -21,7 +21,7 @@ const TaskListItem = (props) => (
     <li>
       <Link to={`/tasks/${props.task.id}`}>
         
-        <div>Tasks</div>
+        <div>{props.task.description}</div>
         
       </Link>
     </li>

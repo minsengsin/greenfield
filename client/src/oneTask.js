@@ -1,4 +1,8 @@
 import React from 'react';
+import TaskDetails from './TaskDetails.js'
+import Traits from './Traits.js';
+import Header from './Header.js';
+import axios from 'axios';
 
 class OneTask extends React.Component {
   constructor(props) {
@@ -9,21 +13,20 @@ class OneTask extends React.Component {
   }
 
   componentDidMount() {
-  	// axios.get(`/tasks/${this.props.match.params.taskId}`).then((data) => {
-  	// 	this.setState({
-  	// 		task: data
-  	// 	})
-  	// })
+  	axios.get(`/tasks/${this.props.match.params.taskId}`).then((data) => {
+  		this.setState({
+  			task: data.data
+  		})
+  	})
   }
 
 
   render() {
   	return (
   		<div>
-  			<h1>Artem</h1>
-  			<h1>{this.state.id}</h1>
-  			<h1>{this.state.name}</h1>
-    		<h1>{this.props.match.params.taskId}</h1>
+  			<div>Date: {this.state.task.date}</div>
+  			<div>description of task: {this.state.task.description}</div>
+  			<div>Location: {this.state.task.location}</div>
   		</div>
   	)
   }
