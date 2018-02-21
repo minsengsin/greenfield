@@ -5,7 +5,7 @@ const Header = function(props) {
   return (
     <div>
       <h1>Team Lyly</h1>
-      <button href={props.userIsLoggedIn ? '/logout' : '/login'}>{props.userIsLoggedIn ? 'Logout!' : 'Login!'}</button>
+      <button href={props.userIsLoggedIn ? '/logout' : '/login'}>{props.userIsLoggedIn ? 'HeaderLogout!' : 'HeaderLogin!'}</button>
     </div>
   );
 }
