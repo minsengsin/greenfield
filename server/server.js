@@ -41,14 +41,41 @@ app.get('/users', function(req, res) {
 app.get('/users/:username', function(req, res) {});
 
 // Returns all tasks from the database.
-app.get('/tasks', function(req, res) {});
+app.get('/tasks', function(req, res) {
+  models.Task.all().then(results => {
+    res.send(results);
+  });
+});
 
 // Expects JSON containing all information necessary to create and
 // save a new task object to the database.
-app.post('/tasks', function(req, res) {});
+app.post('/tasks', function(req, res) {
+  // TODO: Need UserId for Task object creation, acquired from session.
+  const {date, description, location} = req.body;
+  models.Task.create({date, description, location}).then(results => {
+    res.status(201).send(`Created new task`);
+  });
+});
 
 // Returns information for a single task.
-app.get('/tasks/:taskId', function(req, res) {});
+app.get('/tasks/:taskId', function(req, res) {
+  models.Task.find({
+    where: {
+      id: req.params.taskId,
+    },
+  })
+    .then(result => {
+      // If task not found ...
+      if (!result) {
+        res.status(404).send(`Task with taskId ${req.params.taskId} not found`);
+      } else {
+        res.send(result);
+      }
+    })
+    .catch(err => {
+      res.status(500).send(err);
+    });
+});
 
 // Assign the :taskId task to the current user. Triggered when a user
 // accepts/applies to a task.
