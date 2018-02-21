@@ -1,5 +1,6 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+const models = require('./database/models.js');
 
 let app = express();
 
@@ -15,10 +16,26 @@ app.use(express.static(__dirname + '/../client/build'));
 
 // Should authenticate a user, creating a session token and assigning it
 // to this user.
-app.post('/login', function(req, res) {});
+app.post('/login', function(req, res) {
+  const {username, password} = req.body;
+  // Find the username in our database
+  models.User.find({
+    where: {
+      username,
+    },
+  }).then(results => {
+    // if the user does not exist, reject the login.
+    // else, create a session and redirect the user to the landing page.
+    console.log(results);
+  });
+});
 
 // Returns a list of all users from the database.
-app.get('/users', function(req, res) {});
+app.get('/users', function(req, res) {
+  models.User.all().then(results => {
+    console.log(results);
+  });
+});
 
 // Returns user information from the database.
 app.get('/users/:username', function(req, res) {});
