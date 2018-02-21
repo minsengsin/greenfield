@@ -10,35 +10,24 @@ const User = db.define('Users', {
 const Organization = db.define('Organizations', {
     name: Sequelize.STRING,
     bio: Sequelize.STRING,
-<<<<<<< HEAD
-    contact: Sequelize.INTEGER
-})
-
-const Task = db.define('Tasks', {
-    date: Sequelize.STRING,
-    description: Sequelize.STRING,
-    location: Sequelize.STRING
-=======
     site: Sequelize.STRING,
     location: Sequelize.STRING,
     latitude: Sequelize.FLOAT,
     longitude: Sequelize.FLOAT,
-    contact: Sequelize.STRING  
+    contact: Sequelize.STRING
 })
 
-const Task = db.define('Tasks', { 
+const Task = db.define('Tasks', {
     date: Sequelize.DATE,
     title: Sequelize.STRING,
     description: Sequelize.STRING(1234),
     time: Sequelize.STRING
->>>>>>> sample-data
 })
 
 Task.belongsTo(User)
 
 
 db.sync({force: true}).then(()=>{
-    
     User.create({username: 'Fred Volunteer', password: 'Fred'});
     User.create({username: 'Amy Volunteer', password: 'Amy'});
     User.create({username: 'Oscar Volunteer', password: 'Oscar'});
