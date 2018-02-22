@@ -21,6 +21,7 @@ const Task = db.define('Tasks', {
     date: Sequelize.DATE,
     title: Sequelize.STRING,
     description: Sequelize.STRING(1234),
+    organization: Sequelize.STRING,
     time: Sequelize.STRING
 })
 
@@ -37,13 +38,13 @@ db.sync({force: true}).then(()=>{
     Organization.create({name: 'GLAAD', bio: 'GLAAD rewrites the script for LGBTQ acceptance. As a dynamic media force, GLAAD tackles tough issues to shape the narrative and provoke dialogue that leads to cultural change. GLAAD protects all that has been accomplished and creates a world where everyone can live the life they love.', site: 'glaad.org', location: '104 W 29th St #4, New York, NY 10001', latitude: 40.746743, longitude: -73.990767, contact: '(212)629-3322'})
     Organization.create({name: 'International Womens Health Coalition', bio: 'Since 1984, the International Women’s Health Coalition has taken courageous stands and achieved political victories for women and girls globally and in local communities.', site: 'iwhc.org', location: '333 7th Ave #601, New York, NY 10001', latitude: 40.747449, longitude: -73.992823, contact: '(212)979-8500'})
     Organization.create({name: 'Human Rights Watch', bio: 'Human Rights Watch is a nonprofit, nongovernmental human rights organization made up of roughly 400 staff members around the globe.  Established in 1978, Human Rights Watch is known for its accurate fact-finding, impartial reporting, effective use of media, and targeted advocacy, often in partnership with local human rights groups.', site: 'hrw.org', location: '350 5th Ave #34th, New York, NY 10118', latitude: 40.748563, longitude: -73.985746, contact: '(212)290-4700'})
-    Organization.create({name: 'NYC Cares',  bio: 'New York Cares is a nonprofit organization focused on volunteer management and was founded by a group of New York residents in 1987 who wanted to take action against social issues in New York City.', site: 'newyorkcares.org', location: '214 W 29th St, New York, NY 10001', latitude: 40.748104, longitude: -73.993922, contact: '(212)228-5000'})
+    Organization.create({name: 'NYCares',  bio: 'New York Cares is a nonprofit organization focused on volunteer management and was founded by a group of New York residents in 1987 who wanted to take action against social issues in New York City.', site: 'newyorkcares.org', location: '214 W 29th St, New York, NY 10001', latitude: 40.748104, longitude: -73.993922, contact: '(212)228-5000'})
 
-    Task.create({date: '3/1/2018', title: 'Processing Donations', description:'Accepting physical donations of clothes, dry goods, and housewares, sorting each one for future examination and pricing by our management staff.', time: '12:00pm'})
-    Task.create({date: '3/1/2018', title: 'Answering Phones', description:'Serving at our inbound call center to answer questions, field press inquiries, and route donations to the lines of our paid staffers.', time: '1:00pm'})
-    Task.create({date: '3/1/2018', title: 'Canvassing', description:'Door-to-door fundraising and brand-building in pre-confirmed target neighborhoods throughout each of the five boroughs.', time: '2:00pm'})
-    Task.create({date: '3/1/2018', title: 'Mail Sorting', description:'Route internal and external correspondence from the mailroom of our charter location in the heart of New York City.', time: '3:00pm'})
-    Task.create({date: '3/1/2018', title: 'Event Usher', description:'Seat participants and answer questions from guests at our annual fundraising drive.', time: '4:00pm'})
+    Task.create({date: '3/1/2018', title: 'Processing Donations', description:'Accepting physical donations of clothes, dry goods, and housewares, sorting each item for future examination and pricing by our management staff.', organization: 'Salvation Army', time: '12:00pm'})
+    Task.create({date: '3/1/2018', title: 'Answering Phones', description:'Serving at our inbound call center to answer questions, field press inquiries, and route donations to the lines of our paid staffers.', organization: 'GLAAD', time: '1:00pm'})
+    Task.create({date: '3/1/2018', title: 'Canvassing', description:'Door-to-door fundraising and brand-building in pre-confirmed target neighborhoods throughout each of the five boroughs.', organization: 'International Womens Health Coalition', time: '2:00pm'})
+    Task.create({date: '3/1/2018', title: 'Mail Sorting', description:'Route internal and external correspondence from the mailroom of our charter location in the heart of New York City.', organization: 'Human Rights Watch', time: '3:00pm'})
+    Task.create({date: '3/1/2018', title: 'Event Usher', description:'Seat participants and answer questions from guests at our annual fundraising drive.', organization: 'NYCares', time: '4:00pm'})
 })
 
 exports.User = User;
