@@ -30,6 +30,16 @@ const Task = db.define('Tasks', {
 
 Task.belongsTo(User)
 
+
+const UserTasks = db.define('userTasks', {
+    ignore: Sequelize.STRING
+})
+
+User.belongsToMany(Task, { through: UserTasks })
+Task.belongsToMany(User, { through: UserTasks })
+
+
+
 db.sync({force: true}).then(()=>{
     User.create({username: 'FredVolunteer', password: 'Fred'});
     User.create({username: 'AmyVolunteer', password: 'Amy'});
