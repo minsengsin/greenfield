@@ -3,7 +3,29 @@ const bodyParser = require('body-parser');
 const Sequelize = require('sequelize');
 const db = require('./database/models.js').db;
 const {User, Task, Organization} = require('./database/models.js');
+const session = require('express-session');
+
+
 let app = express();
+
+app.use(session({
+  secret: 'team lyly',
+  resave: false,
+  saveUninitialized: true
+}));
+
+const isLoggedIn = function(req) {
+  return req.session ? !!req.session.user : false;
+}
+
+const isAuthorized = function(req, res, next) {
+  if (!isLoggedIn(req)) {
+    res.redirect('/login');
+  } else {
+    next();
+  }
+}
+
 
 // Parse JSON (uniform resource locators)
 app.use(bodyParser.json());
@@ -24,12 +46,22 @@ app.post('/login', function(req, res) {
       }
     }).then((e)=>{
       if (e.dataValues && e.dataValues.password === req.body.password) {
+      
+        req.session.regenerate(function(){
+          req.session.user = e.dataValues.username
+        })
         res.redirect('/mainPage')
       } else {
         res.redirect('/login')
       }
     })
 });
+
+app.get('/logout', function(req, res) {
+  req.session.destroy(function() {
+    res.redirect('/login')
+  })
+})
 
 app.post('/signup', function(req, res) {
   User.find({
@@ -69,14 +101,14 @@ app.get('/tasks', function(req, res) {
 // save a new task object to the database.
 app.post('/tasks', function(req, res) {
   // TODO: Need UserId for Task object creation, acquired from session.
-  const {date, description, location} = req.body;
-  Task.create({date, description, location}).then(results => {
+  const {date, description, location, time} = req.body;
+  Task.create({date, description, location, time}).then(results => {
     res.status(201).send(`Created new task`);
   });
 });
 
 // Returns information for a single task.
-app.get('/tasks/:taskId', function(req, res) {
+app.get('/tasks/:taskId', isAuthorized, function(req, res) {
   Task.find({
     where: {
       id: req.params.taskId,
@@ -97,7 +129,7 @@ app.get('/tasks/:taskId', function(req, res) {
 
 // Assign the :taskId task to the current user. Triggered when a user
 // accepts/applies to a task.
-app.post('/tasks/:taskId/accept', function(req, res) {});
+app.post('/tasks/:taskId/accept', isAuthorized, function(req, res) {});
 
 let port = process.env.PORT || 3001;
 
