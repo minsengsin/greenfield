@@ -5,13 +5,13 @@ const TaskListItem = props => (
   <div class="ui raised card">
     <div class="content">
       <div class="header">
-        <Link to={`/tasks/${props.task.id}`}>Task title goes here</Link>
+        <Link to={`/tasks/${props.task.id}`}>props.task.title</Link>
       </div>
       <div class="meta">
         <span class="category">Volunteer Oporuntity</span>
       </div>
       <div class="description">
-        <p>This is a description</p>
+        <p>{props.task.description}</p>
       </div>
     </div>
     <div class="extra content">

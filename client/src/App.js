@@ -10,6 +10,7 @@ import OneTask from './oneTask.js';
 import sampleText from './SampleText.js';
 import TaskDetails from './TaskDetails.js'
 import Traits from './Traits.js';
+import Demo from './Demo.js';
 
 class App extends Component {
   render() {
@@ -17,6 +18,7 @@ class App extends Component {
       <div>
         <div>
           <Route path='/login' component={Login} />
+          <Route path='/demo' component={Demo} />
           <Route path='/signup' component={Signup} />
           <Route path='/mainPage' component={mainPage} />
           <Route path='/tasks/:taskId' component={TaskDetails} />
