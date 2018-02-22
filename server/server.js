@@ -2,7 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const Sequelize = require('sequelize');
 const db = require('./database/models.js').db;
-const {User, Task, Organization} = require('./database/models.js');
+const {User, Task, UserTasks, Organization} = require('./database/models.js');
 let app = express();
 
 // Parse JSON (uniform resource locators)
@@ -56,7 +56,16 @@ app.get('/users', function(req, res) {
 });
 
 // Returns user information from the database.
-app.get('/users/:username', function(req, res) {});
+app.get('/users/:username', function(req, res) {
+  UserTasks.findAll({
+    where: { 
+      UserId: req.params.username,
+    }
+  }).then((data)=> {
+    console.log('---------------------', data)
+    res.send(data)
+  })
+});
 
 // Returns all tasks from the database.
 app.get('/tasks', function(req, res) {
@@ -98,6 +107,8 @@ app.get('/tasks/:taskId', function(req, res) {
 // Assign the :taskId task to the current user. Triggered when a user
 // accepts/applies to a task.
 app.post('/tasks/:taskId/accept', function(req, res) {});
+
+
 
 let port = process.env.PORT || 3001;
 

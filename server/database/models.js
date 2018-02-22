@@ -30,8 +30,7 @@ const Task = db.define('Tasks', {
 
 Task.belongsTo(User)
 
-
-const UserTasks = db.define('userTasks', {
+const UserTasks = db.define('UserTasks', {
     ignore: Sequelize.STRING
 })
 
@@ -58,8 +57,18 @@ db.sync({force: true}).then(()=>{
     Task.create({date: '3/1/2018', title: 'Canvassing', description:'Door-to-door fundraising and brand-building in pre-confirmed target neighborhoods throughout each of the five boroughs.', time: '2:00pm', latitude: 40.747449, longitude: -73.992823})
     Task.create({date: '3/1/2018', title: 'Mail Sorting', description:'Route internal and external correspondence from the mailroom of our charter location in the heart of New York City.', time: '3:00pm', latitude: 40.748563, longitude: -73.985746})
     Task.create({date: '3/1/2018', title: 'Event Usher', description:'Seat participants and answer questions from guests at our annual fundraising drive.', time: '4:00pm', latitude: 40.748104, longitude: -73.993922})
+
+    UserTasks.create({UserId:'1', TaskId: '3'})
+    UserTasks.create({UserId:'1', TaskId: '4'})
+    UserTasks.create({UserId:'1', TaskId: '5'})
+
+    UserTasks.create({UserId:'2', TaskId: '1'})
+    UserTasks.create({UserId:'2', TaskId: '2'})
+
+
 })
 
 exports.User = User;
 exports.Task = Task;
+exports.UserTasks = UserTasks;
 exports.Organization = Organization;
