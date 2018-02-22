@@ -11,6 +11,7 @@ class OneTask extends React.Component {
     this.state = {
     	task: []
    	}
+    this.accept = this.accept.bind(this)
   }
 
   componentWillMount() {
@@ -22,6 +23,12 @@ class OneTask extends React.Component {
   	})
   }
 
+accept(){
+  axios.post(`/tasks/${this.state.task[0].id}/accept`).then((data) => {
+    console.log('Here is name of session: ',data)
+  })
+}
+
 render(){ return (
 this.state.task.length > 0 ? 
        
@@ -31,7 +38,7 @@ this.state.task.length > 0 ?
         <div>Date: {this.state.task[0].time}</div>
         <div>description of task: {this.state.task[0].description}</div>
         <div>Location: {this.state.task[0].location}</div>
-
+        <button onClick={this.accept}>ACCEPT</button>
 
         <div style={{display: 'block'}}>
           <GoogleMaps isMarkerShown

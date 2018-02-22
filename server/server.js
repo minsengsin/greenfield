@@ -10,8 +10,13 @@ let app = express();
 
 app.use(session({
   secret: 'team lyly',
-  resave: false,
-  saveUninitialized: true
+  resave: true,
+  saveUninitialized: true,
+  cookie: {
+    maxAge: 6000,
+    secure: false
+  }
+  
 }));
 
 const isLoggedIn = function(req) {
@@ -46,11 +51,12 @@ app.post('/login', function(req, res) {
       }
     }).then((e)=>{
       if (e.dataValues && e.dataValues.password === req.body.password) {
-      
         req.session.regenerate(function(){
           req.session.user = e.dataValues.username
+          req.user = e.dataValues.username;
+          console.log("here is from server login", req.session)
+          res.redirect('/demo')
         })
-        res.redirect('/demo')
       } else {
         res.redirect('/login')
       }
@@ -147,7 +153,18 @@ app.get('/tasks/:taskId', function(req, res) {
 
 // Assign the :taskId task to the current user. Triggered when a user
 // accepts/applies to a task.
-app.post('/tasks/:taskId/accept', isAuthorized, function(req, res) {});
+app.post('/tasks/:taskId/accept', function(req, res) {
+  User.find({
+    where: req.session.user
+  }).then((data)=> {
+    var UserID = data.dataValues.id.toString();
+    var TaskID = req.params.taskId.toString();
+
+    UserTasks.create({UserId: UserID, TaskId: TaskID }).then(()=>{
+      res.send("Task is added")
+    }).catch((err)=>{console.log(err)})
+  })
+});
 
 
 

@@ -29,15 +29,15 @@ const Task = db.define('Tasks', {
     longitude: Sequelize.FLOAT
 })
 
-Task.belongsTo(User)
+// Task.belongsTo(User)
 
 
 const UserTasks = db.define('userTasks', {
-    ignore: Sequelize.STRING
+    UserId: Sequelize.STRING,
+    TaskId: Sequelize.STRING
 })
 
-User.belongsToMany(Task, { through: UserTasks })
-Task.belongsToMany(User, { through: UserTasks })
+
 
 
 
