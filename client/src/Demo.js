@@ -26,14 +26,14 @@ class Demo extends React.Component {
 
   render() {
     return (
-      <div class="ui container" style={{'padding-top': '100px'}}>
+      <div className="ui container" style={{'paddingTop': '100px'}}>
         <Header userIsLoggedIn={true} />
-        <h1 class="ui center aligned header">This is the main app view</h1>
-        <div class="ui stackable grid">
-          <div class="four wide column">
+        <h1 className="ui center aligned header">This is the main app view</h1>
+        <div className="ui stackable grid">
+          <div className="four wide column">
             <TaskList tasks={this.state.tasks} />
           </div>
-          <div class="twelve wide column">
+          <div className="twelve wide column">
             <GoogleMaps
               isMarkerShown
               googleMapURL="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places"

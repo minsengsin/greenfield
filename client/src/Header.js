@@ -1,12 +1,13 @@
 import React from 'react';
 
 const Header = function(props) {
+  console.log(window.sessionStorage)
   return (
-    <div class="ui fixed inverted menu">
-      <div class="ui container">
+    <div className="ui fixed inverted menu">
+      <div className="ui container">
         // TODO: Add header item with img/logo
-        <a href="/" class="header item">Team Lyly</a>
-        <a href={props.userIsLoggedIn ? '/logout' : '/login'} class="item">{props.userIsLoggedIn ? 'Logout' : 'Login'}</a>
+        <a href="/" className="header item">Team Lyly</a>
+        <a href={props.userIsLoggedIn ? '/logout' : '/login'} className="item">{props.userIsLoggedIn ? 'Logout' : 'Login'}</a>
       </div>
     </div>
   );

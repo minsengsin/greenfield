@@ -2,21 +2,21 @@ import React from 'react';
 import {Link} from 'react-router-dom';
 
 const TaskListItem = props => (
-  <div class="ui segment">
-    <div class="ui raised card">
-      <div class="content">
-        <div class="header">
+  <div className="ui segment">
+    <div className="ui raised card">
+      <div className="content">
+        <div className="header">
           <Link to={`/tasks/${props.task.id}`}>{props.task.title}</Link>
         </div>
-        <div class="meta">
-          <span class="category">Volunteer Opportunity</span>
+        <div className="meta">
+          <span className="category">Volunteer Opportunity</span>
         </div>
-        <div class="description">
+        <div className="description">
           <p>{props.task.description}</p>
         </div>
       </div>
-      <div class="extra content">
-        <div class="right floated author">
+      <div className="extra content">
+        <div className="right floated author">
           <span>{props.task.organization}</span>
         </div>
       </div>
