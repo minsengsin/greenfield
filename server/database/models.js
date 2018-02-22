@@ -64,10 +64,10 @@ db.sync({force: true}).then(()=>{
 
     UserTasks.create({UserId:'2', TaskId: '1'})
     UserTasks.create({UserId:'2', TaskId: '2'})
-
-
 })
 
+
+exports.db = db;
 exports.User = User;
 exports.Task = Task;
 exports.UserTasks = UserTasks;
