@@ -1,16 +1,16 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 
 const Header = function(props) {
+  console.log(window.sessionStorage)
   return (
-    <div>
-      <h1>Team Lyly</h1>
-      <button href={props.userIsLoggedIn ? '/logout' : '/login'}>{props.userIsLoggedIn ? 'Logout!' : 'Login!'}</button>
+    <div className="ui fixed inverted menu">
+      <div className="ui container">
+        // TODO: Add header item with img/logo
+        <a href="/" className="header item">Team Lyly</a>
+        <a href={props.userIsLoggedIn ? '/logout' : '/login'} className="item">{props.userIsLoggedIn ? 'Logout' : 'Login'}</a>
+      </div>
     </div>
   );
-}
-
-// Header.defaultProps = {userIsLoggedIn: false};
-// Header.propTyes = {userIsLoggedIn: React.PropTypes.boolean};
+};
 
 export default Header;
