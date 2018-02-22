@@ -4,6 +4,7 @@ import Header from './Header.js';
 import TaskList from './TaskList.js';
 import TaskListItem from './TaskListItem.js';
 import TaskDetails from './TaskDetails.js';
+import GoogleMaps from './Map.js';
 import axios from 'axios';
 
 class Demo extends React.Component {
@@ -25,16 +26,22 @@ class Demo extends React.Component {
 
   render() {
     return (
-      <div class="ui container">
+      <div class="ui container" style={{'padding-top': '100px'}}>
         <Header userIsLoggedIn={true} />
-        <div class="ui main text container" style={{'padding-top': '100px'}}>
-          <h1 class="ui center aligned header">This is the main app view</h1>
-          <div class="middle center aligned padded grid">
-            <div class="row">
-              <div class="four wide column">
-                <TaskList tasks={this.state.tasks} />
-              </div>
-            </div>
+        <h1 class="ui center aligned header">This is the main app view</h1>
+        <div class="ui stackable grid">
+          <div class="four wide column">
+            <TaskList tasks={this.state.tasks} />
+          </div>
+          <div class="twelve wide column">
+            <GoogleMaps
+              isMarkerShown
+              googleMapURL="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places"
+              loadingElement={<div style={{height: `100%`}} />}
+              containerElement={<div style={{height: `100%`}} />}
+              mapElement={<div style={{height: `100%`}} />}
+              tasks={this.state.tasks}
+            />
           </div>
         </div>
       </div>
