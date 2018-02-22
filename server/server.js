@@ -2,7 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const Sequelize = require('sequelize');
 const db = require('./database/models.js').db;
-const {User, Task, Organization} = require('./database/models.js');
+const {User, Task, UserTasks, Organization} = require('./database/models.js');
 const session = require('express-session');
 
 
