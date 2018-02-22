@@ -50,7 +50,7 @@ app.post('/login', function(req, res) {
         req.session.regenerate(function(){
           req.session.user = e.dataValues.username
         })
-        res.redirect('/mainPage')
+        res.redirect('/demo')
       } else {
         res.redirect('/login')
       }
@@ -94,13 +94,14 @@ app.get('/users/:username', function(req, res) {
   }}).then((data)=> { //data is object of that user with 'id' key
     UserTasks.findAll({
       where: {
-        UserId: data.id
+        UserId: data.dataValues.id
       }
     }).then((data)=> { // data is array of objects with property each 'TaskId'
       var arrayOfTasks = [];
       data.map((task) => {
-        arrayOfTasks.push(task.TaskId)
+        arrayOfTasks.push(task.dataValues.TaskId)
       })
+    console.log(arrayOfTasks)
       res.send(arrayOfTasks)
     })
   })
@@ -125,7 +126,7 @@ app.post('/tasks', function(req, res) {
 });
 
 // Returns information for a single task.
-app.get('/tasks/:taskId', isAuthorized, function(req, res) {
+app.get('/tasks/:taskId', function(req, res) {
   Task.find({
     where: {
       id: req.params.taskId,
