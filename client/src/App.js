@@ -22,7 +22,7 @@ class App extends Component {
           <Route path='/demo' component={Demo} />
           <Route path='/signup' component={Signup} />
           <Route path='/mainPage' component={mainPage} />
-          <Route path='/tasks/:taskId' component={OneTask} />
+          <Route path='/tasks/:taskId' component={TaskDetails} />
           <Route path='/users/:username' component={Profile} />
         </div>
       </div>
