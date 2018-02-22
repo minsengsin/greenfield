@@ -7,7 +7,7 @@ import TaskDetails from './TaskDetails.js';
 import GoogleMaps from './Map.js';
 import axios from 'axios';
 
-class Demo extends React.Component {
+class Home extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -67,4 +67,4 @@ class Demo extends React.Component {
   }
 }
 
-export default Demo;
+export default Home;
