@@ -87,16 +87,24 @@ app.get('/users', function(req, res) {
   });
 });
 
-// Returns user information from the database.
+// Returns array of Tasks ID from database by userID.
 app.get('/users/:username', function(req, res) {
-  UserTasks.findAll({
-    where: { 
-      UserId: req.params.username,
-    }
-  }).then((data)=> {
-    console.log('---------------------', data)
-    res.send(data)
+  User.find({where: {
+    username: req.params.username
+  }}).then((data)=> { //data is object of that user with 'id' key
+    UserTasks.findAll({
+      where: {
+        UserId: data.id
+      }
+    }).then((data)=> { // data is array of objects with property each 'TaskId'
+      var arrayOfTasks = [];
+      data.map((task) => {
+        arrayOfTasks.push(task.TaskId)
+      })
+      res.send(arrayOfTasks)
+    })
   })
+
 });
 
 // Returns all tasks from the database.

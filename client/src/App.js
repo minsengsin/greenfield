@@ -11,6 +11,7 @@ import sampleText from './SampleText.js';
 import TaskDetails from './TaskDetails.js'
 import Traits from './Traits.js';
 import Demo from './Demo.js';
+import Profile from './profile.js';
 
 class App extends Component {
   render() {
@@ -21,7 +22,8 @@ class App extends Component {
           <Route path='/demo' component={Demo} />
           <Route path='/signup' component={Signup} />
           <Route path='/mainPage' component={mainPage} />
-          <Route path='/tasks/:taskId' component={TaskDetails} />
+          <Route path='/tasks/:taskId' component={OneTask} />
+          <Route path='/users/:username' component={Profile} />
         </div>
       </div>
     );
