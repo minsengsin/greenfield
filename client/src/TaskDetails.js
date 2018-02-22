@@ -8,6 +8,7 @@ import axios from 'axios';
 class TaskDetails extends React.Component {
   constructor(props) {
     super(props);
+    console.log(props.match.params.taskId);
     this.state = {
       task: props.task,
     };
@@ -15,7 +16,6 @@ class TaskDetails extends React.Component {
 
   componentWillMount() {
     // Get the task info from the API
-    console.log(this.state)
     axios.get(`/tasks/${this.state.task.id}`).then(result => {
       this.setState((prevState, props) => {
         console.log('Successfully fetched!', result);
