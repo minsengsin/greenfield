@@ -62,7 +62,7 @@ class TaskDetails extends React.Component {
               <h1 class="ui center aligned header">
                 {this.state.task ? this.state.task.title : 'Loading'}
               </h1>
-              <div class="ui text container">
+              <div class="ui text container fluid">
                 <p>
                   {this.state.task ? this.state.task.description : 'Loading'}
                 </p>
@@ -85,8 +85,8 @@ class TaskDetails extends React.Component {
               </div>
             </div>
           </div>
-          <div class="ui segment">
-            <div className="four wide column">
+          <div className="four wide column">
+            <div class="ui segment">
               <h3>Extra Info</h3>
               {this.state.task ? <Traits task={this.state.task} /> : 'Loading'}
             </div>
