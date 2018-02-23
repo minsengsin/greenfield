@@ -29,7 +29,7 @@ class Home extends React.Component {
     axios.get('/status').then(results => {
       if (!results.data) {
         console.log("Session doesn't exist!", results.data)
-        this.props.history.goBack() //actual redirection
+        this.props.history.push('/login') //actual redirection
       }
       this.setState({
         status: results.data

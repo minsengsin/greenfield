@@ -147,9 +147,10 @@ app.get('/tasks', function (req, res) {
 // save a new task object to the database.
 app.post('/tasks', function (req, res) {
   // TODO: Need UserId for Task object creation, acquired from session.
-  const { date, description, location, time } = req.body;
-  Task.create({ date, description, location, time }).then(results => {
-    res.status(201).send(`Created new task`);
+  const { title, date, description, location, time,  organization} = req.body;
+  console.log(title, date, description, location, organization, time)
+  Task.create({title, date, description, location, time,  organization}).then(results => {
+    res.send('created')
   });
 });
 
@@ -176,12 +177,13 @@ app.get('/tasks/:taskId', function (req, res) {
 // Assign the :taskId task to the current user. Triggered when a user
 // accepts/applies to a task.
 app.post('/tasks/:taskId/accept', function(req, res) {
-  console.log("--------", req.session.user.toString() + '')
+  console.log("--------", req.session.user + '')
   User.find({
     where: {
       username: req.session.user
     }
   }).then((data)=> {
+    console.log(data)
     var UserID = data.dataValues.id.toString();
     var TaskID = req.params.taskId.toString();
     console.log('IDS---',data.dataValues)

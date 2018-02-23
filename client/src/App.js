@@ -12,6 +12,7 @@ import TaskDetails from './TaskDetails.js';
 import Traits from './Traits.js';
 import Profile from './profile.js';
 import Home from './Home.js';
+import Create from './create.js';
 
 class App extends Component {
   render() {
@@ -22,6 +23,7 @@ class App extends Component {
         <Route path="/signup" component={Signup} />
         <Route path="/tasks/:taskId" component={TaskDetails} />
         <Route path="/users/:username" component={Profile} />
+        <Route path="/create" component={Create} />
       </div>
     );
   }
