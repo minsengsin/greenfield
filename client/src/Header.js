@@ -23,7 +23,7 @@ const Header = function(props) {
         <a href="/" className="header item">VolunTinder</a>
         
         <a href={props.userIsLoggedIn ? '/login' : '/demo'} 
-            onClick={props.userIsLoggedIn ? null: null}
+            onClick={props.userIsLoggedIn ? destroySession(): null}
             className="item">
             
             {props.name ? 'Logout' : 'Login'} </a>
