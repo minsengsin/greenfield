@@ -54,7 +54,7 @@ app.post('/login', function(req, res) {
       if (e.dataValues && e.dataValues.password === req.body.password) {
         req.session.regenerate(function(){
           req.session.user = e.dataValues.username
-          res.redirect('/demo')
+          res.redirect('/')
           // res.end(req.body.username)
         })
       } else {
