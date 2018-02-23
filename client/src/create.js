@@ -71,12 +71,7 @@ handleLoc (e) {
         <div className="ui middle aligned center aligned grid">
           <div className="column" style={{maxWidth: '450px'}}>
 
-          <Link to="/" className="header item">
-          <h2 className="ui blue image header">
-              <div className="content">Go back</div>
-            </h2>
-          </Link>
-
+        
             <h2 className="ui blue image header">
               <div className="content">Create new task</div>
             </h2>
@@ -90,7 +85,7 @@ handleLoc (e) {
                       id="organization"
                       type="text"
                       name="organization"
-                      placeholder="Name of the organization"
+                      placeholder="Organization Name"
                     />
                   </div>
                 </div>
@@ -142,7 +137,7 @@ handleLoc (e) {
                       id="date"
                       type="text"
                       name="date"
-                      placeholder="When? format: xxxx-xx-xx"
+                      placeholder="Date? (YYYY-MM-DD)"
                     />
                   </div>
                 </div>
@@ -155,7 +150,7 @@ handleLoc (e) {
                       id="time"
                       type="text"
                       name="time"
-                      placeholder="What time?"
+                      placeholder="Event Time?"
                     />
                   </div>
                 </div>
@@ -166,7 +161,12 @@ handleLoc (e) {
                 >Create</button>
               </div>
               
-            
+       
+          <div className="ui message">
+              <Link className="ui fluid large blue submit button" to="/">
+                Back to the main page!
+              </Link>
+            </div>
 
           </div>
         </div>
