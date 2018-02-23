@@ -62,7 +62,7 @@ class Profile extends React.Component {
                     <div className="content" />
                   </h2>
                 </Link>
-                Loading ...
+                No tasks to display!
               </div>
             )}
           </div>
