@@ -6,6 +6,7 @@ import TaskListItem from './TaskListItem.js';
 import TaskDetails from './TaskDetails.js';
 import GoogleMaps from './Map.js';
 import axios from 'axios';
+import Auth from './Auth.js';
 
 class Home extends React.Component {
   constructor(props) {
@@ -13,8 +14,7 @@ class Home extends React.Component {
     this.state = {
       tasks: [],
       status: false,
-      username: ''
-
+      username: Auth.username,
     };
   }
 
@@ -34,19 +34,14 @@ class Home extends React.Component {
         status: results.data
       })
     })
-    axios.post('/username').then(results=>{
-      this.setState({
-        username: results.data
-      })
-    })
   }
 
 
   render() {
     return (
       <div className="ui container" style={{'paddingTop': '100px'}}>
-        <Header userIsLoggedIn={this.state.status} name={this.state.username}/>
-        <h1 className="ui center aligned header">This is the main app view</h1>
+        <Header name={this.state.username}/>
+        <h1 className="ui center aligned header"><code>VolunTinder</code></h1>
         <div className="ui stackable grid">
           <div className="four wide column">
             <TaskList tasks={this.state.tasks} />

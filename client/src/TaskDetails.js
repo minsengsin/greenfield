@@ -6,6 +6,7 @@ import Traits from './Traits.js';
 import TaskListItem from './TaskListItem.js';
 import axios from 'axios';
 import GoogleMaps from './Map.js';
+import Auth from './Auth.js';
 
 
 class TaskDetails extends React.Component {
@@ -35,7 +36,7 @@ class TaskDetails extends React.Component {
   }
 
   acceptTask() {
-    axios.post(`/tasks/${this.state.taskId}/accept`).then(() => {
+    axios.post(`/tasks/${this.state.taskId}/accept`, {username: Auth.username}).then(() => {
       // Based on res, figure out whether task has been accepted or not.
       this.displayButtonPostResult(true);
     }).then(() => {
@@ -44,7 +45,7 @@ class TaskDetails extends React.Component {
   }
 
   rejectTask() {
-    axios.post(`/tasks/${this.state.taskId}/reject`).then(res => {
+    axios.post(`/tasks/${this.state.taskId}/reject`, {username: Auth.username}).then(() => {
       // Based on res, figure out whether task has been accepted or not.
       this.displayButtonPostResult(false);
     }).then(()=> {
@@ -57,7 +58,7 @@ class TaskDetails extends React.Component {
     console.log("RENDERING!", this.props)
     return (
       <div className="ui container" style={{paddingTop: '100px'}}>
-        <Header userIsLoggedIn={true} />
+        <Header name={Auth.username} />
 
         <div className="ui stackable grid">
           <div className="twelve wide column">
@@ -72,7 +73,7 @@ class TaskDetails extends React.Component {
                 <script async defer src={`https://maps.googleapis.com/maps/api/js?key=AIzaSyC7t8S8b9WhSyAuT7Mr5VJaUhtDVDOUrV4&callback=initMap`}
   type="text/javascript"></script>
                 <div className="ui center aligned attached segment">
-                  <div className="ui buttons">                  
+                  <div className="ui buttons">
                     <button
                       onClick={this.rejectTask}
                       className="ui button">

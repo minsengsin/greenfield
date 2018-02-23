@@ -63,6 +63,8 @@ db.sync({force: true}).then(()=>{
     
     UserTasks.create({UserId:'1', TaskId: '3'})
     UserTasks.create({UserId:'1', TaskId: '4'})
+    UserTasks.create({UserId:'3', TaskId: '4'})
+    UserTasks.create({UserId:'3', TaskId: '5'})
     UserTasks.create({UserId:'1', TaskId: '5'})
  
     UserTasks.create({UserId:'2', TaskId: '1'})
