@@ -3,7 +3,10 @@ import ReactDOM from 'react-dom';
 import sampleText from './SampleText.js';
 import Header from './Header.js';
 import Traits from './Traits.js';
+import TaskListItem from './TaskListItem.js';
 import axios from 'axios';
+import GoogleMaps from './Map.js';
+
 
 class TaskDetails extends React.Component {
   constructor(props) {
@@ -11,8 +14,9 @@ class TaskDetails extends React.Component {
     console.log(props.match.params.taskId);
 
     this.state = {
-      task: props.task,
+      task: {},
       taskId: props.match.params.taskId,
+      tasks: []
     };
 
     this.acceptTask = this.acceptTask.bind(this);
@@ -23,7 +27,7 @@ class TaskDetails extends React.Component {
     // Get the task info from the API
     console.log('Running?');
     axios.get(`/tasks/${this.state.taskId}`).then(result => {
-      console.log('results', result);
+      console.log('results', result.data);
       this.setState({task: result.data});
     });
   }
@@ -59,23 +63,23 @@ class TaskDetails extends React.Component {
 
         <div className="ui stackable grid">
           <div className="twelve wide column">
-            <div class="ui segment">
-              <h1 class="ui center aligned header">
+            <div className="ui segment">
+              <h1 className="ui center aligned header">
                 {this.state.task ? this.state.task.title : 'Loading'}
               </h1>
-              <div class="ui text container fluid">
+              <div className="ui text container fluid">
                 <p>
                   {this.state.task ? this.state.task.description : 'Loading'}
                 </p>
 
-                <div class="ui center aligned attached segment">
-                  <div class="ui buttons">
+                <div className="ui center aligned attached segment">
+                  <div className="ui buttons">
                     <button
                       onClick={this.rejectTask}
                       className="ui button">
                       Cancel
                     </button>
-                    <div class="or" />
+                    <div className="or" />
                     <button
                       onClick={this.acceptTask}
                       className="ui positive button">
@@ -86,8 +90,19 @@ class TaskDetails extends React.Component {
               </div>
             </div>
           </div>
+          <div className="twelve wide column">
+            <GoogleMaps
+              isMarkerShown
+              googleMapURL="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places"
+              loadingElement={<div style={{height: `100%`}} />}
+              containerElement={<div style={{height: `100%`}} />}
+              mapElement={<div style={{height: `100%`}} />}
+              tasks={[this.state.task]}
+              key={this.state.task.id}
+            />
+          </div>
           <div className="four wide column">
-            <div class="ui segment">
+            <div className="ui segment">
               <h3>Extra Info</h3>
               {this.state.task ? <Traits task={this.state.task} /> : 'Loading'}
             </div>
