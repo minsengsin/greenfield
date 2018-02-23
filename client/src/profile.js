@@ -39,15 +39,19 @@ class Profile extends React.Component {
 
 render(){ return (
 
-this.state.tasks.length > 0 ? 
+  <div className="ui container" style={{paddingTop: '25px'}}>
+  <div className="ui middle aligned center aligned grid">
+          <div className="column" style={{maxWidth: '350px'}}>
+
+{this.state.tasks.length > 0 ? 
        
       <div>
 
-        <Link to="/" className="header item">
-          <h2 className="ui blue image header">
-              <div className="content">Go back</div>
-            </h2>
-          </Link>
+       <div className="ui message">
+              <Link className="ui fluid large blue submit button" to="/login">
+             Back to the main page!
+              </Link>
+            </div>
 
         <TaskList tasks={this.state.tasks} />
       </div>
@@ -55,11 +59,14 @@ this.state.tasks.length > 0 ?
 
      <Link to="/" className="header item">
           <h2 className="ui blue image header">
-              <div className="content">Go back</div>
+              <div className="content"></div>
             </h2>
           </Link>
 
-     Loading ... 
+       Loading ... 
+     </div>}
+     </div>
+     </div>
      </div>
 )
   }
