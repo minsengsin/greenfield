@@ -5,6 +5,8 @@ import Header from './Header.js';
 import GoogleMaps from './Map.js';
 import TaskList from './TaskList.js';
 import axios from 'axios';
+import {BrowserRouter as Router, Route, Link} from 'react-router-dom';
+
 
 class Profile extends React.Component {
   constructor(props) {
@@ -36,12 +38,29 @@ class Profile extends React.Component {
   }
 
 render(){ return (
+
 this.state.tasks.length > 0 ? 
        
       <div>
+
+        <Link to="/" className="header item">
+          <h2 className="ui blue image header">
+              <div className="content">Go back</div>
+            </h2>
+          </Link>
+
         <TaskList tasks={this.state.tasks} />
       </div>
-     :   <div> Loading ... </div>
+     :   <div> 
+
+     <Link to="/" className="header item">
+          <h2 className="ui blue image header">
+              <div className="content">Go back</div>
+            </h2>
+          </Link>
+
+     Loading ... 
+     </div>
 )
   }
 
