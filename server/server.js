@@ -13,7 +13,7 @@ app.use(session({
   resave: true,
   saveUninitialized: true,
   cookie: {
-    maxAge: 6000,
+    maxAge: 600000,
     secure: false
   }
   
@@ -44,22 +44,22 @@ app.use(express.static(__dirname + '/../client/build'));
 
 // Should authenticate a user, creating a session token and assigning it
 // to this user.
-app.post('/login', function (req, res) {
-  User.find({
-    where: {
-      username: req.body.username
-    }
-  }).then((e) => {
-    if (e && e.dataValues.password === req.body.password) {
-      // console.log('datavalues :', e.dataValues)
-      req.session.regenerate(function () {
-        req.session.user = e.dataValues.username
-      })
-      res.redirect('/demo')
-    } else {
-      res.redirect('/login')
-    }
-  });
+
+app.post('/login', function(req, res) {
+    User.find({
+      where: {
+        username: req.body.username,
+      }
+    }).then((e)=>{
+      if (e.dataValues && e.dataValues.password === req.body.password) {
+        req.session.regenerate(function(){
+          req.session.user = e.dataValues.username
+          res.redirect('/demo')
+        })
+      } else {
+        res.redirect('/login')
+      }
+    })
 });
 
 app.get('/logout', function (req, res) {
@@ -160,13 +160,54 @@ app.post('/tasks/:taskId/accept', function(req, res) {
   }).then((data)=> {
     var UserID = data.dataValues.id.toString();
     var TaskID = req.params.taskId.toString();
-
-    UserTasks.create({UserId: UserID, TaskId: TaskID }).then(()=>{
-      res.send("Task is added")
-    }).catch((err)=>{console.log(err)})
+    console.log('IDS---',data.dataValues)
+    UserTasks.find({
+      where: {
+        UserId: UserID,
+        TaskId: TaskID
+      }
+    }).then((data) => {
+      if (data === null) {
+        UserTasks.create({UserId: UserID, TaskId: TaskID }).then(()=>{
+          res.send("Task is added")
+        }).catch((err)=>{console.log(err)})
+      }
+    })
   })
 });
 
+
+app.post('/tasks/:taskId/reject', function(req, res) {
+  var UserName = req.session.user.toString();
+  var TaskID = req.params.taskId.toString();
+  console.log('------', req.session.user)
+  User.find({
+    where: {
+      username: UserName
+    }
+  }).then((data) => {
+    UserTasks.find({
+      where: {
+        UserId: data.dataValues.id,
+        TaskId: TaskID
+      }
+    }).then((data) => {
+      console.log('about to destroy it')
+      return UserTasks.destroy({
+        where: {
+          id: data.dataValues.id
+        }
+      })
+      console.log('just destroyed it')
+    }).then((data) => {
+      console.log('we are hopefully about to redirect but lets seee', data)
+        res.send("SHOULD REDIRECT")
+
+    })
+
+  })
+
+})
 
 
 let port = process.env.PORT || 3001;

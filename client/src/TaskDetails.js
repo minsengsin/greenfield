@@ -14,6 +14,9 @@ class TaskDetails extends React.Component {
       task: props.task,
       taskId: props.match.params.taskId,
     };
+
+    this.acceptTask = this.acceptTask.bind(this);
+    this.rejectTask = this.rejectTask.bind(this);
   }
 
   componentDidMount() {
@@ -26,32 +29,28 @@ class TaskDetails extends React.Component {
   }
 
   displayButtonPostResult(isAccepted) {
-    console.log('called');
-    if (isAccepted) {
-      alert('Task has been accepted!');
-    } else {
-      alert('Task has been rejected!');
-    }
+    isAccepted ? alert('Task has been accepted!') : alert('Task has been rejected!')
   }
 
-  acceptTask(e) {
-    console.log('accepting task');
-    console.log(this.state);
-    axios.post(`/tasks/${this.state.taskId}/accept`).then(res => {
+  acceptTask() {
+    axios.post(`/tasks/${this.state.taskId}/accept`).then(() => {
       // Based on res, figure out whether task has been accepted or not.
       this.displayButtonPostResult(true);
-    });
+    })
   }
 
-  rejectTask(e) {
-    console.log('rejecting task');
+  rejectTask() {
     axios.post(`/tasks/${this.state.taskId}/reject`).then(res => {
       // Based on res, figure out whether task has been accepted or not.
       this.displayButtonPostResult(false);
+    }).then(()=> {
+      console.log("this is redirection!!")
+      this.props.history.goBack()
     });
   }
 
   render() {
+    console.log("RENDERING!", this.props)
     return (
       <div className="ui container" style={{paddingTop: '100px'}}>
         <Header userIsLoggedIn={true} />
@@ -70,13 +69,13 @@ class TaskDetails extends React.Component {
                 <div class="ui center aligned attached segment">
                   <div class="ui buttons">
                     <button
-                      onClick={this.rejectTask.bind(this)}
+                      onClick={this.rejectTask}
                       className="ui button">
                       Cancel
                     </button>
                     <div class="or" />
                     <button
-                      onClick={this.acceptTask.bind(this)}
+                      onClick={this.acceptTask}
                       className="ui positive button">
                       Accept
                     </button>
