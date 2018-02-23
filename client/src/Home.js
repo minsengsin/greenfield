@@ -4,6 +4,7 @@ import Header from './Header.js';
 import TaskList from './TaskList.js';
 import TaskListItem from './TaskListItem.js';
 import TaskDetails from './TaskDetails.js';
+import APIKey from './config.js';
 import GoogleMaps from './Map.js';
 import axios from 'axios';
 
@@ -51,6 +52,8 @@ class Home extends React.Component {
           <div className="four wide column">
             <TaskList tasks={this.state.tasks} />
           </div>
+          <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC7t8S8b9WhSyAuT7Mr5VJaUhtDVDOUrV4&callback=initMap"
+  type="text/javascript"></script>
           <div className="twelve wide column">
             <GoogleMaps
               isMarkerShown

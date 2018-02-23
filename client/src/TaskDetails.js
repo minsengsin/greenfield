@@ -5,14 +5,13 @@ import Header from './Header.js';
 import Traits from './Traits.js';
 import TaskListItem from './TaskListItem.js';
 import axios from 'axios';
+import APIKey from './config.js';
 import GoogleMaps from './Map.js';
 
 
 class TaskDetails extends React.Component {
   constructor(props) {
     super(props);
-    console.log(props.match.params.taskId);
-
     this.state = {
       task: {},
       taskId: props.match.params.taskId,
@@ -71,9 +70,10 @@ class TaskDetails extends React.Component {
                 <p>
                   {this.state.task ? this.state.task.description : 'Loading'}
                 </p>
-
+                <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC7t8S8b9WhSyAuT7Mr5VJaUhtDVDOUrV4&callback=initMap"
+  type="text/javascript"></script>
                 <div className="ui center aligned attached segment">
-                  <div className="ui buttons">
+                  <div className="ui buttons">                  
                     <button
                       onClick={this.rejectTask}
                       className="ui button">
