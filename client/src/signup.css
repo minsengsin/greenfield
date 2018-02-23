@@ -1,13 +1,10 @@
-    .Login {
-      font-family: Lato,'Helvetica Neue',Arial,Helvetica,sans-serif;
-    }
-    body > .grid {
-      height: 100%;
-    }
-    .image {
-      margin-top: -100px;
-    }
-    .column {
-      max-width: 450px;
-    }
-    font-family: Lato,'Helvetica Neue',Arial,Helvetica,sans-serif;
+.Login {
+  font-family: Lato, 'Helvetica Neue', Arial, Helvetica, sans-serif;
+}
+body > .grid {
+  height: 100%;
+}
+.image {
+  margin-top: -100px;
+}
+font-family: Lato, 'Helvetica Neue', Arial, Helvetica, sans-serif;
