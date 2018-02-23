@@ -51,7 +51,7 @@ class Home extends React.Component {
           <div className="twelve wide column">
             <GoogleMaps
               isMarkerShown
-              googleMapURL="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places"
+              googleMapURL="https://maps.googleapis.com/maps/api/js?key=AIzaSyC7t8S8b9WhSyAuT7Mr5VJaUhtDVDOUrV4&v=3.exp&libraries=geometry,drawing,places"
               loadingElement={<div style={{height: `100%`}} />}
               containerElement={<div style={{height: `100%`}} />}
               mapElement={<div style={{height: `100%`}} />}
