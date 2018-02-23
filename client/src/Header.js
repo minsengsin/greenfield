@@ -18,7 +18,6 @@ const Header = function(props) {
   return (
     <div className="ui fixed inverted menu">
       <div className="ui container">
-        // TODO: Add header item with img/logo
         
         <a href="/" className="header item">VolunTinder</a>
         
