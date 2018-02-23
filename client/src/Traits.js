@@ -6,6 +6,7 @@ const Traits = function(props) {
     <ul>
       <li>Date: {props.task.date}</li>
       <li>Location: {props.task.location}</li>
+      <li>Time: {props.task.time}</li>
     </ul>
   );
 };
