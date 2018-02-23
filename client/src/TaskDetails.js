@@ -5,7 +5,6 @@ import Header from './Header.js';
 import Traits from './Traits.js';
 import TaskListItem from './TaskListItem.js';
 import axios from 'axios';
-import APIKey from './config.js';
 import GoogleMaps from './Map.js';
 
 
@@ -70,7 +69,7 @@ class TaskDetails extends React.Component {
                 <p>
                   {this.state.task ? this.state.task.description : 'Loading'}
                 </p>
-                <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC7t8S8b9WhSyAuT7Mr5VJaUhtDVDOUrV4&callback=initMap"
+                <script async defer src={`https://maps.googleapis.com/maps/api/js?key=AIzaSyC7t8S8b9WhSyAuT7Mr5VJaUhtDVDOUrV4&callback=initMap`}
   type="text/javascript"></script>
                 <div className="ui center aligned attached segment">
                   <div className="ui buttons">                  
@@ -103,7 +102,7 @@ class TaskDetails extends React.Component {
           </div>
           <div className="four wide column">
             <div className="ui segment">
-              <h3>Extra Info</h3>
+              <h3>Further Details</h3>
               {this.state.task ? <Traits task={this.state.task} /> : 'Loading'}
             </div>
           </div>
