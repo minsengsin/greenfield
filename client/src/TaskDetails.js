@@ -36,6 +36,8 @@ class TaskDetails extends React.Component {
     axios.post(`/tasks/${this.state.taskId}/accept`).then(() => {
       // Based on res, figure out whether task has been accepted or not.
       this.displayButtonPostResult(true);
+    }).then(() => {
+      this.props.history.goBack()
     })
   }
 

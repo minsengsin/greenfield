@@ -155,8 +155,11 @@ app.get('/tasks/:taskId', function (req, res) {
 // Assign the :taskId task to the current user. Triggered when a user
 // accepts/applies to a task.
 app.post('/tasks/:taskId/accept', function(req, res) {
+  console.log("--------", req.session.user.toString() + '')
   User.find({
-    where: req.session.user
+    where: {
+      username: req.session.user
+    }
   }).then((data)=> {
     var UserID = data.dataValues.id.toString();
     var TaskID = req.params.taskId.toString();
