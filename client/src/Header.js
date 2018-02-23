@@ -1,12 +1,34 @@
 import React from 'react';
+import axios from 'axios';
+
+  // componentWillMount() {}
+  // axios.post('/login').then((data)=>{
+  //   console.log('Heaaderrr user name',data)
+  // })
 
 const Header = function(props) {
-  console.log(window.sessionStorage)
+
+  const destroySession = function(){
+    axios.get('/destroySession').then((results)=>{
+      console.log(results)
+    })
+  }
+
+  
   return (
     <div className="ui fixed inverted menu">
       <div className="ui container">
-        <a href="/" className="header item">Team Lyly</a>
-        <a href={props.userIsLoggedIn ? '/logout' : '/login'} className="item">{props.userIsLoggedIn ? 'Logout' : 'Login'}</a>
+        // TODO: Add header item with img/logo
+        
+        <a href="/" className="header item">VolunTinder</a>
+        
+        <a href={props.userIsLoggedIn ? '/login' : '/demo'} 
+            onClick={props.userIsLoggedIn ? null: null}
+            className="item">
+            
+            {props.name ? 'Logout' : 'Login'} </a>
+
+            <a className="item">{props.name}</a>
       </div>
     </div>
   );

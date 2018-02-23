@@ -12,6 +12,9 @@ class Demo extends React.Component {
     super(props);
     this.state = {
       tasks: [],
+      status: false,
+      username: ''
+
     };
   }
 
@@ -22,12 +25,27 @@ class Demo extends React.Component {
         tasks,
       });
     });
+    axios.get('/status').then(results => {
+      if (!results.data) {
+        console.log("Session doesn't exist!", results.data)
+        this.props.history.goBack() //actual redirection
+      }
+      this.setState({
+        status: results.data
+      })
+    })
+    axios.post('/username').then(results=>{
+      this.setState({
+        username: results.data
+      })
+    })
   }
+
 
   render() {
     return (
       <div className="ui container" style={{'paddingTop': '100px'}}>
-        <Header userIsLoggedIn={true} />
+        <Header userIsLoggedIn={this.state.status} name={this.state.username}/>
         <h1 className="ui center aligned header">This is the main app view</h1>
         <div className="ui stackable grid">
           <div className="four wide column">

@@ -55,6 +55,7 @@ app.post('/login', function(req, res) {
         req.session.regenerate(function(){
           req.session.user = e.dataValues.username
           res.redirect('/demo')
+          // res.end(req.body.username)
         })
       } else {
         res.redirect('/login')
@@ -62,10 +63,30 @@ app.post('/login', function(req, res) {
     })
 });
 
-app.get('/logout', function (req, res) {
-  req.session.destroy(function () {
-    res.redirect('/login')
-  })
+app.post('/username', function(req, res){
+  let name = req.session.user
+  res.end(name)
+})
+
+app.get('/destroySession', function(req, res) {
+console.log('before destroy this is session', req.session)
+  if(req.session){
+    req.session.destroy()
+  } else {
+    res.end()
+  }
+console.log('after destroy this is session', req.session)
+ 
+})
+
+app.get('/status', function(req, res) {
+  if(req.session.user){
+    // req.session.destroy()
+    // req.logout()
+    res.send(true)
+  } else {
+    res.send(false)
+  }
 })
 
 app.post('/signup', function (req, res) {
