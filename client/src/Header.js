@@ -1,7 +1,5 @@
 import React from 'react';
-import axios from 'axios';
-import {BrowserRouter as Router, Route, Link} from 'react-router-dom';
-import Auth from './Auth.js';
+import {Link} from 'react-router-dom';
 
 const Header = function(props) {
   return (

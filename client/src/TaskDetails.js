@@ -1,13 +1,9 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-import sampleText from './SampleText.js';
 import Header from './Header.js';
 import Traits from './Traits.js';
-import TaskListItem from './TaskListItem.js';
 import axios from 'axios';
 import GoogleMaps from './Map.js';
 import Auth from './Auth.js';
-
 
 class TaskDetails extends React.Component {
   constructor(props) {
@@ -15,7 +11,7 @@ class TaskDetails extends React.Component {
     this.state = {
       task: {},
       taskId: props.match.params.taskId,
-      tasks: []
+      tasks: [],
     };
 
     this.acceptTask = this.acceptTask.bind(this);
@@ -32,30 +28,38 @@ class TaskDetails extends React.Component {
   }
 
   displayButtonPostResult(isAccepted) {
-    isAccepted ? alert('Task has been accepted!') : alert('Task has been rejected!')
+    isAccepted
+      ? alert('Task has been accepted!')
+      : alert('Task has been rejected!');
   }
 
   acceptTask() {
-    axios.post(`/tasks/${this.state.taskId}/accept`, {username: Auth.username}).then(() => {
-      // Based on res, figure out whether task has been accepted or not.
-      this.displayButtonPostResult(true);
-    }).then(() => {
-      this.props.history.goBack()
-    })
+    axios
+      .post(`/tasks/${this.state.taskId}/accept`, {username: Auth.username})
+      .then(() => {
+        // Based on res, figure out whether task has been accepted or not.
+        this.displayButtonPostResult(true);
+      })
+      .then(() => {
+        this.props.history.goBack();
+      });
   }
 
   rejectTask() {
-    axios.post(`/tasks/${this.state.taskId}/reject`, {username: Auth.username}).then(() => {
-      // Based on res, figure out whether task has been accepted or not.
-      this.displayButtonPostResult(false);
-    }).then(()=> {
-      console.log("this is redirection!!")
-      this.props.history.goBack()
-    });
+    axios
+      .post(`/tasks/${this.state.taskId}/reject`, {username: Auth.username})
+      .then(() => {
+        // Based on res, figure out whether task has been accepted or not.
+        this.displayButtonPostResult(false);
+      })
+      .then(() => {
+        console.log('this is redirection!!');
+        this.props.history.goBack();
+      });
   }
 
   render() {
-    console.log("RENDERING!", this.props)
+    console.log('RENDERING!', this.props);
     return (
       <div className="ui container" style={{paddingTop: '100px'}}>
         <Header name={Auth.username} />
@@ -70,13 +74,15 @@ class TaskDetails extends React.Component {
                 <p>
                   {this.state.task ? this.state.task.description : 'Loading'}
                 </p>
-                <script async defer src={`https://maps.googleapis.com/maps/api/js?key=AIzaSyC7t8S8b9WhSyAuT7Mr5VJaUhtDVDOUrV4&callback=initMap`}
-  type="text/javascript"></script>
+                <script
+                  async
+                  defer
+                  src={`https://maps.googleapis.com/maps/api/js?key=AIzaSyC7t8S8b9WhSyAuT7Mr5VJaUhtDVDOUrV4&callback=initMap`}
+                  type="text/javascript"
+                />
                 <div className="ui center aligned attached segment">
                   <div className="ui buttons">
-                    <button
-                      onClick={this.rejectTask}
-                      className="ui button">
+                    <button onClick={this.rejectTask} className="ui button">
                       Cancel
                     </button>
                     <div className="or" />

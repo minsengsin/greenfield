@@ -1,6 +1,5 @@
 import React from 'react';
-import {BrowserRouter as Router, Route, Link} from 'react-router-dom';
-import Login from './Login.js';
+import {Link} from 'react-router-dom';
 import './signup.css';
 
 class Signup extends React.Component {
@@ -20,7 +19,6 @@ class Signup extends React.Component {
                     <input
                       type="text"
                       id="username"
-                      type="text"
                       name="username"
                       placeholder="Username"
                     />
@@ -32,7 +30,6 @@ class Signup extends React.Component {
                     <input
                       type="password"
                       id="password"
-                      type="password"
                       name="password"
                       placeholder="Password"
                     />

@@ -1,6 +1,5 @@
 import React from 'react';
-import {BrowserRouter as Router, Route, Link, Redirect} from 'react-router-dom';
-import Signup from './Signup.js';
+import {Link, Redirect} from 'react-router-dom';
 import axios from 'axios';
 import './signup.css';
 import Auth from './Auth.js';
@@ -78,7 +77,6 @@ class Login extends React.Component {
                     <input
                       type="text"
                       id="username"
-                      type="text"
                       name="username"
                       placeholder="Username"
                       onChange={this.handleUsernameInput}
@@ -91,8 +89,6 @@ class Login extends React.Component {
                     <input
                       type="password"
                       id="password"
-                      type="password"
-                      name="password"
                       placeholder="Password"
                       onChange={this.handlePasswordInput}
                     />
