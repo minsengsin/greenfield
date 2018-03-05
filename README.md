@@ -18,12 +18,26 @@ Voluntinder is a platform which tries to pair altruistic, good natured people wi
 
 ## Development
 
+### Stack
+
+* Client
+  * `react-scripts`
+  * `create-react-app`
+  * `webpack`
+* Server
+  * Express
+* Database
+  * MySQL
+  * Sequalize
+
 ### Client
 
 * `react-scripts` uses webpack hot reloading, so just edit and watch the terminal or browser for errors.
 * We used semantic-ui for css styling. It is included as a script tag in `index.html`. We did not use the component library `semantic-ui-react`, and instead just styled using `className` to set the css classes.
 * The client runs at `localhost:3000`, and proxies relative requests (that is, API requests which do not begin with a domain, like `axios.get('/api/v3/users')`) to the server, which is running at `localhost:3001`. You do not need to know anything about this for it to "Just Work". I just wanted to make sure you knew it was happening. You can read about what's going on in the blog post linked above. [Linked here for convenience.](https://www.fullstackreact.com/articles/using-create-react-app-with-a-server/)
+
 ### Server
 
+* Server supports hot reloading via `nodemon`.
 * Express v4 with Sequalize for the ORM and mysql for the database.
 * Database files include calls to populate the database with dummy user and company data.
