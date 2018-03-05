@@ -60,18 +60,18 @@ db.sync({force: true}).then(()=>{
     Task.create({date: '3/1/2018', title: 'Canvassing', description:'Door-to-door fundraising and brand-building in pre-confirmed target neighborhoods throughout each of the five boroughs.', organization: 'International Womens Health Coalition', time: '2:00pm', latitude: 40.747449, longitude: -73.992823, location: '333 7th Ave #601, New York, NY 10001'})
     Task.create({date: '3/1/2018', title: 'Mail Sorting', description:'Route internal and external correspondence from the mailroom of our charter location in the heart of New York City.', organization: 'Human Rights Watch', time: '3:00pm', latitude: 40.748563, longitude: -73.985746, location: '350 5th Ave #34, New York, NY 10118'})
     Task.create({date: '3/1/2018', title: 'Event Usher', description:'Seat participants and field questions from guests at our annual fundraising drive.', time: '4:00pm', organization: 'NYCares', latitude: 40.748104, longitude: -73.993922, location: '214 W 29th St, New York, NY 10001'})
-    
+
     UserTasks.create({UserId:'1', TaskId: '3'})
     UserTasks.create({UserId:'1', TaskId: '4'})
     UserTasks.create({UserId:'3', TaskId: '4'})
     UserTasks.create({UserId:'3', TaskId: '5'})
     UserTasks.create({UserId:'1', TaskId: '5'})
- 
+
     UserTasks.create({UserId:'2', TaskId: '1'})
     UserTasks.create({UserId:'2', TaskId: '2'})
- 
+
  })
- 
+
  exports.User = User;
  exports.Task = Task;
  exports.UserTasks = UserTasks;
