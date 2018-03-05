@@ -48,6 +48,7 @@ db.sync({force: true}).then(()=>{
     User.create({username: 'OscarVolunteer', password: 'Oscar'});
     User.create({username: 'BillVolunteer', password: 'Bill'});
     User.create({username: 'StacyVolunteer', password: 'Stacy'});
+    User.create({username: 'a', password: 'a'});
 
     Organization.create({username: 'SalvationArmy', password: 'SalvationArmy', name: 'Salvation Army', bio: 'We are the Greater New York Division of The Salvation Army, and for over 130 years, we\'ve dedicated ourselves to doing the most good for the men, women and children in our area who need it most.', site: 'salvationarmyusa.org', location: '208 8th Ave, New York, NY 10011', latitude: 40.743695, longitude: -73.999210, contact: '(212) 929-5214'})
     Organization.create({username: 'GLAAD', password: 'GLAAD', name: 'GLAAD', bio: 'GLAAD rewrites the script for LGBTQ acceptance. As a dynamic media force, GLAAD tackles tough issues to shape the narrative and provoke dialogue that leads to cultural change. GLAAD protects all that has been accomplished and creates a world where everyone can live the life they love.', site: 'glaad.org', location: '104 W 29th St #4, New York, NY 10001', latitude: 40.746743, longitude: -73.990767, contact: '(212)629-3322'})
@@ -60,18 +61,18 @@ db.sync({force: true}).then(()=>{
     Task.create({date: '3/1/2018', title: 'Canvassing', description:'Door-to-door fundraising and brand-building in pre-confirmed target neighborhoods throughout each of the five boroughs.', organization: 'International Womens Health Coalition', time: '2:00pm', latitude: 40.747449, longitude: -73.992823, location: '333 7th Ave #601, New York, NY 10001'})
     Task.create({date: '3/1/2018', title: 'Mail Sorting', description:'Route internal and external correspondence from the mailroom of our charter location in the heart of New York City.', organization: 'Human Rights Watch', time: '3:00pm', latitude: 40.748563, longitude: -73.985746, location: '350 5th Ave #34, New York, NY 10118'})
     Task.create({date: '3/1/2018', title: 'Event Usher', description:'Seat participants and field questions from guests at our annual fundraising drive.', time: '4:00pm', organization: 'NYCares', latitude: 40.748104, longitude: -73.993922, location: '214 W 29th St, New York, NY 10001'})
-    
+
     UserTasks.create({UserId:'1', TaskId: '3'})
     UserTasks.create({UserId:'1', TaskId: '4'})
     UserTasks.create({UserId:'3', TaskId: '4'})
     UserTasks.create({UserId:'3', TaskId: '5'})
     UserTasks.create({UserId:'1', TaskId: '5'})
- 
+
     UserTasks.create({UserId:'2', TaskId: '1'})
     UserTasks.create({UserId:'2', TaskId: '2'})
- 
+
  })
- 
+
  exports.User = User;
  exports.Task = Task;
  exports.UserTasks = UserTasks;
