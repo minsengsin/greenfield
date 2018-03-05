@@ -1,5 +1,18 @@
 import axios from 'axios';
 
+// Apologies in advance; this was a pretty last minute hack job.
+// I recommend reading the link below for pointers.
+//
+// https://tylermcginnis.com/react-router-protected-routes-authentication/
+//
+// Understand that Auth is merely a protocol: It will look slightly different
+// for every project. This worked decently for us, but there are likely bugs we
+// didn't catch.
+
+// The basic idea is to import this object in each file where
+// authentication needs to happen. The client can also "remember" the
+// user (like a session) by saving this object to local storage. It
+// does not currently do this.
 const Auth = {
   isAuthenticated: false,
   username: '',

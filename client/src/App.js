@@ -16,6 +16,8 @@ import Create from './create.js';
 import axios from 'axios';
 import Auth from './Auth.js';
 
+// For [fake] auth, taken from
+// https://tylermcginnis.com/react-router-protected-routes-authentication/
 const PrivateRoute = ({component: Component, ...rest}) => (
   <Route
     {...rest}
@@ -29,6 +31,7 @@ const PrivateRoute = ({component: Component, ...rest}) => (
   />
 );
 
+// This should make sense, even if you don't know that much about React Router.
 class App extends Component {
   render() {
     return (
@@ -36,8 +39,8 @@ class App extends Component {
         <PrivateRoute exact path="/" component={Home} />
         <Route path="/login" component={Login} />
         <Route path="/signup" component={Signup} />
-        <Route path="/tasks/:taskId" component={TaskDetails} />
-        <Route path="/users/:username" component={Profile} />
+        <PrivateRoute path="/tasks/:taskId" component={TaskDetails} />
+        <PrivateRoute path="/users/:username" component={Profile} />
         <Route path="/create" component={Create} />
       </div>
     );
