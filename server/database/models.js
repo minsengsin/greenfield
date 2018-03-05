@@ -48,6 +48,7 @@ db.sync({force: true}).then(()=>{
     User.create({username: 'OscarVolunteer', password: 'Oscar'});
     User.create({username: 'BillVolunteer', password: 'Bill'});
     User.create({username: 'StacyVolunteer', password: 'Stacy'});
+    User.create({username: 'a', password: 'a'});
 
     Organization.create({username: 'SalvationArmy', password: 'SalvationArmy', name: 'Salvation Army', bio: 'We are the Greater New York Division of The Salvation Army, and for over 130 years, we\'ve dedicated ourselves to doing the most good for the men, women and children in our area who need it most.', site: 'salvationarmyusa.org', location: '208 8th Ave, New York, NY 10011', latitude: 40.743695, longitude: -73.999210, contact: '(212) 929-5214'})
     Organization.create({username: 'GLAAD', password: 'GLAAD', name: 'GLAAD', bio: 'GLAAD rewrites the script for LGBTQ acceptance. As a dynamic media force, GLAAD tackles tough issues to shape the narrative and provoke dialogue that leads to cultural change. GLAAD protects all that has been accomplished and creates a world where everyone can live the life they love.', site: 'glaad.org', location: '104 W 29th St #4, New York, NY 10001', latitude: 40.746743, longitude: -73.990767, contact: '(212)629-3322'})
