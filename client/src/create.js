@@ -3,6 +3,7 @@ import {Link} from 'react-router-dom';
 import './signup.css';
 import Header from './Header.js';
 import axios from 'axios';
+import Header from './Header.js';
 
 class Create extends React.Component {
   constructor(props) {
@@ -17,7 +18,7 @@ class Create extends React.Component {
       description: '',
       needed: 0,
       orgs: [],
-      username: this.props.match.params.username,
+      username: this.props.match.params.username
     };
     this.handleTime = this.handleTime.bind(this);
     this.handleOrg = this.handleOrg.bind(this);
