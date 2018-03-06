@@ -4,7 +4,7 @@ import Login from './Login.js';
 import Signup from './Signup.js';
 import TaskDetails from './TaskDetails.js';
 import Profile from './profile.js';
-import Organization from './profile.js';
+import Organization from './Organization.js';
 import Home from './Home.js';
 import Create from './create.js';
 import CreateOrg from './CreateOrg.js';
@@ -40,7 +40,7 @@ class App extends Component {
         <Route path="/signup" component={Signup} />
         <PrivateRoute path="/tasks/:taskId" component={TaskDetails} />
         <PrivateRoute path="/users/:username" component={Profile} />
-        <PrivateRoute path="/orgs/:username" component={Organization} />
+        <PrivateRoute path="/orgs/:orgname" component={Organization} />
         <PrivateRoute path="/create/:username" component={Create} />
         <PrivateRoute path="/createOrg/:username" component={CreateOrg} />
       </div>

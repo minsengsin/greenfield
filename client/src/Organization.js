@@ -3,7 +3,7 @@ import TaskList from './TaskList.js';
 import axios from 'axios';
 import {Link} from 'react-router-dom';
 
-class Profile extends React.Component {
+class Organization extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -12,25 +12,17 @@ class Profile extends React.Component {
   }
 
   componentWillMount() {
-    console.log(this.props.match.params.username);
-    axios.get(`/users/${this.props.match.params.username}`).then(data => {
+    console.log(this.props.match.params.orgname);
+    axios.get(`/orgs/tasks/${this.props.match.params.orgname}`).then(data => {
       console.log('--------', data);
-      function getTasks(el) {
-        return axios.get(`/tasks/${el}`);
-      }
-      Promise.all(data.data.map(getTasks)).then(arrayOfTasks => {
-        console.log('array of tasks: ', arrayOfTasks);
-        var Tasks = [];
-        arrayOfTasks.map(task => Tasks.push(task.data));
-        console.log('----TASKS---- ', Tasks);
-        this.setState({
-          tasks: Tasks,
-        });
+      this.setState({
+        tasks: data.data,
       });
     });
   }
 
   render() {
+    console.log(this.props.match.params.orgname);
     return (
       <div className="ui container" style={{paddingTop: '25px'}}>
         <div className="ui middle aligned center aligned grid">
@@ -65,4 +57,4 @@ class Profile extends React.Component {
   }
 }
 
-export default Profile;
+export default Organization;

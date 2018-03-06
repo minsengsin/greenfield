@@ -50,8 +50,8 @@ class Create extends React.Component {
           location: this.state.location,
           title: this.state.title,
           description: this.state.description,
-          latitude: res.data.results[0].geometry.location.lat,
-          longitude: res.data.results[0].geometry.location.lng,
+          // latitude: res.data.results[0].geometry.location.lat,
+          // longitude: res.data.results[0].geometry.location.lng,
         })
           .then(() => {
             this.props.history.push('/');
