@@ -1,7 +1,6 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
 import './signup.css';
-import Header from './Header.js';
 import axios from 'axios';
 
 class Create extends React.Component {
@@ -15,8 +14,7 @@ class Create extends React.Component {
       location: '',
       title: '',
       description: '',
-      needed: 0,
-      username: this.props.match.params.username
+      needed: 0
     };
     this.handleTime = this.handleTime.bind(this);
     this.handleOrg = this.handleOrg.bind(this);
@@ -89,12 +87,8 @@ class Create extends React.Component {
     });
   }
 
-
-
   render() {
     return (
-    <div>
-      <Header name={this.state.username}/>
       <div className="ui container" style={{paddingTop: '100px'}}>
         <div className="ui middle aligned center aligned grid">
           <div className="column" style={{maxWidth: '450px'}}>
@@ -232,7 +226,6 @@ class Create extends React.Component {
           </div>
         </div>
       </div>
-    </div>
     );
   }
 }

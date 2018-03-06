@@ -9,7 +9,7 @@ const Header = function(props) {
           VolunTinder
         </Link>
         <div className="right item">
-          <Link to={`/create/${props.name}`} className="header item">
+          <Link to="/create" className="header item">
             Create
           </Link>
           <Link to={`/users/${props.name}`} className="item">

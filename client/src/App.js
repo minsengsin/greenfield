@@ -33,7 +33,7 @@ class App extends Component {
         <Route path="/signup" component={Signup} />
         <PrivateRoute path="/tasks/:taskId" component={TaskDetails} />
         <PrivateRoute path="/users/:username" component={Profile} />
-        <PrivateRoute path="/create/:username" component={Create} />
+        <PrivateRoute path="/create" component={Create} />
       </div>
     );
   }
