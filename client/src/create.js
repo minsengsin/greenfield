@@ -3,7 +3,6 @@ import {Link} from 'react-router-dom';
 import './signup.css';
 import Header from './Header.js';
 import axios from 'axios';
-import Header from './Header.js';
 
 class Create extends React.Component {
   constructor(props) {
