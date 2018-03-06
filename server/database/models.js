@@ -14,14 +14,12 @@ const Organization = db.define('Organizations', {
     bio: Sequelize.STRING(1234),
     site: Sequelize.STRING,
     location: Sequelize.STRING,
-    latitude: Sequelize.FLOAT,
-    longitude: Sequelize.FLOAT,
     contact: Sequelize.STRING
 });
 
-const UserOrg = db.define('Users', {
+const UserOrg = db.define('UserOrg', {
   userId: Sequelize.INTEGER,
-  OrgId: Sequelize.INTEGER
+  orgId: Sequelize.INTEGER
 });
 
 const Task = db.define('Tasks', {
@@ -62,6 +60,9 @@ db.sync({force: true}).then(()=>{
     Organization.create({username: 'IWHC', password: 'IWHC', name: 'International Womens Health Coalition', bio: 'Since 1984, the International Women’s Health Coalition has taken courageous stands and achieved political victories for women and girls globally and in local communities.', site: 'iwhc.org', location: '333 7th Ave #601, New York, NY 10001', latitude: 40.747449, longitude: -73.992823, contact: '(212)979-8500'})
     Organization.create({username: 'HRW', password: 'HRW', name: 'Human Rights Watch', bio: 'Human Rights Watch is a nonprofit, nongovernmental human rights organization made up of roughly 400 staff members around the globe.  Established in 1978, Human Rights Watch is known for its accurate fact-finding, impartial reporting, effective use of media, and targeted advocacy, often in partnership with local human rights groups.', site: 'hrw.org', location: '350 5th Ave #34th, New York, NY 10118', latitude: 40.748563, longitude: -73.985746, contact: '(212)290-4700'})
     Organization.create({username: 'NYCares', password: 'NYCares', name: 'NYCares',  bio: 'New York Cares is a nonprofit organization focused on volunteer management and was founded by a group of New York residents in 1987 who wanted to take action against social issues in New York City.', site: 'newyorkcares.org', location: '214 W 29th St, New York, NY 10001', latitude: 40.748104, longitude: -73.993922, contact: '(212)228-5000'})
+    Organization.create({username: 'rory', password: 'eagan', name: 'rory fund', bio: 'we donate money to rory', site: 'roryeagan.com', location: 'Rorys house', contact: 'call rory'});
+    Organization.create({username: 'bob', password: 'jones', name: 'bob fund', bio: 'we donate money to bob', site: 'bobjones.com', location: 'bobs house', contact: 'call bob'});
+
 
     Task.create({date: '3/1/2018', title: 'Processing Donations', description:'Accepting physical donations of clothes, dry goods, and housewares, sorting each one for future examination and pricing by our management staff.', organization: 'Salvation Army', time: '12:00pm', latitude: 40.743695, longitude: -73.999210, location: '208 8th Ave, New York, NY 10011', needed: 10, volunteers: 0})
     Task.create({date: '3/1/2018', title: 'Answering Phones', description:'Serving at our inbound call center to answer questions, field press inquiries, and route donations to the lines of our paid staffers.', organization: 'GLAAD', time: '1:00pm', latitude: 40.746743, longitude: -73.990767, location: '104 W 29th St #4, New York, NY 10001', needed: 10, volunteers: 0})
@@ -78,9 +79,14 @@ db.sync({force: true}).then(()=>{
     UserTasks.create({UserId:'2', TaskId: '1'})
     UserTasks.create({UserId:'2', TaskId: '2'})
 
+    UserOrg.create({userId: '6', orgId: '6'});
+    UserOrg.create({userId: '6', orgId: '7'});
+
  });
 
  exports.User = User;
  exports.Task = Task;
  exports.UserTasks = UserTasks;
  exports.Organization = Organization;
+ exports.UserOrg = UserOrg;
+

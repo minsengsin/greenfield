@@ -38,11 +38,11 @@ class App extends Component {
         <PrivateRoute path="/tasks/:taskId" component={TaskDetails} />
         <PrivateRoute path="/users/:username" component={Profile} />
         <PrivateRoute path="/orgs/:username" component={Organization} />
-        <PrivateRoute path="/create" component={Create} />
+        <PrivateRoute path="/create/:username" component={Create} />
+        <PrivateRoute path="/createOrg/:username" component={CreateOrg} />
       </div>
     );
   }
 }
 
 export default App;
-//        <PrivateRoute path="/createOrg" component={CreateOrg} />

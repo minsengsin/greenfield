@@ -14,7 +14,9 @@ class Create extends React.Component {
       location: '',
       title: '',
       description: '',
-      needed: 0
+      needed: 0,
+      orgs: [],
+      username: this.props.match.params.username,
     };
     this.handleTime = this.handleTime.bind(this);
     this.handleOrg = this.handleOrg.bind(this);
@@ -23,6 +25,16 @@ class Create extends React.Component {
     this.handleTitle = this.handleTitle.bind(this);
     this.handleLoc = this.handleLoc.bind(this);
     this.handleCreate = this.handleCreate.bind(this);
+  }
+
+  componentWillMount() {
+    axios.get(`/orgs/${this.state.username}`).then(results => {
+      console.log(results)
+      const orgs = results.data.map(r => r.name);
+      this.setState({
+        orgs,
+      });
+    });
   }
 
   handleCreate() {
@@ -109,6 +121,9 @@ class Create extends React.Component {
               <div className="field">
                 <div className="ui left icon input">
                   <label htmlFor="organization" />
+                  <select>
+                    {this.state.orgs.map(m => <option>{m}</option>)}
+                  </select>
                   <input
                     value={this.state.organization}
                     onChange={e => {

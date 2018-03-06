@@ -15,6 +15,7 @@ class CreateOrg extends React.Component {
       site: '',
       location: '',
       contact: '',
+      userUsername: this.props.match.params.username,
     };
     this.handleUsername = this.handleUsername.bind(this);
     this.handlePassword = this.handlePassword.bind(this);
@@ -28,13 +29,15 @@ class CreateOrg extends React.Component {
 
   handleCreate() {
     axios
-      .post('/tasks', {
-        time: this.state.time,
-        organization: this.state.organization,
-        date: this.state.date,
+      .post('/orgs', {
+        username: this.state.username,
+        password: this.state.password,
+        name: this.state.name,
+        bio: this.state.bio,
+        site: this.state.site,
         location: this.state.location,
-        title: this.state.title,
-        description: this.state.description,
+        contact: this.state.contact,
+        userUsername: this.state.userUsername
       })
       .then(() => {
         this.props.history.push('/');
@@ -103,7 +106,7 @@ class CreateOrg extends React.Component {
                   <input
                     value={this.state.username}
                     onChange={e => {
-                      this.handleUserName(e);
+                      this.handleUsername(e);
                     }}
                     type="text"
                     id="username"
