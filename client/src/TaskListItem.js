@@ -20,7 +20,9 @@ const TaskListItem = props => (
             <span>{props.task.volunteers}/{props.task.needed}</span>
           </div>
         <div className="right floated author">
-          <span>{props.task.organization}</span>
+          <Link to={`/orgs/${props.task.organization}`}>
+            <span>{props.task.organization}</span>
+          </Link>
         </div>
       </div>
     </div>

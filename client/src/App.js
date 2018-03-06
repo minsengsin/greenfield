@@ -4,8 +4,10 @@ import Login from './Login.js';
 import Signup from './Signup.js';
 import TaskDetails from './TaskDetails.js';
 import Profile from './profile.js';
+import Organization from './profile.js';
 import Home from './Home.js';
 import Create from './create.js';
+import CreateOrg from './CreateOrg.js';
 import Auth from './Auth.js';
 
 // For [fake] auth, taken from
@@ -25,7 +27,7 @@ const PrivateRoute = ({component: Component, ...rest}) => (
   />
 );
 
-// This should make sense, even if you don't know that much about React Router.
+// This should make sense, en if you don't know that much about React Router.
 class App extends Component {
   render() {
     return (
@@ -35,6 +37,7 @@ class App extends Component {
         <Route path="/signup" component={Signup} />
         <PrivateRoute path="/tasks/:taskId" component={TaskDetails} />
         <PrivateRoute path="/users/:username" component={Profile} />
+        <PrivateRoute path="/orgs/:username" component={Organization} />
         <PrivateRoute path="/create" component={Create} />
       </div>
     );
@@ -42,3 +45,4 @@ class App extends Component {
 }
 
 export default App;
+//        <PrivateRoute path="/createOrg" component={CreateOrg} />

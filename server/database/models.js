@@ -5,7 +5,7 @@ const db = new Sequelize(DB_URL);
 const User = db.define('Users', {
     username: Sequelize.STRING,
     password: Sequelize.STRING
-})
+});
 
 const Organization = db.define('Organizations', {
     username: Sequelize.STRING,
@@ -17,7 +17,12 @@ const Organization = db.define('Organizations', {
     latitude: Sequelize.FLOAT,
     longitude: Sequelize.FLOAT,
     contact: Sequelize.STRING
-})
+});
+
+const UserOrg = db.define('Users', {
+  userId: Sequelize.INTEGER,
+  OrgId: Sequelize.INTEGER
+});
 
 const Task = db.define('Tasks', {
     date: Sequelize.STRING,
@@ -38,7 +43,7 @@ const Task = db.define('Tasks', {
 const UserTasks = db.define('userTasks', {
     UserId: Sequelize.STRING,
     TaskId: Sequelize.STRING
-})
+});
 
 
 
@@ -73,7 +78,7 @@ db.sync({force: true}).then(()=>{
     UserTasks.create({UserId:'2', TaskId: '1'})
     UserTasks.create({UserId:'2', TaskId: '2'})
 
- })
+ });
 
  exports.User = User;
  exports.Task = Task;
