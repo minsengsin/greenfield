@@ -15,7 +15,7 @@ class Create extends React.Component {
       location: '',
       title: '',
       description: '',
-      needed: 0,
+      needed: '',
       orgs: [],
       username: this.props.match.params.username
     };
@@ -51,6 +51,7 @@ class Create extends React.Component {
           location: this.state.location,
           title: this.state.title,
           description: this.state.description,
+          needed: this.state.needed
           // latitude: res.data.results[0].geometry.location.lat,
           // longitude: res.data.results[0].geometry.location.lng,
         })
@@ -226,7 +227,7 @@ class Create extends React.Component {
                     type="text"
                     id="volunteers"
                     name="volunteers"
-                    placeholder="How many people needed?"
+                    placeholder="Volunteers Needed"
                   />
                 </div>
               </div>

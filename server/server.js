@@ -281,12 +281,22 @@ app.post('/tasks/:taskId/reject', function(req, res) {
         }).then(() => {
           res.send('SHOULD REDIRECT');
         })
-
-        //console.log('we are hopefully about to redirect but lets seee', data);
-        //res.send('SHOULD REDIRECT');
       });
   });
 });
+
+app.post('/tasks/:taskId/delete', function(req, res) {
+  var TaskID = req.params.taskId.toString();
+  Task.find({
+    where: {
+      id: TaskID
+    }
+  }).then(task => {
+    task.destroy()
+  }).then(() => {
+    res.send('DELETED');
+  })
+})
 
 app.post('/orgs', function(req, res) {
   const {username, password, name, bio, site, location, contact, userUsername} = req.body;
