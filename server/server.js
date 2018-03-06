@@ -334,6 +334,18 @@ app.get('/orgs/:username', function(req, res) {
   });
 });
 
+app.get('/orgs/tasks/:orgname', function(req, res) {
+  Task.findAll({
+    where: {
+      organization: req.params.orgname
+    }
+  }).then(data => {
+    res.send(data);
+  }).catch(err => {
+    console.log('here is the error 1',err);
+  });
+});
+
 let port = process.env.PORT || 3001;
 
 app.listen(port, function() {
