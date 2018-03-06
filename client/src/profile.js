@@ -1,6 +1,7 @@
 import React from 'react';
 import TaskList from './TaskList.js';
 import axios from 'axios';
+import Header from './Header.js';
 import {Link} from 'react-router-dom';
 
 class Profile extends React.Component {
@@ -37,6 +38,7 @@ class Profile extends React.Component {
           <div className="column" style={{maxWidth: '350px'}}>
             {this.state.tasks.length > 0 ? (
               <div>
+                <Header />
                 <div className="ui message">
                   <Link
                     className="ui fluid large blue submit button"
@@ -49,6 +51,7 @@ class Profile extends React.Component {
               </div>
             ) : (
               <div>
+                <Header />
                 No tasks to display! <br />
                 <Link to="/" className="header item">
                   <h2 className="ui blue image header">

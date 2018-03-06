@@ -54,7 +54,7 @@ app.post('/login', function(req, res) {
     },
   })
     .then(e => {
-      console.log(e);
+      console.log('this is e', e);
       if (e && e.dataValues.password === req.body.password) {
         console.log(`Server found user ${req.body.username}`);
         res.status(200).send(
@@ -85,6 +85,11 @@ app.post('/username', function(req, res) {
   let name = req.session.user;
   res.end(name);
 });
+
+app.get('/username', function(req, res) {
+  console.log('this is session\n', req.session)
+  res.send(req.session.user);
+})
 
 app.get('/destroySession', function(req, res) {
   console.log('before destroy this is session', req.session);

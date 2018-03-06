@@ -1,6 +1,7 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
 import './signup.css';
+import Header from './Header.js';
 import axios from 'axios';
 
 class Create extends React.Component {
@@ -110,9 +111,13 @@ class Create extends React.Component {
     });
   }
 
+
+
   render() {
     console.log('in create', this.props.location.param1);
     return (
+    <div>
+      <Header name={this.state.username}/>
       <div className="ui container" style={{paddingTop: '100px'}}>
         <div className="ui middle aligned center aligned grid">
           <div className="column" style={{maxWidth: '450px'}}>
@@ -243,6 +248,7 @@ class Create extends React.Component {
           </div>
         </div>
       </div>
+    </div>
     );
   }
 }
