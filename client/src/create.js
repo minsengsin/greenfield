@@ -29,7 +29,7 @@ class Create extends React.Component {
   }
 
   componentWillMount() {
-    axios.get(`/orgs/${this.state.username}`).then(results => {
+    axios.get(`/orgs/user/${this.state.username}`).then(results => {
       console.log(results)
       const orgs = results.data.map(r => r.name);
       this.setState({

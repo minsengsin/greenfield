@@ -20,7 +20,10 @@ const TaskListItem = props => (
             <span>{props.task.volunteers}/{props.task.needed}</span>
           </div>
         <div className="right floated author">
-          <Link to={`/orgs/${props.task.organization}`}>
+          <Link to={{
+            pathname: `/orgs/${props.task.organization}`,
+            username: props.username,
+          }}>
             <span>{props.task.organization}</span>
           </Link>
         </div>

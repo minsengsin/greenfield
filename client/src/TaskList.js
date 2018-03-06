@@ -4,7 +4,7 @@ import TaskListItem from './TaskListItem.js';
 const TaskList = props => {
   return (
     <div className="ui segments">
-      {props.tasks.map((task, i) => <TaskListItem task={task} key={i} />)}
+      {props.tasks.map((task, i) => <TaskListItem username={props.username} task={task} key={i} />)}
     </div>
   );
 };
