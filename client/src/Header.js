@@ -2,8 +2,8 @@ import React from 'react';
 import {Link} from 'react-router-dom';
 
 const Header = function(props) {
-  const createTo = { 
-    pathname: `/create/${props.name}`, 
+  const createTo = {
+    pathname: `/create/${props.name}`,
     param1: "Par1",
     param2: 'asdfa'
   };
