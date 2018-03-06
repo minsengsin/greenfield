@@ -166,9 +166,9 @@ app.get('/tasks', function(req, res) {
 // save a new task object to the database.
 app.post('/tasks', function(req, res) {
   // TODO: Need UserId for Task object creation, acquired from session.
-  const {title, date, description, location, time, organization} = req.body;
+  const {title, date, description, location, time, organization, needed} = req.body;
   console.log(title, date, description, location, organization, time);
-  Task.create({title, date, description, location, time, organization}).then(
+  Task.create({title, date, description, location, time, organization, needed, volunteers: 0}).then(
     results => {
       res.send('created');
     },
@@ -217,7 +217,12 @@ app.post('/tasks/:taskId/accept', function(req, res) {
       if (data === null) {
         UserTasks.create({UserId: UserID, TaskId: TaskID})
           .then(() => {
-            res.send('Task is added');
+            Task.findById(TaskID)
+            .then(task => {
+              task.increment('volunteers', {by: 1})
+            }).then(() => {
+              res.send('Task is added');
+            })
           })
           .catch(err => {
             console.log(err);
@@ -226,6 +231,7 @@ app.post('/tasks/:taskId/accept', function(req, res) {
     });
   });
 });
+
 
 app.post('/tasks/:taskId/reject', function(req, res) {
   var UserName = req.body.username;
@@ -252,8 +258,15 @@ app.post('/tasks/:taskId/reject', function(req, res) {
         console.log('just destroyed it');
       })
       .then(data => {
-        console.log('we are hopefully about to redirect but lets seee', data);
-        res.send('SHOULD REDIRECT');
+        Task.findById(TaskID)
+        .then(task => {
+          task.increment('volunteers', {by: -1})
+        }).then(() => {
+          res.send('SHOULD REDIRECT');
+        })
+
+        //console.log('we are hopefully about to redirect but lets seee', data);
+        //res.send('SHOULD REDIRECT');
       });
   });
 });

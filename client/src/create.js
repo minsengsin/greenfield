@@ -14,6 +14,7 @@ class Create extends React.Component {
       location: '',
       title: '',
       description: '',
+      needed: 0
     };
     this.handleTime = this.handleTime.bind(this);
     this.handleOrg = this.handleOrg.bind(this);
@@ -33,6 +34,7 @@ class Create extends React.Component {
         location: this.state.location,
         title: this.state.title,
         description: this.state.description,
+        needed: this.state.needed
       })
       .then(() => {
         this.props.history.push('/');
@@ -76,6 +78,12 @@ class Create extends React.Component {
   handleLoc(e) {
     this.setState({
       location: e.target.value,
+    });
+  }
+
+  handleNeeded(e) {
+    this.setState({
+      needed: e.target.value
     });
   }
 
@@ -181,6 +189,22 @@ class Create extends React.Component {
                     id="time"
                     name="time"
                     placeholder="Event Time?"
+                  />
+                </div>
+              </div>
+
+              <div className="field">
+                <div className="ui left icon input">
+                  <label htmlFor="needed" />
+                  <input
+                    value={this.state.needed}
+                    onChange={e => {
+                      this.handleNeeded(e);
+                    }}
+                    type="text"
+                    id="volunteers"
+                    name="volunteers"
+                    placeholder="How many people needed?"
                   />
                 </div>
               </div>

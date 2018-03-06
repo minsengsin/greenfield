@@ -16,6 +16,9 @@ const TaskListItem = props => (
         </div>
       </div>
       <div className="extra content">
+          <div>
+            <span>{props.task.volunteers}/{props.task.needed}</span>
+          </div>
         <div className="right floated author">
           <span>{props.task.organization}</span>
         </div>
