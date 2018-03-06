@@ -26,19 +26,28 @@ class Create extends React.Component {
   }
 
   handleCreate() {
-    axios
-      .post('/tasks', {
-        time: this.state.time,
-        organization: this.state.organization,
-        date: this.state.date,
-        location: this.state.location,
-        title: this.state.title,
-        description: this.state.description,
-        needed: this.state.needed
+    const queryString = `https://maps.googleapis.com/maps/api/geocode/json?address=${this.state.location}&key=AIzaSyBH-6-MO2reXrAZ4fDQuzkOghyIBPkLyhE`;
+    // const queryString = 'https://maps.googleapis.com/maps/api/geocode/json?address=1600+Amphitheatre+Parkway,+Mountain+View,+CA&key=AIzaSyBH-6-MO2reXrAZ4fDQuzkOghyIBPkLyhE'
+    console.log('this is the queryString: ', queryString);
+    axios.get(queryString)
+      .then((res) => {
+        axios.post('/tasks', {
+          time: this.state.time,
+          organization: this.state.organization,
+          date: this.state.date,
+          location: this.state.location,
+          title: this.state.title,
+          description: this.state.description,
+          latitude: res.data.results[0].geometry.location.lat,
+          longitude: res.data.results[0].geometry.location.lng,
+        })
+          .then(() => {
+            this.props.history.push('/');
+          })
+          .catch((err) => {
+            console.log('ERROR in handleCreate(), error: ', err);
+          });
       })
-      .then(() => {
-        this.props.history.push('/');
-      });
   }
 
   // If this looks redundant, it's because it is.
@@ -231,3 +240,9 @@ class Create extends React.Component {
 }
 
 export default Create;
+
+// axios.get('https://maps.googleapis.com/maps/api/geocode/json?address=1600+Amphitheatre+Parkway,+Mountain+View,+CA&key=AIzaSyBH-6-MO2reXrAZ4fDQuzkOghyIBPkLyhE')
+//   .then((res) => {
+//     console.log('this is the latitude: ', res.data.results[0].geometry.location.lat);
+//     console.log('this is the longitude: ', res.data.results[0].geometry.location.lng);
+//   })

@@ -13,13 +13,15 @@ import Auth from './Auth.js';
 const PrivateRoute = ({component: Component, ...rest}) => (
   <Route
     {...rest}
-    render={props =>
-      Auth.isAuthenticated === true ? (
-        <Component {...props} />
-      ) : (
-        <Redirect to="/login" />
+    render={(props) => {
+      return (
+        Auth.isAuthenticated === true ? (
+          <Component {...props} />
+        ) : (
+          <Redirect to="/login" />
+        )
       )
-    }
+    }}
   />
 );
 
@@ -28,7 +30,7 @@ class App extends Component {
   render() {
     return (
       <div>
-        <PrivateRoute exact path="/" component={Home} />
+        <PrivateRoute exact path="/" component={Home} params="test"/>
         <Route path="/login" component={Login} />
         <Route path="/signup" component={Signup} />
         <PrivateRoute path="/tasks/:taskId" component={TaskDetails} />
