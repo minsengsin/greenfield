@@ -73,9 +73,11 @@ class Create extends React.Component {
   }
 
   handleOrg(e) {
-    this.setState({
-      organization: e.target.value,
-    });
+    if(e.target.selectedIndex !== 0){
+      this.setState({
+        organization: e.target.options[e.target.selectedIndex].text,
+      });
+    }
   }
 
   handleDate(e) {
@@ -109,6 +111,7 @@ class Create extends React.Component {
   }
 
   render() {
+    console.log('in create', this.props.location.param1);
     return (
       <div className="ui container" style={{paddingTop: '100px'}}>
         <div className="ui middle aligned center aligned grid">
@@ -119,24 +122,14 @@ class Create extends React.Component {
 
             <div className="ui stacked segment">
               <div className="field">
-                <div className="ui left icon input">
-                  <label htmlFor="organization" />
-                  <select>
-                    {this.state.orgs.map(m => <option>{m}</option>)}
-                  </select>
-                  <input
-                    value={this.state.organization}
-                    onChange={e => {
-                      this.handleOrg(e);
-                    }}
-                    type="text"
-                    id="organization"
-                    name="organization"
-                    placeholder="Organization Name"
-                  />
-                </div>
+                <select
+                  className="ui search dropdown"
+                  onChange={e => {this.handleOrg(e)}}
+                >
+                  <option>Organization</option>
+                  {this.state.orgs.map(m => <option>{m}</option>)}
+                </select>
               </div>
-
               <div className="field">
                 <div className="ui left icon input">
                   <label htmlFor="title" />

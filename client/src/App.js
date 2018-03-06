@@ -15,7 +15,10 @@ import Auth from './Auth.js';
 const PrivateRoute = ({component: Component, ...rest}) => (
   <Route
     {...rest}
+    
     render={(props) => {
+      console.log('here are rest',...rest);
+      console.log('here are props', props);
       return (
         Auth.isAuthenticated === true ? (
           <Component {...props} />
