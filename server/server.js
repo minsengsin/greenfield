@@ -166,9 +166,20 @@ app.get('/tasks', function(req, res) {
 // save a new task object to the database.
 app.post('/tasks', function(req, res) {
   // TODO: Need UserId for Task object creation, acquired from session.
-  const {title, date, description, location, time, organization, needed} = req.body;
-  console.log(title, date, description, location, organization, time);
-  Task.create({title, date, description, location, time, organization, needed, volunteers: 0}).then(
+  const { title, date, description, location, time, organization, latitude, longitude, needed } = req.body;
+  Task.create({
+    time,
+    organization,
+    date,
+    location,
+    title,
+    description,
+    latitude,
+    longitude,
+    needed,
+    volunteers: 0,
+  })
+    .then(
     results => {
       res.send('created');
     },
