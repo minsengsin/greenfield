@@ -304,7 +304,7 @@ app.post('/orgs', function(req, res) {
   );
 });
 
-app.get('/orgs/:username', function(req, res) {
+app.get('/orgs/user/:username', function(req, res) {
   User.find({
     where: {
       username: req.params.username
@@ -340,6 +340,19 @@ app.get('/orgs/tasks/:orgname', function(req, res) {
       organization: req.params.orgname
     }
   }).then(data => {
+    res.send(data);
+  }).catch(err => {
+    console.log('here is the error 1',err);
+  });
+});
+
+app.get('/orgs/:orgname', function(req, res) {
+  Organization.find({
+    where: {
+      name: req.params.orgname
+    }
+  }).then(data => {
+    console.log('dattatatatattata', data);  
     res.send(data);
   }).catch(err => {
     console.log('here is the error 1',err);

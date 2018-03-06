@@ -43,7 +43,7 @@ class Home extends React.Component {
         </h1>
         <div className="ui stackable grid">
           <div className="four wide column">
-            <TaskList tasks={this.state.tasks} />
+            <TaskList username={this.state.username} tasks={this.state.tasks} />
           </div>
           <script
             async
