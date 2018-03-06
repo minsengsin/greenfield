@@ -1,7 +1,7 @@
 import React from 'react';
-import {Link} from 'react-router-dom';
 import './signup.css';
 import axios from 'axios';
+import Header from './Header.js';
 
 class CreateOrg extends React.Component {
   constructor(props) {
@@ -93,6 +93,7 @@ class CreateOrg extends React.Component {
   render() {
     return (
       <div className="ui container" style={{paddingTop: '100px'}}>
+        <Header className="ui header" name={this.state.userUsername}/>
         <div className="ui middle aligned center aligned grid">
           <div className="column" style={{maxWidth: '450px'}}>
             <h2 className="ui blue image header">
@@ -219,12 +220,6 @@ class CreateOrg extends React.Component {
                 className="ui fluid large blue submit button">
                 Create
               </button>
-            </div>
-
-            <div className="ui message">
-              <Link className="ui fluid large blue submit button" to="/">
-                Back to the main page!
-              </Link>
             </div>
           </div>
         </div>

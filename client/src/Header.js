@@ -7,7 +7,9 @@ const Header = function(props) {
     param1: "Par1",
     param2: 'asdfa'
   };
+  console.log('in headers', props);
   return (
+
     <div className="ui fixed inverted menu">
       <div className="ui container">
         <Link to="/" className="header item">
