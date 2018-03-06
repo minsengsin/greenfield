@@ -40,7 +40,7 @@ class Profile extends React.Component {
                 <div className="ui message">
                   <Link
                     className="ui fluid large blue submit button"
-                    to="/login">
+                    to="/">
                     Back to the main page!
                   </Link>
                 </div>
@@ -49,12 +49,13 @@ class Profile extends React.Component {
               </div>
             ) : (
               <div>
+                No tasks to display! <br />
                 <Link to="/" className="header item">
                   <h2 className="ui blue image header">
+                    Back to the main page!
                     <div className="content" />
                   </h2>
                 </Link>
-                No tasks to display!
               </div>
             )}
           </div>
