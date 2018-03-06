@@ -14,7 +14,9 @@ class Create extends React.Component {
       location: '',
       title: '',
       description: '',
-      needed: 0
+      needed: 0,
+      orgs: [],
+      username: this.props.match.params.username,
     };
     this.handleTime = this.handleTime.bind(this);
     this.handleOrg = this.handleOrg.bind(this);
@@ -23,6 +25,16 @@ class Create extends React.Component {
     this.handleTitle = this.handleTitle.bind(this);
     this.handleLoc = this.handleLoc.bind(this);
     this.handleCreate = this.handleCreate.bind(this);
+  }
+
+  componentWillMount() {
+    axios.get(`/orgs/${this.state.username}`).then(results => {
+      console.log(results)
+      const orgs = results.data.map(r => r.name);
+      this.setState({
+        orgs,
+      });
+    });
   }
 
   handleCreate() {
@@ -61,9 +73,11 @@ class Create extends React.Component {
   }
 
   handleOrg(e) {
-    this.setState({
-      organization: e.target.value,
-    });
+    if(e.target.selectedIndex !== 0){
+      this.setState({
+        organization: e.target.options[e.target.selectedIndex].text,
+      });
+    }
   }
 
   handleDate(e) {
@@ -97,6 +111,7 @@ class Create extends React.Component {
   }
 
   render() {
+    console.log('in create', this.props.location.param1);
     return (
       <div className="ui container" style={{paddingTop: '100px'}}>
         <div className="ui middle aligned center aligned grid">
@@ -107,21 +122,14 @@ class Create extends React.Component {
 
             <div className="ui stacked segment">
               <div className="field">
-                <div className="ui left icon input">
-                  <label htmlFor="organization" />
-                  <input
-                    value={this.state.organization}
-                    onChange={e => {
-                      this.handleOrg(e);
-                    }}
-                    type="text"
-                    id="organization"
-                    name="organization"
-                    placeholder="Organization Name"
-                  />
-                </div>
+                <select
+                  className="ui search dropdown"
+                  onChange={e => {this.handleOrg(e)}}
+                >
+                  <option>Organization</option>
+                  {this.state.orgs.map(m => <option>{m}</option>)}
+                </select>
               </div>
-
               <div className="field">
                 <div className="ui left icon input">
                   <label htmlFor="title" />

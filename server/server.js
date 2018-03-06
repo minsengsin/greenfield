@@ -1,8 +1,9 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const Sequelize = require('sequelize');
+const Op = Sequelize.Op;
 const db = require('./database/models.js').db;
-const {User, Task, UserTasks, Organization} = require('./database/models.js');
+const {User, Task, UserTasks, Organization, UserOrg} = require('./database/models.js');
 const session = require('express-session');
 
 let app = express();
@@ -279,6 +280,52 @@ app.post('/tasks/:taskId/reject', function(req, res) {
         //console.log('we are hopefully about to redirect but lets seee', data);
         //res.send('SHOULD REDIRECT');
       });
+  });
+});
+
+app.post('/orgs', function(req, res) {
+  const {username, password, name, bio, site, location, contact, userUsername} = req.body;
+  Organization.create({username, password, name, bio, site, location, contact}).then(
+    results => {
+      User.find({
+        where: {
+          username: userUsername
+        }
+      }).then(data => {
+        UserOrg.create({userId: data.id, orgId: results.id});
+        res.send();
+      })
+    },
+  );
+});
+
+app.get('/orgs/:username', function(req, res) {
+  User.find({
+    where: {
+      username: req.params.username
+    }
+  }).then(data => {
+    UserOrg.findAll({
+      attributes: ['orgId'],
+      where: {
+        userId: data.id
+      }
+    }).then(data2 => {
+      Organization.findAll({
+        where: {
+          id: {
+            [Op.in]: data2.map(x => x.orgId)
+          }
+        }
+      }).then(final => {
+        console.log('this is final:',final);
+        res.send(final);
+      }).catch(err => {
+        console.log('here is the error 2',err);
+      });
+    }).catch(err => {
+      console.log('here is the error 1',err);
+    });
   });
 });
 
