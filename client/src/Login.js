@@ -72,7 +72,7 @@ class Login extends React.Component {
             <div className="ui large form">
               <div className="ui stacked segment">
                 <div className="field">
-                  <div className="ui left icon input">
+                  <div className="ui left input">
                     <label htmlFor="username" />
                     <input
                       type="text"
@@ -84,7 +84,7 @@ class Login extends React.Component {
                   </div>
                 </div>
                 <div className="field">
-                  <div className="ui left icon input">
+                  <div className="ui left input">
                     <label htmlFor="password" />
                     <input
                       type="password"
