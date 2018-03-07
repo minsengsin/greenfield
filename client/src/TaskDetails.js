@@ -99,7 +99,7 @@ class TaskDetails extends React.Component {
       this.displayDeleteResult(false);
     })
     .then(() => {
-      this.props.history.goBack();
+      this.props.history.push('/');
     })
     //complete task here
   }

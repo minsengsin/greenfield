@@ -384,7 +384,8 @@ app.get('/orgs/tasks/:orgname', function(req, res) {
 app.get('/orgs/:orgname', function(req, res) {
   Organization.find({
     where: {
-      name: req.params.orgname
+      name: req.params.orgname,
+      complete: false
     }
   }).then(data => {
     console.log('dattatatatattata', data);
