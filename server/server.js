@@ -7,6 +7,7 @@ const {User, Task, UserTasks, Organization, UserOrg} = require('./database/model
 const session = require('express-session');
 
 let app = express();
+//
 
 app.use(
   session({
@@ -143,6 +144,7 @@ app.get('/users/:username', function(req, res) {
     UserTasks.findAll({
       where: {
         UserId: data.dataValues.id,
+        completed: false
       },
     }).then(data => {
       // data is array of objects with property each 'TaskId'
@@ -158,7 +160,11 @@ app.get('/users/:username', function(req, res) {
 
 // Returns all tasks from the database.
 app.get('/tasks', function(req, res) {
-  Task.all().then(results => {
+  Task.all({
+    where: {
+      completed: false
+    }
+  }).then(results => {
     res.send(results);
   });
 });

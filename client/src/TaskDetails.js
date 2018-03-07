@@ -18,6 +18,7 @@ class TaskDetails extends React.Component {
     this.acceptTask = this.acceptTask.bind(this);
     this.rejectTask = this.rejectTask.bind(this);
     this.deleteTask = this.deleteTask.bind(this);
+    this.completeTask = this.completeTask.bind(this);
   }
 //
   componentDidMount() {
@@ -75,15 +76,24 @@ class TaskDetails extends React.Component {
         this.props.history.goBack();
       });
   }
+  ////
 
   deleteTask() {
     axios.post(`/tasks/${this.state.taskId}/delete`, {username: Auth.username})
+    .then(() => {
+      axios.post(`/tasks/${this.state.taskId}/reject`, {username: Auth.username})
+    })
     .then(() => {
       this.displayDeleteResult(true);
     })
     .then(() => {
       this.props.history.goBack();
     })
+  }
+
+  completeTask() {
+    console.log('completed being called')
+    //complete task here
   }
 
   render() {
@@ -130,7 +140,7 @@ class TaskDetails extends React.Component {
                       </button>
                       <div className="or" />
                       <button
-                        onClick={this.deleteTask}
+                        onClick={this.completeTask}
                         className="ui positive button">
                         Complete
                       </button>
