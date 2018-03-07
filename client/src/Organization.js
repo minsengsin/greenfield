@@ -16,6 +16,7 @@ class Organization extends React.Component {
       site: '',
       username: this.props.location.username,
     };
+    console.log(this.props.match.params.orgname);
   }
 
   componentWillMount() {

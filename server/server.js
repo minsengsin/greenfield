@@ -429,6 +429,7 @@ app.get('/orgs/:orgname', function(req, res) {
       name: req.params.orgname
     }
   }).then(data => {
+    console.log('orororororrggg name', data);
     res.send(data);
   }).catch(err => {
     console.log('here is the error 1',err);
@@ -436,7 +437,6 @@ app.get('/orgs/:orgname', function(req, res) {
 });
 
 app.post('/orgs/join', function(req, res) {
-  console.log('JJJJJOOOOOOIIIINNNN');
   User.find({
     attributes: ['id'],
     where: {
@@ -446,10 +446,11 @@ app.post('/orgs/join', function(req, res) {
     Organization.find({
       attributes: ['id'],
       where: {
-        name: req.body.name
+        name: req.body.name,
+        username: req.body.orgUsername,
+        password: req.body.password,
       }
     }).then(data2 => {
-      console.log('data2222222:', data2);
       UserOrg.create({userId: data.id, orgId: data2.id}).then(() => {
         res.send('success');
       }).catch((err) => console.log('ererererererer',err));
