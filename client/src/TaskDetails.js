@@ -12,6 +12,7 @@ class TaskDetails extends React.Component {
       task: {},
       taskId: props.match.params.taskId,
       tasks: [],
+      username: this.props.location.username,
     };
 
     this.acceptTask = this.acceptTask.bind(this);
@@ -41,7 +42,7 @@ class TaskDetails extends React.Component {
         this.displayButtonPostResult(true);
       })
       .then(() => {
-        this.props.history.goBack();
+        this.props.history.push('/');
       });
   }
 
@@ -54,7 +55,7 @@ class TaskDetails extends React.Component {
       })
       .then(() => {
         console.log('this is redirection!!');
-        this.props.history.goBack();
+        this.props.history.push('/');
       });
   }
 
@@ -110,7 +111,7 @@ class TaskDetails extends React.Component {
           <div className="four wide column">
             <div className="ui segment">
               <h3>Further Details</h3>
-              {this.state.task ? <Traits task={this.state.task} /> : 'Loading'}
+              {this.state.task ? <Traits task={this.state.task} username={this.state.username} /> : 'Loading'}
             </div>
           </div>
         </div>

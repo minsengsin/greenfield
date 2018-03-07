@@ -1,5 +1,5 @@
 import React from 'react';
-import {Link} from 'react-router-dom';
+import {Link, Redirect} from 'react-router-dom';
 import './signup.css';
 import Header from './Header.js';
 import axios from 'axios';
@@ -74,10 +74,12 @@ class Create extends React.Component {
   }
 
   handleOrg(e) {
-    if(e.target.selectedIndex !== 0){
+    if(e.target.selectedIndex > 1){
       this.setState({
         organization: e.target.options[e.target.selectedIndex].text,
       });
+    } else if (e.target.selectedIndex === 1) {
+      this.props.history.push(`/createOrg/${this.state.username}`);
     }
   }
 
@@ -132,6 +134,7 @@ class Create extends React.Component {
                   onChange={e => {this.handleOrg(e)}}
                 >
                   <option>Organization</option>
+                  <option>Create New Organization</option>
                   {this.state.orgs.map(m => <option>{m}</option>)}
                 </select>
               </div>

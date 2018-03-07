@@ -3,10 +3,19 @@ import {Link} from 'react-router-dom';
 
 const TaskListItem = props => (
   <div className="ui segment">
-    <div className="ui raised card">
+    <div
+      className="ui raised card"
+      style={{ width: '600px' }}
+    >
       <div className="content">
         <div className="header">
-          <Link to={`/tasks/${props.task.id}`}>{props.task.title}</Link>
+          <Link to={{
+            pathname: `/tasks/${props.task.id}`,
+            username: props.username,
+            }}
+          >
+            {props.task.title}
+          </Link>
         </div>
         <div className="meta">
           <span className="category">Volunteer Opportunity</span>
