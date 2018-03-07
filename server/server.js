@@ -287,6 +287,7 @@ app.post('/tasks/:taskId/delete', function(req, res) {
       id: TaskID
     }
   }).then(task => {
+    console.log('this is task', task)
     task.destroy()
   }).then(() => {
     res.send('DELETED');
