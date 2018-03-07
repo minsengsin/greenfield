@@ -76,7 +76,7 @@ class TaskDetails extends React.Component {
         this.props.history.goBack();
       });
   }
-  ////
+  ////////
 
   deleteTask() {
     axios.post(`/tasks/${this.state.taskId}/delete`, {username: Auth.username})
@@ -92,7 +92,14 @@ class TaskDetails extends React.Component {
   }
 
   completeTask() {
-    console.log('completed being called')
+    console.log('completed being called');
+    axios.post(`/tasks/${this.state.taskId}/complete`, {username: Auth.username})
+    .then(() => {
+      this.displayDeleteResult(false);
+    })
+    .then(() => {
+      this.props.history.goBack();
+    })
     //complete task here
   }
 

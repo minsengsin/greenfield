@@ -300,6 +300,30 @@ app.post('/tasks/:taskId/delete', function(req, res) {
   })
 })
 
+app.post('/tasks/:taskId/complete', function(req, res) {
+  var TaskID = req.params.taskId.toString();
+  Task.find({
+    where: {
+      id: TaskID
+    }
+  }).then(task => {
+    console.log('\n----this is task----\n', task.dataValues)
+    task.completed = 1;
+    task.save();
+  }).then(() => {
+    UserTasks.find({
+      where: {
+        taskId: TaskID
+      }
+    }).then(utask => {
+      utask.completed = 1;
+      utask.save();
+    })
+  }).then(() => {
+    res.send('Completed')
+  })
+})
+
 app.post('/orgs', function(req, res) {
   const {username, password, name, bio, site, location, contact, userUsername} = req.body;
   Organization.create({username, password, name, bio, site, location, contact}).then(
