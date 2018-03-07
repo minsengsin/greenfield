@@ -79,6 +79,7 @@ db.sync({force: true}).then(()=>{
     UserTasks.create({UserId:'2', TaskId: '1'})
     UserTasks.create({UserId:'2', TaskId: '2'})
 
+    UserOrg.create({userId: '6', orgId: '1'});
     UserOrg.create({userId: '6', orgId: '6'});
     UserOrg.create({userId: '6', orgId: '7'});
 
@@ -89,4 +90,3 @@ db.sync({force: true}).then(()=>{
  exports.UserTasks = UserTasks;
  exports.Organization = Organization;
  exports.UserOrg = UserOrg;
-

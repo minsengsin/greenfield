@@ -54,9 +54,7 @@ app.post('/login', function(req, res) {
     },
   })
     .then(e => {
-      console.log('this is e', e);
       if (e && e.dataValues.password === req.body.password) {
-        console.log(`Server found user ${req.body.username}`);
         res.status(200).send(
           JSON.stringify({
             authenticated: true,
@@ -87,18 +85,15 @@ app.post('/username', function(req, res) {
 });
 
 app.get('/username', function(req, res) {
-  console.log('this is session\n', req.session)
   res.send(req.session.user);
 })
 
 app.get('/destroySession', function(req, res) {
-  console.log('before destroy this is session', req.session);
   if (req.session) {
     req.session.destroy();
   } else {
     res.end();
   }
-  console.log('after destroy this is session', req.session);
 });
 
 // TODO: Really fake. We should be checking if the session ID is valid, not if
@@ -333,7 +328,6 @@ app.get('/orgs/:username', function(req, res) {
           }
         }
       }).then(final => {
-        console.log('this is final:',final);
         res.send(final);
       }).catch(err => {
         console.log('here is the error 2',err);
@@ -355,6 +349,30 @@ app.get('/orgs/tasks/:orgname', function(req, res) {
     console.log('here is the error 1',err);
   });
 });
+
+app.post('/checkDelete', function(req, res) {
+  Organization.find({
+    where: {
+      name: req.body.organization
+    }
+  }).then(org => {
+    UserOrg.find({
+      where: {
+        orgId: org.id
+      }
+    }).then(userorg => {
+      User.find({
+        where: {
+          id: userorg.userId
+        }
+      }).then(user => {
+        (user.username === req.body.username)
+        ? res.send(true)
+        : res.send(false)
+      })
+    })
+  })
+})
 
 let port = process.env.PORT || 3001;
 

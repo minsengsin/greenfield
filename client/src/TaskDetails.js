@@ -9,7 +9,7 @@ class TaskDetails extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      showDelete: true,
+      showDelete: false,
       task: {},
       taskId: props.match.params.taskId,
       tasks: [],
@@ -19,7 +19,7 @@ class TaskDetails extends React.Component {
     this.rejectTask = this.rejectTask.bind(this);
     this.deleteTask = this.deleteTask.bind(this);
   }
-
+//
   componentDidMount() {
     // Get the task info from the API
     console.log('Running?');
@@ -27,7 +27,15 @@ class TaskDetails extends React.Component {
     .then(result => {
       console.log('results', result.data);
       this.setState({task: result.data});
-    });
+    })
+    .then(() => {
+      axios.post(`/checkDelete`, {
+        organization: this.state.task.organization,
+        username: Auth.username
+      }).then(result => {
+        this.setState({showDelete: result.data})
+      })
+    })
   }
 
   displayButtonPostResult(isAccepted) {
@@ -54,7 +62,7 @@ class TaskDetails extends React.Component {
         this.props.history.goBack();
       });
   }
-//
+
   rejectTask() {
     axios
       .post(`/tasks/${this.state.taskId}/reject`, {username: Auth.username})
