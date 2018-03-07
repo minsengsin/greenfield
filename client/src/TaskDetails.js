@@ -83,7 +83,7 @@ class TaskDetails extends React.Component {
       this.displayDeleteResult(true);
     })
     .then(() => {
-      this.props.history.goBack();
+      this.props.history.push('/');
     })
   }
 
