@@ -22,7 +22,7 @@ class Create extends React.Component {
       needed: '',
       orgs: [],
       username: this.props.match.params.username,
-      dateAndTime: null,
+      dateTime: null,
     };
     this.handleDateChange = this.handleDateChange.bind(this);
     this.handleTime = this.handleTime.bind(this);
@@ -46,9 +46,9 @@ class Create extends React.Component {
 
   handleDateChange(date) {
     this.setState({
-      dateAndTime: date,
-    },() => {
-      console.log('this is the new date and time: ', this.state.dateAndTime.format());
+      dateTime: date,
+    }, () => {
+      console.log('formatted dateTime: ', this.state.dateTime.format('YYYY-MM-DD HH:mm'));
     });
   }
 
@@ -68,6 +68,7 @@ class Create extends React.Component {
           needed: this.state.needed,
           latitude: res.data.results[0].geometry.location.lat,
           longitude: res.data.results[0].geometry.location.lng,
+          dateTime: this.state.dateTime.format('YYYY-MM-DD HH:mm'),
         })
           .then(() => {
             this.props.history.push('/');
@@ -221,7 +222,7 @@ class Create extends React.Component {
                   </style>
                   <DatePicker
                     className="ui fluid input"
-                    selected={this.state.dateAndTime}
+                    selected={this.state.dateTime}
                     onChange={this.handleDateChange}
                     placeholderText="Click to Select Date and Time"
                     showTimeSelect
