@@ -22,7 +22,7 @@ class Create extends React.Component {
       needed: '',
       orgs: [],
       username: this.props.match.params.username,
-      startDate: moment(),
+      dateAndTime: null,
     };
     this.handleDateChange = this.handleDateChange.bind(this);
     this.handleTime = this.handleTime.bind(this);
@@ -46,7 +46,9 @@ class Create extends React.Component {
 
   handleDateChange(date) {
     this.setState({
-      startDate: date,
+      dateAndTime: date,
+    },() => {
+      console.log('this is the new date and time: ', this.state.dateAndTime.format());
     });
   }
 
@@ -126,8 +128,6 @@ class Create extends React.Component {
     });
   }
 
-
-
   render() {
     console.log('in create', this.props.location.param1);
     return (
@@ -155,34 +155,7 @@ class Create extends React.Component {
                 </div>
 
                 <div className="field">
-                    <style>
-                      {
-                        `.react-datepicker__time-container .react-datepicker__time .react-datepicker__time-box ul.react-datepicker__time-list {
-                          padding-left: 0;
-                          padding-right: 0;
-                          width: 100px;
-                        }
-                        .react-datepicker-wrapper {
-                          width: 100%
-                        }
-                        .react-datepicker__input-container {
-                          width: 100%
-                        }
-                        `
-                    }
-                    </style>
-                    <DatePicker
-                      className="ui fluid input"
-                      selected={this.state.startDate}
-                      onChange={this.handleDateChange}
-                      showTimeSelect
-                      dateFormat="LLL"
-                    />
-
-                </div>
-
-                <div className="field">
-                  <div className="ui left icon input">
+                  <div className="ui left input">
                     <label htmlFor="title" />
                     <input
                       value={this.state.title}
@@ -198,7 +171,7 @@ class Create extends React.Component {
                 </div>
 
                 <div className="field">
-                  <div className="ui left icon input">
+                  <div className="ui left input">
                     <label htmlFor="description" />
                     <input
                       value={this.state.description}
@@ -214,7 +187,7 @@ class Create extends React.Component {
                 </div>
 
                 <div className="field">
-                  <div className="ui left icon input">
+                  <div className="ui left input">
                     <label htmlFor="location" />
                     <input
                       value={this.state.location}
@@ -230,39 +203,35 @@ class Create extends React.Component {
                 </div>
 
                 <div className="field">
-                  <div className="ui left icon input">
-                    <label htmlFor="date" />
-                    <input
-                      value={this.state.date}
-                      onChange={e => {
-                        this.handleDate(e);
-                      }}
-                      type="text"
-                      id="date"
-                      name="date"
-                      placeholder="Date? (YYYY-MM-DD)"
-                      />
-                  </div>
+                  <style>
+                    {
+                      `.react-datepicker__time-container .react-datepicker__time .react-datepicker__time-box ul.react-datepicker__time-list {
+                        padding-left: 0;
+                        padding-right: 0;
+                        width: 100px;
+                      }
+                      .react-datepicker-wrapper {
+                        width: 100%
+                      }
+                      .react-datepicker__input-container {
+                        width: 100%
+                      }
+                      `
+                    }
+                  </style>
+                  <DatePicker
+                    className="ui fluid input"
+                    selected={this.state.dateAndTime}
+                    onChange={this.handleDateChange}
+                    placeholderText="Click to Select Date and Time"
+                    showTimeSelect
+                    showMonthDropdown
+                    dateFormat="LLL"
+                  />
                 </div>
 
                 <div className="field">
-                  <div className="ui left icon input">
-                    <label htmlFor="time" />
-                    <input
-                      value={this.state.time}
-                      onChange={e => {
-                        this.handleTime(e);
-                      }}
-                      type="text"
-                      id="time"
-                      name="time"
-                      placeholder="Event Time?"
-                      />
-                  </div>
-                </div>
-
-                <div className="field">
-                  <div className="ui left icon input">
+                  <div className="ui left input">
                     <label htmlFor="needed" />
                     <input
                       value={this.state.needed}
@@ -307,3 +276,35 @@ export default Create;
 //     console.log('this is the latitude: ', res.data.results[0].geometry.location.lat);
 //     console.log('this is the longitude: ', res.data.results[0].geometry.location.lng);
 //   })
+
+// <div className="field">
+//   <div className="ui left icon input">
+//     <label htmlFor="date" />
+//     <input
+//       value={this.state.date}
+//       onChange={e => {
+//         this.handleDate(e);
+//       }}
+//       type="text"
+//       id="date"
+//       name="date"
+//       placeholder="Date? (YYYY-MM-DD)"
+//       />
+//   </div>
+// </div>
+//
+// <div className="field">
+//   <div className="ui left icon input">
+//     <label htmlFor="time" />
+//     <input
+//       value={this.state.time}
+//       onChange={e => {
+//         this.handleTime(e);
+//       }}
+//       type="text"
+//       id="time"
+//       name="time"
+//       placeholder="Event Time?"
+//       />
+//   </div>
+// </div>
