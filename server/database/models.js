@@ -83,6 +83,14 @@ db.sync({force: true}).then(()=>{
     UserOrg.create({userId: '6', orgId: '6'});
     UserOrg.create({userId: '6', orgId: '7'});
 
+    UserOrg.create({userId: '1', orgId: '2'});
+    UserOrg.create({userId: '2', orgId: '3'});
+    UserOrg.create({userId: '3', orgId: '4'});
+    UserOrg.create({userId: '4', orgId: '5'});
+    UserOrg.create({userId: '4', orgId: '6'});
+
+
+
  });
 
  exports.User = User;
