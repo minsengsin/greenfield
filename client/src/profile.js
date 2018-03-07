@@ -39,7 +39,7 @@ class Profile extends React.Component {
               <div>
                 <Header className="ui header" name={this.props.match.params.username}/>
                 <div style={{paddingTop: '50px'}}>
-                  <TaskList tasks={this.state.tasks} />
+                  <TaskList tasks={this.state.tasks} username={this.props.match.params.username} />
                 </div>
               </div>
             ) : (

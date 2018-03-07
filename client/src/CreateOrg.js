@@ -200,7 +200,13 @@ class CreateOrg extends React.Component {
               <div className="field">
                 <div className="ui left icon input">
                   <label htmlFor="bio" />
-                  <input
+                  <textarea
+                    style={{
+                      maxWidth: '300px',
+                      minWidth: '300px',
+                      maxHeight: '200px',
+                      minHeight: '200px',
+                    }}
                     value={this.state.bio}
                     onChange={e => {
                       this.handleBio(e);

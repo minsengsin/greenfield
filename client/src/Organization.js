@@ -78,7 +78,7 @@ class Organization extends React.Component {
                     <div className="ui message">
                       <h1 className="ui center aligned header grey">Task List</h1>
                     </div>
-                    <TaskList tasks={this.state.tasks} />
+                    <TaskList tasks={this.state.tasks} username={this.state.username} />
                   </div>
                 ) : (
                   <div>
