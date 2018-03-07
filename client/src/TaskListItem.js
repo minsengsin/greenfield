@@ -1,5 +1,6 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
+import moment from 'moment';
 
 const TaskListItem = props => (
   <div className="ui segment">
@@ -26,11 +27,11 @@ const TaskListItem = props => (
       </div>
       <div className="extra content">
           <span>
+            <span>When: {moment(props.task.dateTime.slice(0,16)).format('ddd MMM Do, YYYY') + ' at ' + moment(props.task.dateTime.slice(0,16)).format('h:mm a')}</span>
+            <br />
+            <span>Where: {props.task.location}</span>
+            <br />
             <span>Volunteers: {props.task.volunteers}/{props.task.needed}</span>
-            <br />
-            <span>Location: {props.task.location}</span>
-            <br />
-            <span>Date: {props.task.dateTime.slice(0,10) + ' ' + props.task.dateTime.slice(11,16)}</span>
           </span>
         <span className="right floated author">
           <Link to={{
