@@ -51,9 +51,9 @@ class Create extends React.Component {
           location: this.state.location,
           title: this.state.title,
           description: this.state.description,
-          needed: this.state.needed
-          // latitude: res.data.results[0].geometry.location.lat,
-          // longitude: res.data.results[0].geometry.location.lng,
+          needed: this.state.needed,
+          latitude: res.data.results[0].geometry.location.lat,
+          longitude: res.data.results[0].geometry.location.lng,
         })
           .then(() => {
             this.props.history.push('/');
@@ -121,11 +121,11 @@ class Create extends React.Component {
     return (
     <div>
       <Header name={this.state.username}/>
-      <div className="ui container" style={{paddingTop: '100px'}}>
+      <div className="ui container" style={{paddingTop: '85px'}}>
         <div className="ui middle aligned center aligned grid">
           <div className="column" style={{maxWidth: '450px'}}>
             <h2 className="ui blue image header">
-              <div className="content">Create new task</div>
+              <div className="content">Create New Task</div>
             </h2>
 
             <div className="ui stacked segment">
@@ -151,22 +151,6 @@ class Create extends React.Component {
                     id="title"
                     name="title"
                     placeholder="What kind of task?"
-                  />
-                </div>
-              </div>
-
-              <div className="field">
-                <div className="ui left icon input">
-                  <label htmlFor="description" />
-                  <input
-                    value={this.state.description}
-                    onChange={e => {
-                      this.handleDesc(e);
-                    }}
-                    type="text"
-                    id="description"
-                    name="description"
-                    placeholder="Describe your task"
                   />
                 </div>
               </div>
@@ -235,6 +219,28 @@ class Create extends React.Component {
                 </div>
               </div>
 
+              <div className="field">
+                <div className="ui left icon input">
+                  <label htmlFor="description" />
+                  <textarea
+                    style={{
+                      maxWidth: '300px',
+                      minWidth: '300px',
+                      maxHeight: '170px',
+                      minHeight: '170px',
+                    }}
+                    value={this.state.description}
+                    onChange={e => {
+                      this.handleDesc(e);
+                    }}
+                    type="text"
+                    id="description"
+                    name="description"
+                    placeholder="Describe your task"
+                  />
+                </div>
+              </div>
+
               <button
                 onClick={() => {
                   this.handleCreate();
@@ -242,12 +248,6 @@ class Create extends React.Component {
                 className="ui fluid large blue submit button">
                 Create
               </button>
-            </div>
-
-            <div className="ui message">
-              <Link className="ui fluid large blue submit button" to="/">
-                Back to the main page!
-              </Link>
             </div>
           </div>
         </div>
