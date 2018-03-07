@@ -103,7 +103,7 @@ class CreateOrg extends React.Component {
               <div className="ui large form">
                 <div className="ui stacked segment">
                   <div className="field">
-                    <div className="ui left icon input">
+                    <div className="ui left input">
                       <label htmlFor="username" />
                       <input
                         style={{
@@ -122,7 +122,7 @@ class CreateOrg extends React.Component {
                   </div>
 
                   <div className="field">
-                    <div className="ui left icon input">
+                    <div className="ui left input">
                       <label htmlFor="password" />
                       <input
                         style={{
@@ -141,7 +141,7 @@ class CreateOrg extends React.Component {
                   </div>
 
                   <div className="field">
-                    <div className="ui left icon input">
+                    <div className="ui left input">
                       <label htmlFor="name" />
                       <input
                         style={{
@@ -160,7 +160,7 @@ class CreateOrg extends React.Component {
                   </div>
 
                   <div className="field">
-                    <div className="ui left icon input">
+                    <div className="ui left input">
                       <label htmlFor="location" />
                       <input
                         style={{
@@ -179,7 +179,7 @@ class CreateOrg extends React.Component {
                   </div>
 
                   <div className="field">
-                    <div className="ui left icon input">
+                    <div className="ui left input">
                       <label htmlFor="site" />
                       <input
                         style={{
@@ -198,7 +198,7 @@ class CreateOrg extends React.Component {
                   </div>
 
                   <div className="field">
-                    <div className="ui left icon input">
+                    <div className="ui left input">
                       <label htmlFor="contact" />
                       <input
                         value={this.state.contact}
@@ -214,7 +214,7 @@ class CreateOrg extends React.Component {
                   </div>
 
                   <div className="field">
-                    <div className="ui left icon input">
+                    <div className="ui left input">
                       <label htmlFor="bio" />
                       <textarea
                         style={{
