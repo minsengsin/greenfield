@@ -5,6 +5,7 @@ import Header from './Header.js';
 import axios from 'axios';
 import DatePicker from 'react-datepicker';
 import moment from 'moment';
+import PlacesAutocomplete from 'react-places-autocomplete';
 
 import 'react-datepicker/dist/react-datepicker.css';
 
@@ -23,6 +24,7 @@ class Create extends React.Component {
       orgs: [],
       username: this.props.match.params.username,
       dateTime: null,
+      currentAddress: 'New York, NY',
     };
     this.handleDateChange = this.handleDateChange.bind(this);
     this.handleTime = this.handleTime.bind(this);
@@ -32,6 +34,7 @@ class Create extends React.Component {
     this.handleTitle = this.handleTitle.bind(this);
     this.handleLoc = this.handleLoc.bind(this);
     this.handleCreate = this.handleCreate.bind(this);
+    this.handleAddressChange = this.handleAddressChange.bind(this);
   }
 
   componentWillMount() {
@@ -41,6 +44,12 @@ class Create extends React.Component {
       this.setState({
         orgs,
       });
+    });
+  }
+
+  handleAddressChange(address) {
+    this.setState({
+      currentAddress: address,
     });
   }
 
@@ -134,129 +143,156 @@ class Create extends React.Component {
     return (
     <div>
       <Header name={this.state.username}/>
-      <div className="ui container" style={{paddingTop: '85px'}}>
+      <div className="ui container" style={{paddingTop: '100px'}}>
         <div className="ui middle aligned center aligned grid">
           <div className="column" style={{maxWidth: '450px'}}>
             <h2 className="ui blue image header">
-              <div className="content">Create New Task</div>
+              <div className="content">Create new task</div>
             </h2>
 
             <div className="ui large form">
+              <div className="ui stacked segment">
 
-              <div className="field">
-                <select
-                  className="ui search dropdown"
-                  onChange={e => {this.handleOrg(e)}}
-                  >
-                  <option>Organization</option>
-                  <option>Create New Organization</option>
-                  {this.state.orgs.map(m => <option>{m}</option>)}
-                </select>
-              </div>
-
-              <div className="field">
-                <div className="ui left input">
-                  <label htmlFor="title" />
-                  <input
-                    value={this.state.title}
-                    onChange={e => {
-                      this.handleTitle(e);
-                    }}
-                    type="text"
-                    id="title"
-                    name="title"
-                    placeholder="What kind of task?"
-                    />
+                <div className="field">
+                  <select
+                    className="ui search dropdown"
+                    onChange={e => {this.handleOrg(e)}}
+                    >
+                    <option>Organization</option>
+                    <option>Create New Organization</option>
+                    {this.state.orgs.map(m => <option>{m}</option>)}
+                  </select>
                 </div>
-              </div>
 
-              <div className="field">
-                <div className="ui left input">
-                  <label htmlFor="location" />
-                  <input
-                    value={this.state.location}
-                    onChange={e => {
-                      this.handleLoc(e);
-                    }}
-                    type="text"
-                    id="location"
-                    name="location"
-                    placeholder="Location"
-                    />
+                <div className="field">
+                  <div className="ui left input">
+                    <label htmlFor="title" />
+                    <input
+                      value={this.state.title}
+                      onChange={e => {
+                        this.handleTitle(e);
+                      }}
+                      type="text"
+                      id="title"
+                      name="title"
+                      placeholder="What kind of task?"
+                      />
+                  </div>
                 </div>
-              </div>
 
-              <div className="field">
-                <style>
-                  {
-                    `.react-datepicker__time-container .react-datepicker__time .react-datepicker__time-box ul.react-datepicker__time-list {
-                      padding-left: 0;
-                      padding-right: 0;
-                      width: 100px;
-                    }
-                    .react-datepicker-wrapper {
-                      width: 100%
-                    }
-                    .react-datepicker__input-container {
-                      width: 100%
-                    }
-                    `
-                  }
-                </style>
-                <DatePicker
-                  className="ui fluid input"
-                  selected={this.state.dateAndTime}
-                  onChange={this.handleDateChange}
-                  placeholderText="Click to Select Date and Time"
-                  showTimeSelect
-                  showMonthDropdown
-                  dateFormat="LLL"
-                />
-              </div>
-
-              <div className="field">
-                <div className="ui left input">
-                  <label htmlFor="needed" />
-                  <input
-                    value={this.state.needed}
-                    onChange={e => {
-                      this.handleNeeded(e);
-                    }}
-                    type="text"
-                    id="volunteers"
-                    name="volunteers"
-                    placeholder="Volunteers Needed"
-                    />
+                <div className="field">
+                  <div className="ui left input">
+                    <label htmlFor="description" />
+                    <input
+                      value={this.state.description}
+                      onChange={e => {
+                        this.handleDesc(e);
+                      }}
+                      type="text"
+                      id="description"
+                      name="description"
+                      placeholder="Describe your task"
+                      />
+                  </div>
                 </div>
-              </div>
 
-              <div className="field">
-                <div className="ui left icon input">
-                  <label htmlFor="description" />
-                  <textarea
-                    style={{
-                      maxHeight: '170px',
-                      minHeight: '170px',
-                    }}
-                    value={this.state.description}
-                    onChange={e => {
-                      this.handleDesc(e);
-                    }}
-                    type="text"
-                    id="description"
-                    name="description"
-                    placeholder="Describe your task"
+                <div className="field">
+                  <div className="ui left input">
+                    <label htmlFor="location" />
+                    <input
+                      value={this.state.location}
+                      onChange={e => {
+                        this.handleLoc(e);
+                      }}
+                      type="text"
+                      id="location"
+                      name="location"
+                      placeholder="Location"
+                      />
+                  </div>
+                </div>
+
+                <div className="field">
+                  <div className="ui left input">
+                    <label htmlFor="location" />
+                      <style>
+                        {
+                          `.react-datepicker-wrapper {
+                            width: 100%
+                          }
+                          .react-datepicker__input-container {
+                            width: 100%
+                          }
+                          `
+                        }
+                      </style>
+                      <PlacesAutocomplete
+                        inputProps={{
+                          value: this.state.currentAddress,
+                          onChange: this.handleAddressChange
+                        }}
+                      />
+                  </div>
+                </div>
+
+                <div className="field">
+                  <style>
+                    {
+                      `.react-datepicker__time-container .react-datepicker__time .react-datepicker__time-box ul.react-datepicker__time-list {
+                        padding-left: 0;
+                        padding-right: 0;
+                        width: 80px;
+                      }
+                      .react-datepicker-wrapper {
+                        width: 100%
+                      }
+                      .react-datepicker__input-container {
+                        width: 100%
+                      }
+                      `
+                    }
+                  </style>
+                  <DatePicker
+                    className="ui fluid input"
+                    selected={this.state.dateTime}
+                    onChange={this.handleDateChange}
+                    placeholderText="Click to Select Date and Time"
+                    showTimeSelect
+                    showMonthDropdown
+                    dateFormat="LLL"
                   />
                 </div>
-              </div>
 
-              <button
-                onClick={() => {
-                  this.handleCreate();
-                }}
-                className="ui fluid large blue submit button">
-                Create
-              </button>
+                <div className="field">
+                  <div className="ui left input">
+                    <label htmlFor="needed" />
+                    <input
+                      value={this.state.needed}
+                      onChange={e => {
+                        this.handleNeeded(e);
+                      }}
+                      type="text"
+                      id="volunteers"
+                      name="volunteers"
+                      placeholder="Volunteers Needed"
+                      />
+                  </div>
+                </div>
+
+                <button
+                  onClick={() => {
+                    this.handleCreate();
+                  }}
+                  className="ui fluid large blue submit button">
+                  Create
+                </button>
+              </div>
+            </div>
+
+            <div className="ui message">
+              <Link className="ui fluid large blue submit button" to="/">
+                Back to the main page!
+              </Link>
             </div>
           </div>
         </div>
