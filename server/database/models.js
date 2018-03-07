@@ -6,7 +6,7 @@ const User = db.define('Users', {
     username: Sequelize.STRING,
     password: Sequelize.STRING
 });
-
+//
 const Organization = db.define('Organizations', {
     username: Sequelize.STRING,
     password: Sequelize.STRING,
@@ -32,7 +32,8 @@ const Task = db.define('Tasks', {
     longitude: Sequelize.FLOAT,
     location: Sequelize.STRING,
     needed: Sequelize.INTEGER,
-    volunteers: Sequelize.INTEGER
+    volunteers: Sequelize.INTEGER,
+    completed: {type: Sequelize.BOOLEAN, allowNull: false, defaultValue: false}
 })
 
 // Task.belongsTo(User)
@@ -40,7 +41,8 @@ const Task = db.define('Tasks', {
 
 const UserTasks = db.define('userTasks', {
     UserId: Sequelize.STRING,
-    TaskId: Sequelize.STRING
+    TaskId: Sequelize.STRING,
+    completed: {type: Sequelize.BOOLEAN, allowNull: false, defaultValue: false}
 });
 
 
@@ -70,14 +72,6 @@ db.sync({force: true}).then(()=>{
     Task.create({date: '3/1/2018', title: 'Mail Sorting', description:'Route internal and external correspondence from the mailroom of our charter location in the heart of New York City.', organization: 'Human Rights Watch', time: '3:00pm', latitude: 40.748563, longitude: -73.985746, location: '350 5th Ave #34, New York, NY 10118', needed: 10, volunteers: 0})
     Task.create({date: '3/1/2018', title: 'Event Usher', description:'Seat participants and field questions from guests at our annual fundraising drive.', time: '4:00pm', organization: 'NYCares', latitude: 40.748104, longitude: -73.993922, location: '214 W 29th St, New York, NY 10001', needed: 10, volunteers: 0})
 
-    UserTasks.create({UserId:'1', TaskId: '3'})
-    UserTasks.create({UserId:'1', TaskId: '4'})
-    UserTasks.create({UserId:'3', TaskId: '4'})
-    UserTasks.create({UserId:'3', TaskId: '5'})
-    UserTasks.create({UserId:'1', TaskId: '5'})
-
-    UserTasks.create({UserId:'2', TaskId: '1'})
-    UserTasks.create({UserId:'2', TaskId: '2'})
 
     UserOrg.create({userId: '6', orgId: '1'});
     UserOrg.create({userId: '6', orgId: '6'});

@@ -7,6 +7,7 @@ const {User, Task, UserTasks, Organization, UserOrg} = require('./database/model
 const session = require('express-session');
 
 let app = express();
+//
 
 app.use(
   session({
@@ -143,6 +144,7 @@ app.get('/users/:username', function(req, res) {
     UserTasks.findAll({
       where: {
         UserId: data.dataValues.id,
+        completed: false
       },
     }).then(data => {
       // data is array of objects with property each 'TaskId'
@@ -158,7 +160,11 @@ app.get('/users/:username', function(req, res) {
 
 // Returns all tasks from the database.
 app.get('/tasks', function(req, res) {
-  Task.all().then(results => {
+  Task.all({
+    where: {
+      completed: false
+    }
+  }).then(results => {
     res.send(results);
   });
 });
@@ -287,9 +293,34 @@ app.post('/tasks/:taskId/delete', function(req, res) {
       id: TaskID
     }
   }).then(task => {
+    console.log('this is task', task)
     task.destroy()
   }).then(() => {
     res.send('DELETED');
+  })
+})
+
+app.post('/tasks/:taskId/complete', function(req, res) {
+  var TaskID = req.params.taskId.toString();
+  Task.find({
+    where: {
+      id: TaskID
+    }
+  }).then(task => {
+    console.log('\n----this is task----\n', task.dataValues)
+    task.completed = 1;
+    task.save();
+  }).then(() => {
+    UserTasks.find({
+      where: {
+        taskId: TaskID
+      }
+    }).then(utask => {
+      utask.completed = 1;
+      utask.save();
+    })
+  }).then(() => {
+    res.send('Completed')
   })
 })
 
@@ -353,7 +384,8 @@ app.get('/orgs/tasks/:orgname', function(req, res) {
 app.get('/orgs/:orgname', function(req, res) {
   Organization.find({
     where: {
-      name: req.params.orgname
+      name: req.params.orgname,
+      complete: false
     }
   }).then(data => {
     console.log('dattatatatattata', data);
