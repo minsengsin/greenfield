@@ -23,16 +23,16 @@ const UserOrg = db.define('UserOrg', {
 });
 
 const Task = db.define('Tasks', {
+    organization: Sequelize.STRING,
     title: Sequelize.STRING,
     description: Sequelize.STRING(1234),
-    organization: Sequelize.STRING,
+    location: Sequelize.STRING,
     latitude: Sequelize.FLOAT,
     longitude: Sequelize.FLOAT,
-    location: Sequelize.STRING,
+    dateTime: Sequelize.DATE,
     needed: Sequelize.INTEGER,
     volunteers: Sequelize.INTEGER,
     completed: {type: Sequelize.BOOLEAN, allowNull: false, defaultValue: false},
-    dateTime: Sequelize.DATE,
 })
 
 // Task.belongsTo(User)
