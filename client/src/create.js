@@ -5,7 +5,7 @@ import Header from './Header.js';
 import axios from 'axios';
 import DatePicker from 'react-datepicker';
 import moment from 'moment';
-import PlacesAutocomplete from 'react-places-autocomplete';
+import PlacesAutocomplete, { geocodeByAddress, getLatLng } from 'react-places-autocomplete';
 
 import 'react-datepicker/dist/react-datepicker.css';
 
@@ -14,27 +14,24 @@ class Create extends React.Component {
     super(props);
 
     this.state = {
-      time: '',
+      username: this.props.match.params.username,
+      orgs: [],
       organization: '',
-      date: '',
-      location: '',
       title: '',
       description: '',
-      needed: '',
-      orgs: [],
-      username: this.props.match.params.username,
+      currentAddress: null,
+      currentAddressLat: null,
+      currentAddressLng: null,
       dateTime: null,
-      currentAddress: 'New York, NY',
+      needed: '',
     };
     this.handleDateChange = this.handleDateChange.bind(this);
-    this.handleTime = this.handleTime.bind(this);
     this.handleOrg = this.handleOrg.bind(this);
-    this.handleDate = this.handleDate.bind(this);
     this.handleDesc = this.handleDesc.bind(this);
     this.handleTitle = this.handleTitle.bind(this);
-    this.handleLoc = this.handleLoc.bind(this);
     this.handleCreate = this.handleCreate.bind(this);
     this.handleAddressChange = this.handleAddressChange.bind(this);
+    this.handleNeeded = this.handleNeeded.bind(this);
   }
 
   componentWillMount() {
@@ -62,21 +59,17 @@ class Create extends React.Component {
   }
 
   handleCreate() {
-    const queryString = `https://maps.googleapis.com/maps/api/geocode/json?address=${this.state.location}&key=AIzaSyBH-6-MO2reXrAZ4fDQuzkOghyIBPkLyhE`;
-    // const queryString = 'https://maps.googleapis.com/maps/api/geocode/json?address=1600+Amphitheatre+Parkway,+Mountain+View,+CA&key=AIzaSyBH-6-MO2reXrAZ4fDQuzkOghyIBPkLyhE'
-    console.log('this is the queryString: ', queryString);
-    axios.get(queryString)
-      .then((res) => {
+    geocodeByAddress(this.state.currentAddress)
+      .then(results => getLatLng(results[0]))
+      .then(({ lat, lng }) => {
         axios.post('/tasks', {
-          time: this.state.time,
           organization: this.state.organization,
-          date: this.state.date,
-          location: this.state.location,
+          location: this.state.currentAddress,
           title: this.state.title,
           description: this.state.description,
           needed: this.state.needed,
-          latitude: res.data.results[0].geometry.location.lat,
-          longitude: res.data.results[0].geometry.location.lng,
+          latitude: lat,
+          longitude: lng,
           dateTime: this.state.dateTime.format('YYYY-MM-DD HH:mm'),
         })
           .then(() => {
@@ -92,11 +85,11 @@ class Create extends React.Component {
   // During Solo Week I learned how to handle simple form/state updates with
   // arrow functions. I'll leave that up to the inheriter of this code to
   // figure out.
-  handleTime(e) {
-    this.setState({
-      time: e.target.value,
-    });
-  }
+  // handleTime(e) {
+  //   this.setState({
+  //     time: e.target.value,
+  //   });
+  // }
 
   handleOrg(e) {
     if(e.target.selectedIndex > 1){
@@ -108,12 +101,6 @@ class Create extends React.Component {
     }
   }
 
-  handleDate(e) {
-    this.setState({
-      date: e.target.value,
-    });
-  }
-
   handleDesc(e) {
     this.setState({
       description: e.target.value,
@@ -123,12 +110,6 @@ class Create extends React.Component {
   handleTitle(e) {
     this.setState({
       title: e.target.value,
-    });
-  }
-
-  handleLoc(e) {
-    this.setState({
-      location: e.target.value,
     });
   }
 
@@ -169,53 +150,38 @@ class Create extends React.Component {
                       <label htmlFor="title" />
                       <input
                         value={this.state.title}
-                        onChange={e => {
-                          this.handleTitle(e);
-                        }}
+                        onChange={e => {this.handleTitle(e)}}
                         type="text"
                         id="title"
                         name="title"
-                        placeholder="What kind of task?"
+                        placeholder="Title"
                         />
                     </div>
                   </div>
 
                   <div className="field">
-                    <div className="ui left input">
+                    <div
+                      className="ui left input"
+                      style={{zIndex: 1}}
+                    >
                       <label htmlFor="location" />
-                      <input
-                        value={this.state.location}
-                        onChange={e => {
-                          this.handleLoc(e);
-                        }}
-                        type="text"
-                        id="location"
-                        name="location"
-                        placeholder="Location"
-                        />
-                    </div>
-                  </div>
-
-                  <div className="field">
-                    <div className="ui left input">
-                      <label htmlFor="location" />
-                        <style>
-                          {
-                            `.react-datepicker-wrapper {
-                              width: 100%
-                            }
-                            .react-datepicker__input-container {
-                              width: 100%
-                            }
-                            `
+                      <style>
+                        {
+                          `#PlacesAutocomplete__root {
+                            width: 100%;
+                            text-align: left;
                           }
-                        </style>
-                        <PlacesAutocomplete
-                          inputProps={{
-                            value: this.state.currentAddress,
-                            onChange: this.handleAddressChange
-                          }}
-                        />
+                          `
+                        }
+                      </style>
+                      <PlacesAutocomplete
+                        inputProps={{
+                          value: this.state.currentAddress,
+                          onChange: this.handleAddressChange,
+                          placeholder: 'Search Places...',
+                          debounce: '100',
+                        }}
+                      />
                     </div>
                   </div>
 
@@ -297,41 +263,3 @@ class Create extends React.Component {
 }
 
 export default Create;
-
-// axios.get('https://maps.googleapis.com/maps/api/geocode/json?address=1600+Amphitheatre+Parkway,+Mountain+View,+CA&key=AIzaSyBH-6-MO2reXrAZ4fDQuzkOghyIBPkLyhE')
-//   .then((res) => {
-//     console.log('this is the latitude: ', res.data.results[0].geometry.location.lat);
-//     console.log('this is the longitude: ', res.data.results[0].geometry.location.lng);
-//   })
-
-// <div className="field">
-//   <div className="ui left icon input">
-//     <label htmlFor="date" />
-//     <input
-//       value={this.state.date}
-//       onChange={e => {
-//         this.handleDate(e);
-//       }}
-//       type="text"
-//       id="date"
-//       name="date"
-//       placeholder="Date? (YYYY-MM-DD)"
-//       />
-//   </div>
-// </div>
-//
-// <div className="field">
-//   <div className="ui left icon input">
-//     <label htmlFor="time" />
-//     <input
-//       value={this.state.time}
-//       onChange={e => {
-//         this.handleTime(e);
-//       }}
-//       type="text"
-//       id="time"
-//       name="time"
-//       placeholder="Event Time?"
-//       />
-//   </div>
-// </div>
