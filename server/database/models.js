@@ -23,17 +23,16 @@ const UserOrg = db.define('UserOrg', {
 });
 
 const Task = db.define('Tasks', {
-    date: Sequelize.STRING,
     title: Sequelize.STRING,
     description: Sequelize.STRING(1234),
     organization: Sequelize.STRING,
-    time: Sequelize.STRING,
     latitude: Sequelize.FLOAT,
     longitude: Sequelize.FLOAT,
     location: Sequelize.STRING,
     needed: Sequelize.INTEGER,
     volunteers: Sequelize.INTEGER,
-    completed: {type: Sequelize.BOOLEAN, allowNull: false, defaultValue: false}
+    completed: {type: Sequelize.BOOLEAN, allowNull: false, defaultValue: false},
+    dateTime: Sequelize.DATE,
 })
 
 // Task.belongsTo(User)
@@ -44,10 +43,6 @@ const UserTasks = db.define('userTasks', {
     TaskId: Sequelize.STRING,
     completed: {type: Sequelize.BOOLEAN, allowNull: false, defaultValue: false}
 });
-
-
-
-
 
 db.sync({force: true}).then(()=>{
     User.create({username: 'FredVolunteer', password: 'Fred'});
@@ -65,18 +60,16 @@ db.sync({force: true}).then(()=>{
     Organization.create({username: 'rory', password: 'eagan', name: 'rory fund', bio: 'we donate money to rory', site: 'roryeagan.com', location: 'Rorys house', contact: 'call rory'});
     Organization.create({username: 'bob', password: 'jones', name: 'bob fund', bio: 'we donate money to bob', site: 'bobjones.com', location: 'bobs house', contact: 'call bob'});
 
-
-    Task.create({date: '3/1/2018', title: 'Processing Donations', description:'Accepting physical donations of clothes, dry goods, and housewares, sorting each one for future examination and pricing by our management staff.', organization: 'Salvation Army', time: '12:00pm', latitude: 40.743695, longitude: -73.999210, location: '208 8th Ave, New York, NY 10011', needed: 10, volunteers: 0})
-    Task.create({date: '3/1/2018', title: 'Answering Phones', description:'Serving at our inbound call center to answer questions, field press inquiries, and route donations to the lines of our paid staffers.', organization: 'GLAAD', time: '1:00pm', latitude: 40.746743, longitude: -73.990767, location: '104 W 29th St #4, New York, NY 10001', needed: 10, volunteers: 0})
-    Task.create({date: '3/1/2018', title: 'Canvassing', description:'Door-to-door fundraising and brand-building in pre-confirmed target neighborhoods throughout each of the five boroughs.', organization: 'International Womens Health Coalition', time: '2:00pm', latitude: 40.747449, longitude: -73.992823, location: '333 7th Ave #601, New York, NY 10001', needed: 10, volunteers: 0})
-    Task.create({date: '3/1/2018', title: 'Mail Sorting', description:'Route internal and external correspondence from the mailroom of our charter location in the heart of New York City.', organization: 'Human Rights Watch', time: '3:00pm', latitude: 40.748563, longitude: -73.985746, location: '350 5th Ave #34, New York, NY 10118', needed: 10, volunteers: 0})
-    Task.create({date: '3/1/2018', title: 'Event Usher', description:'Seat participants and field questions from guests at our annual fundraising drive.', time: '4:00pm', organization: 'NYCares', latitude: 40.748104, longitude: -73.993922, location: '214 W 29th St, New York, NY 10001', needed: 10, volunteers: 0})
+    Task.create({title: 'Processing Donations', description:'Accepting physical donations of clothes, dry goods, and housewares, sorting each one for future examination and pricing by our management staff.', organization: 'Salvation Army', latitude: 40.743695, longitude: -73.999210, location: '208 8th Ave, New York, NY 10011', needed: 10, volunteers: 0, dateTime: '03-01-2018 12:00'})
+    Task.create({title: 'Answering Phones', description:'Serving at our inbound call center to answer questions, field press inquiries, and route donations to the lines of our paid staffers.', organization: 'GLAAD', latitude: 40.746743, longitude: -73.990767, location: '104 W 29th St #4, New York, NY 10001', needed: 10, volunteers: 0, dateTime: '03-02-2018 13:00'})
+    Task.create({title: 'Canvassing', description:'Door-to-door fundraising and brand-building in pre-confirmed target neighborhoods throughout each of the five boroughs.', organization: 'International Womens Health Coalition', latitude: 40.747449, longitude: -73.992823, location: '333 7th Ave #601, New York, NY 10001', needed: 10, volunteers: 0, dateTime: '03-03-2018 14:00'})
+    Task.create({title: 'Mail Sorting', description:'Route internal and external correspondence from the mailroom of our charter location in the heart of New York City.', organization: 'Human Rights Watch', latitude: 40.748563, longitude: -73.985746, location: '350 5th Ave #34, New York, NY 10118', needed: 10, volunteers: 0, dateTime: '03-04-2018 15:00'})
+    Task.create({title: 'Event Usher', description:'Seat participants and field questions from guests at our annual fundraising drive.', organization: 'NYCares', latitude: 40.748104, longitude: -73.993922, location: '214 W 29th St, New York, NY 10001', needed: 10, volunteers: 0, dateTime: '03-06-2018 17:00'})
 
 
     UserOrg.create({userId: '6', orgId: '1'});
     UserOrg.create({userId: '6', orgId: '6'});
     UserOrg.create({userId: '6', orgId: '7'});
-
  });
 
  exports.User = User;
