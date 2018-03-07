@@ -446,7 +446,9 @@ app.post('/orgs/join', function(req, res) {
     Organization.find({
       attributes: ['id'],
       where: {
-        name: req.body.name
+        name: req.body.name,
+        username: req.body.orgUsername,
+        password: req.body.password,
       }
     }).then(data2 => {
       console.log('data2222222:', data2);
