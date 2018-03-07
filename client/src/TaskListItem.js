@@ -25,17 +25,21 @@ const TaskListItem = props => (
         </div>
       </div>
       <div className="extra content">
-          <div>
-            <span>{props.task.volunteers}/{props.task.needed}</span>
-          </div>
-        <div className="right floated author">
+          <span>
+            <span>Volunteers: {props.task.volunteers}/{props.task.needed}</span>
+            <br />
+            <span>Location: {props.task.location}</span>
+            <br />
+            <span>Date: {props.task.dateTime.slice(0,10) + ' ' + props.task.dateTime.slice(11,16)}</span>
+          </span>
+        <span className="right floated author">
           <Link to={{
             pathname: `/orgs/${props.task.organization}`,
             username: props.username,
           }}>
             <span>{props.task.organization}</span>
           </Link>
-        </div>
+        </span>
       </div>
     </div>
   </div>
