@@ -19,6 +19,7 @@ class TaskDetails extends React.Component {
     this.acceptTask = this.acceptTask.bind(this);
     this.rejectTask = this.rejectTask.bind(this);
     this.deleteTask = this.deleteTask.bind(this);
+    this.completeTask = this.completeTask.bind(this);
   }
 //
   componentDidMount() {
@@ -76,15 +77,31 @@ class TaskDetails extends React.Component {
         this.props.history.push('/');
       });
   }
+  ////////
 
   deleteTask() {
     axios.post(`/tasks/${this.state.taskId}/delete`, {username: Auth.username})
+    .then(() => {
+      axios.post(`/tasks/${this.state.taskId}/reject`, {username: Auth.username})
+    })
     .then(() => {
       this.displayDeleteResult(true);
     })
     .then(() => {
       this.props.history.push('/');
     })
+  }
+
+  completeTask() {
+    console.log('completed being called');
+    axios.post(`/tasks/${this.state.taskId}/complete`, {username: Auth.username})
+    .then(() => {
+      this.displayDeleteResult(false);
+    })
+    .then(() => {
+      this.props.history.goBack();
+    })
+    //complete task here
   }
 
   render() {
@@ -122,14 +139,22 @@ class TaskDetails extends React.Component {
                     </button>
                   </div>
                 </div>
-                {this.state.showDelete ?
+                {this.state.showDelete
+                  ?
                   <div className="ui center aligned attached segment">
-                    <div className="ui negative buttons">
-                      <button onClick={this.deleteTask} className="ui button">
+                    <div className="ui buttons">
+                      <button onClick={this.deleteTask} className="ui negative button">
                         Delete
                       </button>
+                      <div className="or" />
+                      <button
+                        onClick={this.completeTask}
+                        className="ui positive button">
+                        Complete
+                      </button>
                     </div>
-                  </div> : ''}
+                  </div>
+                  : ''}
               </div>
             </div>
           </div>
