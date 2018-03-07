@@ -380,6 +380,37 @@ app.get('/orgs/user/:username', function(req, res) {
   });
 });
 
+app.get('/orgs/user/:username/not', function(req, res) {
+  User.find({
+    where: {
+      username: req.params.username
+    }
+  }).then(data => {
+    UserOrg.findAll({
+      attributes: ['orgId'],
+      where: {
+        userId: {
+          [Op.not]: data.id
+        }
+      }
+    }).then(data2 => {
+      Organization.findAll({
+        where: {
+          id: {
+            [Op.in]: data2.map(x => x.orgId)
+          }
+        }
+      }).then(final => {
+        res.send(final);
+      }).catch(err => {
+        console.log('here is the error 2',err);
+      });
+    }).catch(err => {
+      console.log('here is the error 1',err);
+    });
+  });
+});
+
 app.get('/orgs/tasks/:orgname', function(req, res) {
   Task.findAll({
     where: {
@@ -399,10 +430,33 @@ app.get('/orgs/:orgname', function(req, res) {
       complete: false
     }
   }).then(data => {
-    console.log('dattatatatattata', data);
     res.send(data);
   }).catch(err => {
     console.log('here is the error 1',err);
+  });
+});
+
+app.post('/orgs/join', function(req, res) {
+  console.log('JJJJJOOOOOOIIIINNNN');
+  User.find({
+    attributes: ['id'],
+    where: {
+      username: req.body.username
+    }
+  }).then(data => {
+    Organization.find({
+      attributes: ['id'],
+      where: {
+        name: req.body.name
+      }
+    }).then(data2 => {
+      console.log('data2222222:', data2);
+      UserOrg.create({userId: data.id, orgId: data2.id}).then(() => {
+        res.send('success');
+      }).catch((err) => console.log('ererererererer',err));
+    }).catch(err => {
+      console.log('here is the error 1',err);
+    });
   });
 });
 
