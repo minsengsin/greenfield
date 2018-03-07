@@ -144,7 +144,6 @@ app.get('/users/:username', function(req, res) {
     UserTasks.findAll({
       where: {
         UserId: data.dataValues.id,
-        completed: false
       },
     }).then(data => {
       // data is array of objects with property each 'TaskId'
@@ -160,14 +159,12 @@ app.get('/users/:username', function(req, res) {
 
 // Returns all tasks from the database.
 app.get('/tasks', function(req, res) {
-  Task.all({
-    where: {
-      completed: false
-    }
-  }).then(results => {
+  Task.all().then(results => {
     res.send(results);
   });
 });
+
+
 
 // Expects JSON containing all information necessary to create and
 // save a new task object to the database.

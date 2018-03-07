@@ -9,6 +9,7 @@ class Profile extends React.Component {
     super(props);
     this.state = {
       tasks: [],
+      cTasks: [],
       orgs: [],
       notOrgs: [],
       join: false,
@@ -34,9 +35,13 @@ class Profile extends React.Component {
         var Tasks = [];
         arrayOfTasks.map(task => Tasks.push(task.data));
         console.log('----TASKS---- ', Tasks);
+
+        // Tasks//
+
         this.setState({
-          tasks: Tasks,
-        });
+          tasks: Tasks.filter(t => t.completed === false),
+          cTasks: Tasks.filter(a => a.completed === true)
+        }, () => console.log('\n----alalalal----\n',this.state));
       });
     });
 
@@ -103,7 +108,7 @@ class Profile extends React.Component {
       <div>
         <Header name={this.props.match.params.username}/>
         <div className="ui container" style={{paddingTop: '100px'}}>
-          <div className="ui two column center aligned stackable grid">
+          <div className="ui three column center aligned stackable grid">
             <div className="row">
               <div className="twelve wide column">
                 <div className="ui segment">
@@ -181,7 +186,7 @@ class Profile extends React.Component {
                             />
                         </div>
                       </div>
-  
+
                       <button
                         onClick={() => {
                           this.handleJoin();
@@ -201,6 +206,14 @@ class Profile extends React.Component {
                     <h1 className="ui center aligned header grey">Accepted Tasks</h1>
                   </div>
                   <TaskList tasks={this.state.tasks} username={this.props.match.params.username} />
+                </div>
+              </div>
+              <div className="six wide column" style={{maxWidth: '350px'}}>
+                <div>
+                  <div className="ui message">
+                    <h1 className="ui center aligned header grey">Completed Tasks</h1>
+                  </div>
+                  <TaskList tasks={this.state.cTasks} username={this.props.match.params.username} />
                 </div>
               </div>
             </div>
