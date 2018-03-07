@@ -3,6 +3,10 @@ import {Link, Redirect} from 'react-router-dom';
 import './signup.css';
 import Header from './Header.js';
 import axios from 'axios';
+import DatePicker from 'react-datepicker';
+import moment from 'moment';
+
+import 'react-datepicker/dist/react-datepicker.css';
 
 class Create extends React.Component {
   constructor(props) {
@@ -17,8 +21,10 @@ class Create extends React.Component {
       description: '',
       needed: '',
       orgs: [],
-      username: this.props.match.params.username
+      username: this.props.match.params.username,
+      startDate: moment(),
     };
+    this.handleDateChange = this.handleDateChange.bind(this);
     this.handleTime = this.handleTime.bind(this);
     this.handleOrg = this.handleOrg.bind(this);
     this.handleDate = this.handleDate.bind(this);
@@ -35,6 +41,12 @@ class Create extends React.Component {
       this.setState({
         orgs,
       });
+    });
+  }
+
+  handleDateChange(date) {
+    this.setState({
+      startDate: date,
     });
   }
 
@@ -140,6 +152,33 @@ class Create extends React.Component {
                     <option>Create New Organization</option>
                     {this.state.orgs.map(m => <option>{m}</option>)}
                   </select>
+                </div>
+
+                <div className="field">
+                    <style>
+                      {
+                        `.react-datepicker__time-container .react-datepicker__time .react-datepicker__time-box ul.react-datepicker__time-list {
+                          padding-left: 0;
+                          padding-right: 0;
+                          width: 100px;
+                        }
+                        .react-datepicker-wrapper {
+                          width: 100%
+                        }
+                        .react-datepicker__input-container {
+                          width: 100%
+                        }
+                        `
+                    }
+                    </style>
+                    <DatePicker
+                      className="ui fluid input"
+                      selected={this.state.startDate}
+                      onChange={this.handleDateChange}
+                      showTimeSelect
+                      dateFormat="LLL"
+                    />
+
                 </div>
 
                 <div className="field">
