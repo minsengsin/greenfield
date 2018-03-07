@@ -51,9 +51,9 @@ class Create extends React.Component {
           location: this.state.location,
           title: this.state.title,
           description: this.state.description,
-          needed: this.state.needed
-          // latitude: res.data.results[0].geometry.location.lat,
-          // longitude: res.data.results[0].geometry.location.lng,
+          needed: this.state.needed,
+          latitude: res.data.results[0].geometry.location.lat,
+          longitude: res.data.results[0].geometry.location.lng,
         })
           .then(() => {
             this.props.history.push('/');
@@ -128,120 +128,124 @@ class Create extends React.Component {
               <div className="content">Create new task</div>
             </h2>
 
-            <div className="ui stacked segment">
-              <div className="field">
-                <select
-                  className="ui search dropdown"
-                  onChange={e => {this.handleOrg(e)}}
-                >
-                  <option>Organization</option>
-                  <option>Create New Organization</option>
-                  {this.state.orgs.map(m => <option>{m}</option>)}
-                </select>
-              </div>
-              <div className="field">
-                <div className="ui left icon input">
-                  <label htmlFor="title" />
-                  <input
-                    value={this.state.title}
-                    onChange={e => {
-                      this.handleTitle(e);
-                    }}
-                    type="text"
-                    id="title"
-                    name="title"
-                    placeholder="What kind of task?"
-                  />
-                </div>
-              </div>
+            <div className="ui large form">
+              <div className="ui stacked segment">
 
-              <div className="field">
-                <div className="ui left icon input">
-                  <label htmlFor="description" />
-                  <input
-                    value={this.state.description}
-                    onChange={e => {
-                      this.handleDesc(e);
-                    }}
-                    type="text"
-                    id="description"
-                    name="description"
-                    placeholder="Describe your task"
-                  />
+                <div className="field">
+                  <select
+                    className="ui search dropdown"
+                    onChange={e => {this.handleOrg(e)}}
+                    >
+                    <option>Organization</option>
+                    <option>Create New Organization</option>
+                    {this.state.orgs.map(m => <option>{m}</option>)}
+                  </select>
                 </div>
-              </div>
 
-              <div className="field">
-                <div className="ui left icon input">
-                  <label htmlFor="location" />
-                  <input
-                    value={this.state.location}
-                    onChange={e => {
-                      this.handleLoc(e);
-                    }}
-                    type="text"
-                    id="location"
-                    name="location"
-                    placeholder="Location"
-                  />
+                <div className="field">
+                  <div className="ui left icon input">
+                    <label htmlFor="title" />
+                    <input
+                      value={this.state.title}
+                      onChange={e => {
+                        this.handleTitle(e);
+                      }}
+                      type="text"
+                      id="title"
+                      name="title"
+                      placeholder="What kind of task?"
+                      />
+                  </div>
                 </div>
-              </div>
 
-              <div className="field">
-                <div className="ui left icon input">
-                  <label htmlFor="date" />
-                  <input
-                    value={this.state.date}
-                    onChange={e => {
-                      this.handleDate(e);
-                    }}
-                    type="text"
-                    id="date"
-                    name="date"
-                    placeholder="Date? (YYYY-MM-DD)"
-                  />
+                <div className="field">
+                  <div className="ui left icon input">
+                    <label htmlFor="description" />
+                    <input
+                      value={this.state.description}
+                      onChange={e => {
+                        this.handleDesc(e);
+                      }}
+                      type="text"
+                      id="description"
+                      name="description"
+                      placeholder="Describe your task"
+                      />
+                  </div>
                 </div>
-              </div>
 
-              <div className="field">
-                <div className="ui left icon input">
-                  <label htmlFor="time" />
-                  <input
-                    value={this.state.time}
-                    onChange={e => {
-                      this.handleTime(e);
-                    }}
-                    type="text"
-                    id="time"
-                    name="time"
-                    placeholder="Event Time?"
-                  />
+                <div className="field">
+                  <div className="ui left icon input">
+                    <label htmlFor="location" />
+                    <input
+                      value={this.state.location}
+                      onChange={e => {
+                        this.handleLoc(e);
+                      }}
+                      type="text"
+                      id="location"
+                      name="location"
+                      placeholder="Location"
+                      />
+                  </div>
                 </div>
-              </div>
 
-              <div className="field">
-                <div className="ui left icon input">
-                  <label htmlFor="needed" />
-                  <input
-                    value={this.state.needed}
-                    onChange={e => {
-                      this.handleNeeded(e);
-                    }}
-                    type="text"
-                    id="volunteers"
-                    name="volunteers"
-                    placeholder="Volunteers Needed"
-                  />
+                <div className="field">
+                  <div className="ui left icon input">
+                    <label htmlFor="date" />
+                    <input
+                      value={this.state.date}
+                      onChange={e => {
+                        this.handleDate(e);
+                      }}
+                      type="text"
+                      id="date"
+                      name="date"
+                      placeholder="Date? (YYYY-MM-DD)"
+                      />
+                  </div>
                 </div>
-              </div>
 
-              <button
-                onClick={() => {
-                  this.handleCreate();
-                }}
-                className="ui fluid large blue submit button">
-                Create
-              </button>
+                <div className="field">
+                  <div className="ui left icon input">
+                    <label htmlFor="time" />
+                    <input
+                      value={this.state.time}
+                      onChange={e => {
+                        this.handleTime(e);
+                      }}
+                      type="text"
+                      id="time"
+                      name="time"
+                      placeholder="Event Time?"
+                      />
+                  </div>
+                </div>
+
+                <div className="field">
+                  <div className="ui left icon input">
+                    <label htmlFor="needed" />
+                    <input
+                      value={this.state.needed}
+                      onChange={e => {
+                        this.handleNeeded(e);
+                      }}
+                      type="text"
+                      id="volunteers"
+                      name="volunteers"
+                      placeholder="Volunteers Needed"
+                      />
+                  </div>
+                </div>
+
+                <button
+                  onClick={() => {
+                    this.handleCreate();
+                  }}
+                  className="ui fluid large blue submit button">
+                  Create
+                </button>
+              </div>
             </div>
 
             <div className="ui message">
