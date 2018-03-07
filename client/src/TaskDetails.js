@@ -121,14 +121,22 @@ class TaskDetails extends React.Component {
                     </button>
                   </div>
                 </div>
-                {this.state.showDelete ?
+                {this.state.showDelete
+                  ?
                   <div className="ui center aligned attached segment">
-                    <div className="ui negative buttons">
-                      <button onClick={this.deleteTask} className="ui button">
+                    <div className="ui buttons">
+                      <button onClick={this.deleteTask} className="ui negative button">
                         Delete
                       </button>
+                      <div className="or" />
+                      <button
+                        onClick={this.deleteTask}
+                        className="ui positive button">
+                        Complete
+                      </button>
                     </div>
-                  </div> : ''}
+                  </div>
+                  : ''}
               </div>
             </div>
           </div>
