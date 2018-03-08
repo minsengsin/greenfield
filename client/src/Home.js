@@ -87,7 +87,7 @@ class Home extends React.Component {
               <div style={{ transform: 'scaleX(-1)' }}>
                 <TaskList
                   username={this.state.username}
-                  tasks={this.state.tasks}
+                  tasks={taskList}
                   selectLocation={this.selectLocation}
                 />
               </div>
