@@ -143,7 +143,7 @@ app.get('/users/:username', function(req, res) {
     //data is object of that user with 'id' key
     UserTasks.findAll({
       where: {
-        UserId: data.dataValues.id,
+        UserId: data.dataValues.id,//
       },
     }).then(data => {
       // data is array of objects with property each 'TaskId'
