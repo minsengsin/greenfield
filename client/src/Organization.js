@@ -90,7 +90,7 @@ class Organization extends React.Component {
                 <div className="six wide column" style={{maxWidth: '350px'}}>
                   <div>
                     <div className="ui message">
-                      <h1 className="ui center aligned header grey">Favorite List</h1>
+                      <h1 className="ui center aligned header grey">Completed List</h1>
                     </div>
                     <TaskList tasks={cTaskList} username={this.state.username} />
                   </div>
