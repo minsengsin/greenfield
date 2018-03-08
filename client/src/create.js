@@ -128,7 +128,7 @@ class Create extends React.Component {
           <div className="ui middle aligned center aligned grid">
             <div className="column" style={{maxWidth: '450px'}}>
               <h2 className="ui blue image header">
-                <div className="content">Create new task</div>
+                <div className="content">Create New Task</div>
               </h2>
 
               <div className="ui large form">
