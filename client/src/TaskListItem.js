@@ -42,7 +42,12 @@ const TaskListItem = props => {
             <span>
               <span>When: {moment(props.task.dateTime.slice(0,16)).format('ddd MMM Do, YYYY') + ' at ' + moment(props.task.dateTime.slice(0,16)).format('h:mm a')}</span>
               <br />
-              <span>Where: {props.task.location}</span>
+              <span
+                onClick={() => props.selectLocation({lat: props.task.latitude, lng: props.task.longitude})}
+                className="location"
+              >
+                Where: {props.task.location}
+              </span>
               <br />
               <span style={style}>Volunteers: {props.task.volunteers}/{props.task.needed}</span>
             </span>
