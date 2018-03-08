@@ -39,14 +39,18 @@ class Organization extends React.Component {
       });
     });
   }
-
+////
   render() {
-    console.log(this.state.username);
+    var cTaskList = this.state.tasks.slice();
+    cTaskList = cTaskList.filter(t=>t.completed ===true);
+    var taskList = this.state.tasks.slice();
+    taskList = taskList.filter(f=>f.completed === false);
+    console.log('this is tasklist inside org.js', taskList)
     return (
       <div>
         <Header name={this.state.username}/>
         <div className="ui container" style={{paddingTop: '100px'}}>
-          <div className="ui two column center aligned stackable grid">
+          <div className="ui three column center aligned stackable grid">
             <div className="row">
               <div className="twelve wide column">
                 <div className="ui segment">
@@ -73,16 +77,27 @@ class Organization extends React.Component {
                   <p>Location: {this.state.location}</p>
                 </div>
               </div>
-              <div className="six wide column" style={{maxWidth: '350px'}}>
                 {this.state.tasks.length > 0 ? (
+              <div>
+                <div className="six wide column" style={{maxWidth: '350px'}}>
                   <div>
                     <div className="ui message">
                       <h1 className="ui center aligned header grey">Task List</h1>
                     </div>
-                    <TaskList tasks={this.state.tasks} username={this.state.username} />
+                    <TaskList tasks={taskList} username={this.state.username} />
                   </div>
-                ) : (
+                </div>
+                <div className="six wide column" style={{maxWidth: '350px'}}>
                   <div>
+                    <div className="ui message">
+                      <h1 className="ui center aligned header grey">Favorite List</h1>
+                    </div>
+                    <TaskList tasks={cTaskList} username={this.state.username} />
+                  </div>
+                </div>
+              </div>
+                ) : (
+                  <div className="six wide column" style={{maxWidth: '350px'}}>
                     No tasks to display! <br />
                     <Link to="/" className="header item">
                       <h2 className="ui blue image header">
@@ -92,7 +107,6 @@ class Organization extends React.Component {
                     </Link>
                   </div>
                 )}
-              </div>
             </div>
           </div>
         </div>
