@@ -3,6 +3,7 @@ import {Link, Redirect} from 'react-router-dom';
 import axios from 'axios';
 import './signup.css';
 import Auth from './Auth.js';
+import { GoogleLogin } from 'react-google-login';
 
 class Login extends React.Component {
   constructor(props) {
@@ -11,6 +12,7 @@ class Login extends React.Component {
     this.handleUsernameInput = this.handleUsernameInput.bind(this);
     this.handlePasswordInput = this.handlePasswordInput.bind(this);
     this.login = this.login.bind(this);
+    this.responseGoogle = this.responseGoogle.bind(this);
 
     this.state = {
       props: props,
@@ -18,6 +20,10 @@ class Login extends React.Component {
       username: '',
       password: '',
     };
+  }
+
+  responseGoogle(response) {
+    console.log(response)
   }
 
   login() {
@@ -108,6 +114,12 @@ class Login extends React.Component {
                 New Volunteer? Register NOW!
               </Link>
             </div>
+            <GoogleLogin
+              clientId="328482894747-0eo5s342dm8heupoemvanntj2tqnhfjt.apps.googleusercontent.com"
+              buttonText="Login"
+              onSuccess={this.responseGoogle}
+              onFailure={this.responseGoogle}
+            />
           </div>
         </div>
       </div>
