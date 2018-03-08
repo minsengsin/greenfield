@@ -80,6 +80,31 @@ app.post('/login', function(req, res) {
     });
 });
 
+app.post('/googleLogin', function(req, res) {
+  User.find({where: {username: req.body.givenName}})
+  .then(user => {
+    if (user) {
+      req.session.sToken = req.body.googleId
+      res.status(200).send({
+        authenticated: true,
+        username: user.username,
+        password: user.password
+      })
+    } else {
+      User.create({
+        username: req.body.givenName,
+        password: req.body.googleId
+      }).then(() => {
+        res.status(200).send({
+          authenticated: true,
+          username: req.body.givenName,
+          password: req.body.googleId
+        })
+      })
+    }
+  })
+})
+
 app.post('/username', function(req, res) {
   let name = req.session.user;
   res.end(name);
