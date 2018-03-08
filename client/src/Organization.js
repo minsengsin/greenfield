@@ -78,21 +78,16 @@ class Organization extends React.Component {
                 </div>
               </div>
               <div className="six wide column" style={{maxWidth: '350px'}}>
-                <div>
-                  <div className="ui message">
-                    <h1 className="ui center aligned header grey">Task List</h1>
-                  </div>
-                  <TaskList tasks={taskList} username={this.state.username} />
+                <div className="ui message">
+                  <h1 className="ui center aligned header grey">Task List</h1>
                 </div>
-                <div className="six wide column" style={{maxWidth: '350px'}}>
-                  <div>
-                    <div className="ui message">
-                      <h1 className="ui center aligned header grey">Completed List</h1>
-                    </div>
-                    <TaskList tasks={cTaskList} username={this.state.username} />
-                  </div>
-                  <TaskList tasks={cTaskList} username={this.state.username} />
+                <TaskList tasks={taskList} username={this.state.username} />
+              </div>
+              <div className="six wide column" style={{maxWidth: '350px'}}>
+                <div className="ui message">
+                  <h1 className="ui center aligned header grey">Completed List</h1>
                 </div>
+                <TaskList tasks={cTaskList} username={this.state.username} />
               </div>
             </div>
           </div>
