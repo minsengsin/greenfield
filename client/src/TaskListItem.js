@@ -35,12 +35,12 @@ const TaskListItem = props => {
             <span className="category">Volunteer Opportunity</span>
           </div>
           <div className="description">
-            <p>{props.task.description}</p>
+            {props.task.description}
           </div>
         </div>
         <div className="extra content">
             <span>
-              <span>When: {moment(props.task.dateTime.slice(0,16)).format('ddd MMM Do, YYYY') + ' at ' + moment(props.task.dateTime.slice(0,16)).format('h:mm a')}</span>
+              <span className="none">When: {moment(props.task.dateTime.slice(0,16)).format('ddd MMM Do, YYYY') + ' at ' + moment(props.task.dateTime.slice(0,16)).format('h:mm a')}</span>
               <br />
               <span
                 onClick={() => props.selectLocation({lat: props.task.latitude, lng: props.task.longitude})}
@@ -49,7 +49,7 @@ const TaskListItem = props => {
                 Where: {props.task.location}
               </span>
               <br />
-              <span style={style}>Volunteers: {props.task.volunteers}/{props.task.needed}</span>
+              <span className="none" style={style}>Volunteers: {props.task.volunteers}/{props.task.needed}</span>
             </span>
 
           <span className="right floated author">
