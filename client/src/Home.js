@@ -12,8 +12,12 @@ class Home extends React.Component {
       tasks: [],
       status: false,
       username: Auth.username,
-      mapCenter: '',
-      mapZoom: '',
+      mapCenter: null,
+      mapZoom: 11,
+      latByIP: null,
+      lngByIP: null,
+      zipByIP: null,
+      timezoneByIP: null,
     };
     this.selectLocation = this.selectLocation.bind(this);
   }
@@ -25,6 +29,19 @@ class Home extends React.Component {
         tasks,
       }, () => console.log('\nthis is tasks in home\n', this.state.tasks));
     });
+
+    axios.get('http://ip-api.com/json')
+      .then((res) => {
+        this.setState({
+          latByIP: res.data.lat,
+          lngByIP: res.data.lon,
+          zipByIP: res.data.zip,
+          timezoneByIP: res.data.timezone,
+        });
+      })
+      .catch((err) => {
+        console.log('ERROR in axios.get to ip-api, error: ', err);
+      });
 
     axios.get('/status').then(results => {
       if (!results.data) {
@@ -110,7 +127,12 @@ class Home extends React.Component {
               containerElement={<div style={{height: `100%`}} />}
               mapElement={<div style={{height: `100%`}} />}
               tasks={this.state.tasks}
-              mapCenter={this.state.mapCenter}
+              mapCenter={
+                {
+                  lat: this.state.latByIP,
+                  lng: this.state.lngByIP,
+                }
+              }
               mapZoom={this.state.mapZoom}
             />
           </div>
