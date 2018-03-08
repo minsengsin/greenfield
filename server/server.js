@@ -1,6 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const Sequelize = require('sequelize');
+const axios = require('axios');
 const Op = Sequelize.Op;
 const db = require('./database/models.js').db;
 const {User, Task, UserTasks, Organization, UserOrg} = require('./database/models.js');
@@ -184,9 +185,18 @@ app.get('/users/:username', function(req, res) {
 
 // Returns all tasks from the database.
 app.get('/tasks', function(req, res) {
-  Task.all().then(results => {
-    res.send(results);
-  });
+  axios.get(`https://www.zipcodeapi.com/rest/23kbXeioWmXcjcv5F4ia2g6UxQ4rQ9tumgN2dhvgTFjFlKCE4bPHVY5mkuawFqLu/radius.json/91502/${req.query.radius}/km?minimal`).then((data) => {
+    console.log('HERE ARE ZIP CODES:', data.data.zip_codes);
+    Task.all({
+      where: {
+        zip: {
+          [Op.in]: data.data.zip_codes
+        }
+      }
+    }).then(results => {
+      res.send(results);
+    });
+  })
 });
 
 
@@ -503,6 +513,10 @@ app.post('/checkDelete', function(req, res) {
       })
     })
   })
+})
+
+app.post('/zip', (req, res) => {
+
 })
 
 let port = process.env.PORT || 3001;

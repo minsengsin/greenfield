@@ -18,12 +18,17 @@ class Home extends React.Component {
       lngByIP: null,
       zipByIP: null,
       timezoneByIP: null,
+      radius: 5,
     };
     this.selectLocation = this.selectLocation.bind(this);
   }
 
   componentWillMount() {
-    axios.get(`/tasks`).then(results => {
+    axios.get(`/tasks`,{
+      params: {
+        radius: 5,
+      }
+    }).then(results => {
       const tasks = results.data;
       this.setState({
         tasks,
