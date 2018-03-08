@@ -62,7 +62,7 @@ class Organization extends React.Component {
               </div>
             </div>
             <div className="row">
-              <div className="six wide column">
+              <div className="six wide column" style={{maxWidth: '350px'}}>
                 <div className="ui message">
                   <h1 className="ui center aligned header grey">Description</h1>
                 </div>
@@ -77,15 +77,12 @@ class Organization extends React.Component {
                   <p>Location: {this.state.location}</p>
                 </div>
               </div>
-                {this.state.tasks.length > 0 ? (
-              <div>
-                <div className="six wide column" style={{maxWidth: '350px'}}>
-                  <div>
-                    <div className="ui message">
-                      <h1 className="ui center aligned header grey">Task List</h1>
-                    </div>
-                    <TaskList tasks={taskList} username={this.state.username} />
+              <div className="six wide column" style={{maxWidth: '350px'}}>
+                <div>
+                  <div className="ui message">
+                    <h1 className="ui center aligned header grey">Task List</h1>
                   </div>
+                  <TaskList tasks={taskList} username={this.state.username} />
                 </div>
                 <div className="six wide column" style={{maxWidth: '350px'}}>
                   <div>
@@ -94,19 +91,9 @@ class Organization extends React.Component {
                     </div>
                     <TaskList tasks={cTaskList} username={this.state.username} />
                   </div>
+                  <TaskList tasks={cTaskList} username={this.state.username} />
                 </div>
               </div>
-                ) : (
-                  <div className="six wide column" style={{maxWidth: '350px'}}>
-                    No tasks to display! <br />
-                    <Link to="/" className="header item">
-                      <h2 className="ui blue image header">
-                        Back to the main page!
-                        <div className="content" />
-                      </h2>
-                    </Link>
-                  </div>
-                )}
             </div>
           </div>
         </div>
