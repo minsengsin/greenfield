@@ -1,20 +1,10 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
-import moment from 'moment';
+import moment from 'moment-timezone';
 
 const TaskListItem = props => {
-  let style = {};
-  (() => {
-    if (props.task.volunteers >= props.task.needed) {
-      style = {
-        color: 'green',
-      }
-    } else {
-      style = {
-        color: 'red',
-      }
-    }
-  })();
+  let style = {color: props.task.volunteers >= props.task.needed ? 'green' : 'red'};
+  // console.log('');
   return (
     <div className="ui segment">
       <div
@@ -40,7 +30,7 @@ const TaskListItem = props => {
         </div>
         <div className="extra content">
             <span>
-              <span>When: {moment(props.task.dateTime.slice(0,16)).format('ddd MMM Do, YYYY') + ' at ' + moment(props.task.dateTime.slice(0,16)).format('h:mm a')}</span>
+              <span>When: {moment(props.task.dateTime.slice(0,16)).format('ddd MMM Do') + ' at ' + moment(`${props.task.dateTime.slice(0,16)}-05:00`).tz('America/New_York').format('h:mma z')}</span>
               <br />
               <span
                 onClick={() => props.selectLocation({lat: props.task.latitude, lng: props.task.longitude})}

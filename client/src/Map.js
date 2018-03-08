@@ -3,13 +3,13 @@ import { withScriptjs, withGoogleMap, GoogleMap, Marker} from "react-google-maps
 
 const GoogleMaps = withScriptjs(withGoogleMap((props) => {
   console.log('these are the props in Map.js: ', props);
-  const cent = props.mapCenter || { lat: 40.75062510000001, lng: -73.9766126 }
+  // const cent = props.mapCenter;
   return (
     <GoogleMap
-      defaultZoom={props.mapZoom || 13}
-      defaultCenter={props.mapCenter || { lat: 40.75062510000001, lng: -73.9766126 }}
-      center={cent}
-      zoom={props.mapZoom || 13}
+      defaultZoom={props.mapZoom}
+      defaultCenter={props.mapCenter}
+      center={props.mapCenter}
+      zoom={props.mapZoom}
     >
       {
         props.tasks.map(marker => (

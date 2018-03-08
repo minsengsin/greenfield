@@ -60,7 +60,11 @@ class Create extends React.Component {
 
   handleCreate() {
     geocodeByAddress(this.state.currentAddress)
-      .then(results => getLatLng(results[0]))
+      .then((results) => {
+        let last = results[0].address_components.length - 1;
+        console.log('RORY - this is the zip: ', results[0].address_components[last].short_name);
+        return getLatLng(results[0])
+      })
       .then(({ lat, lng }) => {
         axios.post('/tasks', {
           organization: this.state.organization,

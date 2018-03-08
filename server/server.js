@@ -181,6 +181,7 @@ app.post('/tasks', function(req, res) {
     needed,
     volunteers,
   } = req.body;
+  console.log('this is the dateTime: ', dateTime);
   Task.create({
     organization,
     title,
