@@ -1,20 +1,10 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
-import moment from 'moment';
+import moment from 'moment-timezone';
 
 const TaskListItem = props => {
-  let style = {};
-  (() => {
-    if (props.task.volunteers >= props.task.needed) {
-      style = {
-        color: 'green',
-      }
-    } else {
-      style = {
-        color: 'red',
-      }
-    }
-  })();
+  let style = {color: props.task.volunteers >= props.task.needed ? 'green' : 'red'};
+  // console.log('');
   return (
     <div className="ui segment">
       <div
