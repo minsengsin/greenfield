@@ -20,7 +20,7 @@ class Home extends React.Component {
       const tasks = results.data;
       this.setState({
         tasks,
-      });
+      }, () => console.log('\nthis is tasks in home\n', this.state.tasks));
     });
 
     axios.get('/status').then(results => {
@@ -35,16 +35,18 @@ class Home extends React.Component {
   }
 
   render() {
+    var taskList = this.state.tasks.slice();
+    taskList=taskList.filter(t=>t.completed === false)
     return (
       <div className="ui container" style={{paddingTop: '50px'}}>
-        <Header name={this.state.username} />
+        <Header name={this.state.username}/>
         <div className="ui stackable grid">
           <div
             className="six wide column"
             style={{ height: '88vh', overflowY: 'scroll', transform: 'scaleX(-1)' }}
           >
             <div style={{ transform: 'scaleX(-1)' }}>
-              <TaskList username={this.state.username} tasks={this.state.tasks} />
+              <TaskList username={this.state.username} tasks={taskList} />
             </div>
           </div>
           <script
