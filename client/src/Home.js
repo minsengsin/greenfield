@@ -12,7 +12,10 @@ class Home extends React.Component {
       tasks: [],
       status: false,
       username: Auth.username,
+      mapCenter: '',
+      mapZoom: '',
     };
+    this.selectLocation = this.selectLocation.bind(this);
   }
 
   componentWillMount() {
@@ -34,19 +37,60 @@ class Home extends React.Component {
     });
   }
 
+  selectLocation(loc) {
+    if (this.state.mapCenter) {
+      this.setState({
+        mapCenter: '',
+        mapZoom: '',
+      }, () => {
+        setTimeout(() => {
+          this.setState({
+            mapCenter: loc,
+            mapZoom: 16,
+          });
+        }, 1000);
+      });
+    } else {
+      this.setState({
+        mapCenter: loc,
+        mapZoom: 16,
+      });
+    }
+  }
+
   render() {
     var taskList = this.state.tasks.slice();
     taskList=taskList.filter(t=>t.completed === false)
     return (
-      <div className="ui container" style={{paddingTop: '50px'}}>
-        <Header name={this.state.username}/>
-        <div className="ui stackable grid">
+      <div
+        onClick={(e) => {
+          console.log(e.target.className);
+          if (e.target.className && e.target.className !== 'location') {
+            this.setState({ mapCenter: '', mapZoom: '' })
+          }
+        }}
+        className="ui container"
+        style={{paddingTop: '50px'}}
+      >
+        <Header name={this.state.username} />
+        <div
+          className="ui stackable grid"
+        >
           <div
             className="six wide column"
-            style={{ height: '88vh', overflowY: 'scroll', transform: 'scaleX(-1)' }}
+            style={{ }}
           >
-            <div style={{ transform: 'scaleX(-1)' }}>
-              <TaskList username={this.state.username} tasks={taskList} />
+            <div className="ui segment" style={{ height: '20px', padding: '0px' }}>
+              Sort
+            </div>
+            <div style={{ height: '80vh', transform: 'scaleX(-1)', overflowY: 'scroll' }}>
+              <div style={{ transform: 'scaleX(-1)' }}>
+                <TaskList
+                  username={this.state.username}
+                  tasks={this.state.tasks}
+                  selectLocation={this.selectLocation}
+                />
+              </div>
             </div>
           </div>
           <script
@@ -56,7 +100,7 @@ class Home extends React.Component {
             type="text/javascript"
           />
           <div
-            className="ten wide column"
+            className="ten wide column map"
             //style={{ height: '80%' }}
           >
             <GoogleMaps
@@ -66,6 +110,8 @@ class Home extends React.Component {
               containerElement={<div style={{height: `100%`}} />}
               mapElement={<div style={{height: `100%`}} />}
               tasks={this.state.tasks}
+              mapCenter={this.state.mapCenter}
+              mapZoom={this.state.mapZoom}
             />
           </div>
         </div>
