@@ -34,7 +34,11 @@ class Home extends React.Component {
           mapCenter: {lat: res.data.lat, lng: res.data.lon},
           zipByIP: res.data.zip,
           timezoneByIP: res.data.timezone,
-        }, () => this.getTasks());
+        }, ()=> {
+          this.getTasks();
+          console.log('this is the timezone: ', this.state.timezoneByIP);
+          Auth.timezoneByIP = this.state.timezoneByIP;
+        });
       })
       .catch((err) => {
         console.log('ERROR in axios.get to ip-api, error: ', err);
@@ -104,6 +108,7 @@ class Home extends React.Component {
                   username={this.state.username}
                   tasks={taskList}
                   selectLocation={this.selectLocation}
+                  timezoneByIP={this.state.timezoneByIP}
                 />
                 <button
                   onClick={() => {

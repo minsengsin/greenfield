@@ -4,8 +4,9 @@ import './signup.css';
 import Header from './Header.js';
 import axios from 'axios';
 import DatePicker from 'react-datepicker';
-import moment from 'moment';
+import moment from 'moment-timezone';
 import PlacesAutocomplete, { geocodeByAddress, getLatLng } from 'react-places-autocomplete';
+import Auth from './Auth.js';
 
 import 'react-datepicker/dist/react-datepicker.css';
 
@@ -22,7 +23,7 @@ class Create extends React.Component {
       currentAddress: null,
       currentAddressLat: null,
       currentAddressLng: null,
-      dateTime: null,
+      date: null,
       needed: '',
     };
     this.handleDateChange = this.handleDateChange.bind(this);
@@ -32,6 +33,7 @@ class Create extends React.Component {
     this.handleCreate = this.handleCreate.bind(this);
     this.handleAddressChange = this.handleAddressChange.bind(this);
     this.handleNeeded = this.handleNeeded.bind(this);
+
   }
 
   componentWillMount() {
@@ -52,9 +54,7 @@ class Create extends React.Component {
 
   handleDateChange(date) {
     this.setState({
-      dateTime: date,
-    }, () => {
-      console.log('formatted dateTime: ', this.state.dateTime.format('YYYY-MM-DD HH:mm'));
+      date: date,
     });
   }
 
@@ -78,7 +78,7 @@ class Create extends React.Component {
           needed: this.state.needed,
           latitude: lat,
           longitude: lng,
-          dateTime: this.state.dateTime.format('YYYY-MM-DD HH:mm'),
+          date: moment.tz(this.state.date.format('YYYY-MM-DD HH:mm'), Auth.timezoneByIP).format(),
         })
           .then(() => {
             this.props.history.push('/');
@@ -212,7 +212,7 @@ class Create extends React.Component {
                     </style>
                     <DatePicker
                       className="ui fluid input"
-                      selected={this.state.dateTime}
+                      selected={this.state.date}
                       onChange={this.handleDateChange}
                       placeholderText="Click to Select Date and Time"
                       showTimeSelect
