@@ -34,9 +34,54 @@ class Home extends React.Component {
           mapCenter: {lat: res.data.lat, lng: res.data.lon},
           zipByIP: res.data.zip,
           timezoneByIP: res.data.timezone,
-        }, ()=> {
+        }, () => {
+          axios.get('/user/zip', {
+            params: {
+              username: this.state.username,
+            }
+          }).then((userData) => {
+            console.log(userData.data.zip, this.state.zipByIP);
+            if (userData.data.zip != this.state.zipByIP) {
+              if (typeof(Number.prototype.toRadians) === "undefined") {
+                Number.prototype.toRadians = function() {
+                  return this * Math.PI / 180;
+                }
+              }
+              axios.get('tasks/all').then(taskData => {
+                let userTaskDist = [];
+                taskData.data.forEach(t => {
+
+                  var R = 6371e3; // metres
+                  var φ1 = Number(this.state.latByIP).toRadians();
+                  var φ2 = Number(t.latitude).toRadians();
+                  var Δφ = Number(t.latitude-this.state.latByIP).toRadians();
+                  var Δλ = Number(t.longitude-this.state.lngByIP).toRadians();
+
+                  var a = Math.sin(Δφ/2) * Math.sin(Δφ/2) +
+                          Math.cos(φ1) * Math.cos(φ2) *
+                          Math.sin(Δλ/2) * Math.sin(Δλ/2);
+                  var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+
+                  var d = R * c;
+
+                  userTaskDist.push({
+                    userId: userData.data.id,
+                    taskId: t.id,
+                    distance: d,
+                  });
+                })
+                axios.post('/userTaskDist', {
+                  dataArr: userTaskDist,
+                })
+              })
+
+              axios.post('/user/zip', {
+                username: this.state.username,
+                zip: this.state.zipByIP,
+              })
+            }
+          })
           this.getTasks();
-          console.log('this is the timezone: ', this.state.timezoneByIP);
           Auth.timezoneByIP = this.state.timezoneByIP;
         });
       })
@@ -60,7 +105,7 @@ class Home extends React.Component {
     axios.get(`/tasks`,{
       params: {
         radius: this.state.radius,
-        zip: this.state.zipByIP,
+        username: this.state.username,
       }
     }).then(results => {
       const tasks = results.data;
