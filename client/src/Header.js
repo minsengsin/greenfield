@@ -1,5 +1,7 @@
 import React from 'react';
+import axios from 'axios';
 import {Link} from 'react-router-dom';
+import Auth from './Auth.js'
 
 const Header = function(props) {
   const createTo = {
@@ -21,8 +23,16 @@ const Header = function(props) {
           <Link to={`/users/${props.name}`} className="item">
             {props.name}
           </Link>
-          <Link to="/login" className="item">
-            Logout
+          <Link to="/login"
+            className="item"
+            onClick={
+              () => {
+                Auth.isAuthenticated = false
+                Auth.username = ''
+                Auth.password = ''
+              }
+            }
+            >Logout
           </Link>
         </div>
       </div>

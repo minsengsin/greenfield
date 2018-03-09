@@ -3,7 +3,7 @@ import {Link, Redirect} from 'react-router-dom';
 import axios from 'axios';
 import './signup.css';
 import Auth from './Auth.js';
-import { GoogleLogin } from 'react-google-login';
+import { GoogleLogin, GoogleLogout } from 'react-google-login';
 import moment from 'moment-timezone';
 
 class Login extends React.Component {
@@ -124,7 +124,7 @@ class Login extends React.Component {
             </div>
             <GoogleLogin
               clientId="328482894747-0eo5s342dm8heupoemvanntj2tqnhfjt.apps.googleusercontent.com"
-              buttonText="Login"
+              buttonText="Google Login"
               onSuccess={this.responseGoogle}
               onFailure={this.responseGoogle}
             />

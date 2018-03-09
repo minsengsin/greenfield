@@ -122,6 +122,10 @@ app.post('/googleLogin', function(req, res) {
   })
 })
 
+// app.post('/logout', function(req, res) {
+//
+// })
+
 app.post('/username', function(req, res) {
   let name = req.session.user;
   res.end(name);
