@@ -1,6 +1,7 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
 import moment from 'moment-timezone';
+import taskItemStyle from './TaskListItem.css';
 
 const TaskListItem = props => {
   let style = {color: props.task.volunteers >= props.task.needed ? 'green' : 'red'};
