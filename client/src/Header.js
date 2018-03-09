@@ -18,7 +18,7 @@ const Header = function(props) {
               Create Organization
           </Link>
           <Link to={createTo} className="header item">
-            Create
+            Create Task
           </Link>
           <Link to={`/users/${props.name}`} className="item">
             {props.name}
