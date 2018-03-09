@@ -4,7 +4,8 @@ import moment from 'moment-timezone';
 
 const TaskListItem = props => {
   let style = {color: props.task.volunteers >= props.task.needed ? 'green' : 'red'};
-  // console.log('');
+  console.log('this is pulled from the DB: ', props.task.dateTime);
+  console.log('this is to convert that string to our timezone: ', moment.tz(props.task.dateTime, props.timezoneByIP).format('h:mm a'));
   return (
     <div className="ui segment">
       <div
@@ -30,7 +31,7 @@ const TaskListItem = props => {
         </div>
         <div className="extra content">
             <span>
-              <span className="none">When: {moment(props.task.dateTime.slice(0,16)).format('ddd MMM Do, YYYY') + ' at ' + moment(props.task.dateTime.slice(0,16)).format('h:mm a')}</span>
+              <span className="none">When: {moment.tz(props.task.date, props.timezoneByIP).format('ddd MMM Do, h:mma z')}</span>
               <br />
               <span
                 onClick={() => props.selectLocation({lat: props.task.latitude, lng: props.task.longitude})}

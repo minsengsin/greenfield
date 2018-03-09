@@ -37,6 +37,9 @@ class Home extends React.Component {
           lngByIP: res.data.lon,
           zipByIP: res.data.zip,
           timezoneByIP: res.data.timezone,
+        }, ()=> {
+          console.log('this is the timezone: ', this.state.timezoneByIP);
+          Auth.timezoneByIP = this.state.timezoneByIP;
         });
       })
       .catch((err) => {
@@ -106,6 +109,7 @@ class Home extends React.Component {
                   username={this.state.username}
                   tasks={taskList}
                   selectLocation={this.selectLocation}
+                  timezoneByIP={this.state.timezoneByIP}
                 />
               </div>
             </div>

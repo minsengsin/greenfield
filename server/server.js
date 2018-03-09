@@ -177,11 +177,10 @@ app.post('/tasks', function(req, res) {
     location,
     latitude,
     longitude,
-    dateTime,
     needed,
     volunteers,
+    date,
   } = req.body;
-  console.log('this is the dateTime: ', dateTime);
   Task.create({
     organization,
     title,
@@ -189,9 +188,9 @@ app.post('/tasks', function(req, res) {
     location,
     latitude,
     longitude,
-    dateTime,
     needed,
     volunteers: 0,
+    date,
   })
     .then(
     results => {

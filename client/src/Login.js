@@ -3,6 +3,7 @@ import {Link, Redirect} from 'react-router-dom';
 import axios from 'axios';
 import './signup.css';
 import Auth from './Auth.js';
+import moment from 'moment-timezone';
 
 class Login extends React.Component {
   constructor(props) {
@@ -18,6 +19,11 @@ class Login extends React.Component {
       username: '',
       password: '',
     };
+  }
+
+  componentDidMount() {
+    // console.log('moment: 2018-03-01 17:00:00:', moment('2018-03-01 17:00:00').tz('UTC').tz('America/Los_Angeles').format('ddd MMM Do, YYYY h:mm a z'));
+    console.log('moment: 2018-03-01 17:00:00:', moment('2018-03-01 17:00:00').tz('UTC').tz('America/New_York').format('ddd MMM Do, YYYY h:mm a z'));
   }
 
   login() {
