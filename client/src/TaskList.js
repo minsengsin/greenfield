@@ -10,6 +10,7 @@ const TaskList = props => {
         task={task}
         key={i}
         selectLocation={props.selectLocation}
+        timezoneByIP={props.timezoneByIP}
       />)}
     </div>
   );
