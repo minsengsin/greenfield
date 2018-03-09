@@ -3,7 +3,10 @@ import {Link, Redirect} from 'react-router-dom';
 import axios from 'axios';
 import './signup.css';
 import Auth from './Auth.js';
+<<<<<<< HEAD
 import { GoogleLogin } from 'react-google-login';
+=======
+>>>>>>> d9afa459b30900942d231eb8281c74ce28ea3605
 import moment from 'moment-timezone';
 
 class Login extends React.Component {
