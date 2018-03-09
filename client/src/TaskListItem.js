@@ -5,8 +5,7 @@ import taskItemStyle from './TaskListItem.css';
 
 const TaskListItem = props => {
   let style = {color: props.task.volunteers >= props.task.needed ? 'green' : 'red'};
-  console.log('this is pulled from the DB: ', props.task.dateTime);
-  console.log('this is to convert that string to our timezone: ', moment.tz(props.task.dateTime, props.timezoneByIP).format('h:mm a'));
+
   return (
     <div className="ui segment">
       <div
