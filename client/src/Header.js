@@ -23,7 +23,7 @@ const Header = function(props) {
           <Link to={`/users/${props.name}`} className="item">
             {props.name}
           </Link>
-          <Link to="/logout" className="item">
+          <Link to="/login" className="item">
             Logout
           </Link>
         </div>

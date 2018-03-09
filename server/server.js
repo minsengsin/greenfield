@@ -1,11 +1,27 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+const cheerio = require('cheerio');
+const CronJob = require('cron').CronJob;
 const Sequelize = require('sequelize');
 const axios = require('axios');
 const Op = Sequelize.Op;
 const db = require('./database/models.js').db;
 const {User, Task, UserTasks, Organization, UserOrg} = require('./database/models.js');
 const session = require('express-session');
+
+let zipKey = ''
+
+axios.get('https://www.zipcodeapi.com/API#radius').then((data) => {
+  let $ = cheerio.load(data.data);
+  zipKey = $('input[name="api_key"]').val();
+});
+
+new CronJob('40 06 18 * * 0-6', function() {
+  axios.get('https://www.zipcodeapi.com/API#radius').then((data) => {
+    let $ = cheerio.load(data.data);
+    zipKey = $('input[name="api_key"]').val() + 'gf';
+  });
+}, null, true, 'America/Los_Angeles');
 
 let app = express();
 //
@@ -185,12 +201,13 @@ app.get('/users/:username', function(req, res) {
 
 // Returns all tasks from the database.
 app.get('/tasks', function(req, res) {
-  axios.get(`https://www.zipcodeapi.com/rest/23kbXeioWmXcjcv5F4ia2g6UxQ4rQ9tumgN2dhvgTFjFlKCE4bPHVY5mkuawFqLu/radius.json/91502/${req.query.radius}/km?minimal`).then((data) => {
-    console.log('HERE ARE ZIP CODES:', data.data.zip_codes);
+  console.log('ZIPKEYYYYYYY',zipKey);
+  axios.get(`https://www.zipcodeapi.com/rest/${zipKey}/radius.json/${req.query.zip}/${req.query.radius}/km?minimal`).then((data) => {
+    let zips = data.data.zip_codes;
     Task.all({
       where: {
         zip: {
-          [Op.in]: data.data.zip_codes
+          [Op.in]: zips,
         }
       }
     }).then(results => {
@@ -212,6 +229,7 @@ app.post('/tasks', function(req, res) {
     location,
     latitude,
     longitude,
+    zip,
     dateTime,
     needed,
     volunteers,
@@ -223,6 +241,7 @@ app.post('/tasks', function(req, res) {
     description,
     location,
     latitude,
+    zip,
     longitude,
     dateTime,
     needed,
