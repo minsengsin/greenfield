@@ -15,6 +15,7 @@ class Login extends React.Component {
     this.login = this.login.bind(this);
     this.responseGoogle = this.responseGoogle.bind(this);
 
+    
     this.state = {
       props: props,
       redirectToReferrer: false,

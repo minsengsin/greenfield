@@ -6,7 +6,7 @@ import Header from './Header.js';
 class CreateOrg extends React.Component {
   constructor(props) {
     super(props);
-
+    // const numbers = [0,1,2,3,4,5,6,7,8,9,'(',')','-'];
     this.state = {
       username: '',
       password: '',
@@ -16,6 +16,8 @@ class CreateOrg extends React.Component {
       location: '',
       contact: '',
       userUsername: this.props.match.params.username,
+      validPhone: [0,1,2,3,4,5,6,7,8,9,'(',')','-'],
+      validPhoneStr: '0123456789()-',
     };
     this.handleUsername = this.handleUsername.bind(this);
     this.handlePassword = this.handlePassword.bind(this);
@@ -25,6 +27,7 @@ class CreateOrg extends React.Component {
     this.handleLoc = this.handleLoc.bind(this);
     this.handleContact = this.handleContact.bind(this);
     this.handleCreate = this.handleCreate.bind(this);
+    this.onPhoneKeyDown = this.onPhoneKeyDown.bind(this);
   }
 
   handleCreate() {
@@ -85,9 +88,32 @@ class CreateOrg extends React.Component {
   }
 
   handleContact(e) {
-    this.setState({
-      contact: e.target.value,
-    });
+    const targLen = e.target.value.length - 1;
+    const phoneLen = this.state.contact.length;
+    if (phoneLen <= 13 && this.state.validPhoneStr.indexOf(e.target.value[targLen]) !== -1) {
+      if(phoneLen === 0) {
+        this.setState({ contact: '(' + e.target.value[targLen] })
+      } else if (phoneLen === 4) {
+        this.setState({ contact: this.state.contact + ') ' + e.target.value[targLen] })
+      } else if (phoneLen === 9) {
+        this.setState({ contact: this.state.contact + '-' + e.target.value[targLen] })
+      } else {
+        this.setState({ contact: e.target.value})
+      }
+    }
+  }
+
+  onPhoneKeyDown(e) {
+    const len = this.state.contact.length;
+    if (e.keyCode === 8
+      && (this.state.contact.length === 7
+        || this.state.contact.length === 9
+        || this.state.contact.length === 14)
+      ) {
+      console.log('this is the state.contact.length: ', this.state.contact.length);
+      console.log('backspace called');
+      this.setState({ contact: '' })
+    }
   }
 
   render() {
@@ -205,10 +231,11 @@ class CreateOrg extends React.Component {
                         onChange={e => {
                           this.handleContact(e);
                         }}
-                        type="text"
+                        type="tel"
                         id="contact"
                         name="contact"
-                        placeholder="Contact Info"
+                        placeholder="Phone Number"
+                        onKeyDown={this.onPhoneKeyDown}
                       />
                     </div>
                   </div>
