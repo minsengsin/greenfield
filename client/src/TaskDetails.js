@@ -167,6 +167,11 @@ class TaskDetails extends React.Component {
               mapElement={<div style={{height: `100%`}} />}
               tasks={[this.state.task]}
               key={this.state.task.id}
+              mapCenter={{
+                lat: this.state.task.latitude,
+                lng: this.state.task.longitude,
+              }}
+              mapZoom={16}
             />
           </div>
           <div className="four wide column">

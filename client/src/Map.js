@@ -9,7 +9,7 @@ const GoogleMaps = withScriptjs(withGoogleMap((props) => {
       defaultZoom={props.mapZoom}
       defaultCenter={props.mapCenter}
       center={props.mapCenter}
-      zoom={props.mapZoom}
+      zoom={props.mapZoom || 11}
     >
       {
         props.tasks.map(marker => (

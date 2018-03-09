@@ -201,7 +201,6 @@ app.get('/users/:username', function(req, res) {
 
 // Returns all tasks from the database.
 app.get('/tasks', function(req, res) {
-  console.log('ZIPKEYYYYYYY',zipKey);
   axios.get(`https://www.zipcodeapi.com/rest/${zipKey}/radius.json/${req.query.zip}/${req.query.radius}/km?minimal`).then((data) => {
     let zips = data.data.zip_codes;
     Task.all({
