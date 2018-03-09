@@ -79,22 +79,22 @@ db.sync({force: true}).then(()=>{
 
 
     Task.create({title: 'Mail Sorting', description:'Route internal and external correspondence', organization: 'Human Rights Watch', latitude: 40.748563, longitude: -73.985746, location: '350 5th Ave #34, New York, NY 10118', needed: 10, volunteers: 0, date: '2018-01-01T12:00:00-05:00', zip: 91503})
-    Task.create({title: 'Processing Donations', description:'Accepting physical donations of clothes.', organization: 'Salvation Army', latitude: 40.743695, longitude: -73.999210, location: '208 8th Ave, New York, NY 10011', needed: 10, volunteers: 9, dateTime: '03-01-2018 12:00', zip: 10011})
-    Task.create({title: 'Answering Phones', description:'Serving at our inbound call center.', organization: 'GLAAD', latitude: 40.746743, longitude: -73.990767, location: '104 W 29th St #4, New York, NY 10001', needed: 10, volunteers: 0, dateTime: '03-02-2018 13:00', zip: 10001})
-    Task.create({title: 'Canvassing', description:'Door-to-door fundraising', organization: 'International Womens Health Coalition', latitude: 40.747449, longitude: -73.992823, location: '333 7th Ave #601, New York, NY 10001', needed: 10, volunteers: 0, dateTime: '03-03-2018 14:00', zip: 10001})
-    Task.create({title: 'Mail Sorting', description:'Route internal and external correspondence', organization: 'Human Rights Watch', latitude: 40.748563, longitude: -73.985746, location: '350 5th Ave #34, New York, NY 10118', needed: 10, volunteers: 0, dateTime: '03-04-2018 15:00', zip: 10118})
+    Task.create({title: 'Processing Donations', description:'Accepting physical donations of clothes.', organization: 'Salvation Army', latitude: 40.743695, longitude: -73.999210, location: '208 8th Ave, New York, NY 10011', needed: 10, volunteers: 9, date: '03-01-2018T12:00-5:00', zip: 10011})
+    Task.create({title: 'Answering Phones', description:'Serving at our inbound call center.', organization: 'GLAAD', latitude: 40.746743, longitude: -73.990767, location: '104 W 29th St #4, New York, NY 10001', needed: 10, volunteers: 0, date: '03-02-2018T12:00-5:00', zip: 10001})
+    Task.create({title: 'Canvassing', description:'Door-to-door fundraising', organization: 'International Womens Health Coalition', latitude: 40.747449, longitude: -73.992823, location: '333 7th Ave #601, New York, NY 10001', needed: 10, volunteers: 0, date: '03-03-2018T12:00-5:00', zip: 10001})
+    Task.create({title: 'Mail Sorting', description:'Route internal and external correspondence', organization: 'Human Rights Watch', latitude: 40.748563, longitude: -73.985746, location: '350 5th Ave #34, New York, NY 10118', needed: 10, volunteers: 0, date: '03-04-2018T12:00-5:00', zip: 10118})
     Task.create({title: 'Set up city meeting', description:'Help the Mayor', organization: 'Samaritans of New York', latitude:
-40.712775, longitude:  -74.005973, location: 'City Hall Park, New York, NY 10007', needed: 6, volunteers: 0, dateTime: '03-20-2018 17:00', zip: 10007})
-    Task.create({title: 'Wedding Clean Up', description:'Come clean up my wedding', organization: 'NYCares', latitude: 40.715203, longitude: -74.001880, location: '141 Worth St, New York, NY 10007', needed: 35, volunteers: 10, dateTime: '03-18-2018 17:00', zip: 10007})
+40.712775, longitude:  -74.005973, location: 'City Hall Park, New York, NY 10007', needed: 6, volunteers: 0, date: '03-20-2018 17:00', zip: 10007})
+    Task.create({title: 'Wedding Clean Up', description:'Come clean up my wedding', organization: 'NYCares', latitude: 40.715203, longitude: -74.001880, location: '141 Worth St, New York, NY 10007', needed: 35, volunteers: 10, date: '03-18-2018T12:00-5:00', zip: 10007})
 
-    Task.create({title: 'Wash Puppies', description:'Come wash the puppies', organization: 'NYCares', latitude: 40.721535, longitude: -74.004111, location: '307 W Broadway, New York, NY 10013', needed: 15, volunteers: 3, dateTime: '04-15-2018 17:00', zip: 10013})
+    Task.create({title: 'Wash Puppies', description:'Come wash the puppies', organization: 'NYCares', latitude: 40.721535, longitude: -74.004111, location: '307 W Broadway, New York, NY 10013', needed: 15, volunteers: 3, date: '04-15-2018T12:00-5:00', zip: 10013})
 
-    Task.create({title: 'Walk Dogs', description:'The Dogs need walking, come out for a day of dog walking', organization: 'NYCares', latitude: 40.718814, longitude: -73.999061, location: '200 Centre St, New York, NY 10013', needed: 8, volunteers: 3, dateTime: '05-02-2018 17:00', zip: 10013})
-    Task.create({title: 'Serving food', description:'An afternoon of helping serve food', organization: 'NYCares', latitude: 40.759864, longitude: -73.988674, location: '308 W 46th St, New York, NY 10036', needed: 40, volunteers: 23, dateTime: '05-05-2018 17:00', zip: 10036})
+    Task.create({title: 'Walk Dogs', description:'The Dogs need walking, come out for a day of dog walking', organization: 'NYCares', latitude: 40.718814, longitude: -73.999061, location: '200 Centre St, New York, NY 10013', needed: 8, volunteers: 3, date: '05-02-2018T12:00-5:00', zip: 10013})
+    Task.create({title: 'Serving food', description:'An afternoon of helping serve food', organization: 'NYCares', latitude: 40.759864, longitude: -73.988674, location: '308 W 46th St, New York, NY 10036', needed: 40, volunteers: 23, date: '05-05-2018T12:00-5:00', zip: 10036})
 
-    Task.create({title: 'Prepping Food at Soup Kitchen', description:'Spend an afternoon helping us prep food for people experiencing homelessness', organization: 'NYCares', latitude: 40.745281, longitude: -73.981419, location: '120 E 32nd St, New York, NY 10016', needed: 30, volunteers: 9, dateTime: '04-13-2018 17:00', zip: 10016})
+    Task.create({title: 'Prepping Food at Soup Kitchen', description:'Spend an afternoon helping us prep food for people experiencing homelessness', organization: 'NYCares', latitude: 40.745281, longitude: -73.981419, location: '120 E 32nd St, New York, NY 10016', needed: 30, volunteers: 9, date: '04-13-2018T12:00-5:00', zip: 10016})
 
-    Task.create({title: 'Mentors Needed', description:'Tutor students and help them with homework', organization: 'NYCares', latitude: 40.747923, longitude: -73.975152, location: '225 E 38th St, New York, NY 10016', needed: 6, volunteers: 0, dateTime: '05-19-2018 17:00', zip: 10016})
+    Task.create({title: 'Mentors Needed', description:'Tutor students and help them with homework', organization: 'NYCares', latitude: 40.747923, longitude: -73.975152, location: '225 E 38th St, New York, NY 10016', needed: 6, volunteers: 0, date: '05-19-2018T12:00-5:00', zip: 10016})
 
 
 
