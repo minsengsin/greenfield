@@ -4,6 +4,7 @@ import TaskList from './TaskList.js';
 import GoogleMaps from './Map.js';
 import axios from 'axios';
 import Auth from './Auth.js';
+import PlacesAutocomplete, { geocodeByAddress, getLatLng } from 'react-places-autocomplete';
 
 class Home extends React.Component {
   constructor(props) {
@@ -19,9 +20,11 @@ class Home extends React.Component {
       zipByIP: null,
       timezoneByIP: null,
       radius: 5,
+      newAddress: null,
     };
     this.selectLocation = this.selectLocation.bind(this);
     this.getTasks = this.getTasks.bind(this);
+    this.handleNewAddress = this.handleNewAddress.bind(this);
   }
 
   componentWillMount() {
@@ -100,6 +103,12 @@ class Home extends React.Component {
     });
   }
 
+  handleNewAddress(address) {
+    this.setState({
+      newAddress: address,
+    });
+  }
+
   getTasks() {
     console.log('gettttt');
     axios.get(`/tasks`,{
@@ -147,6 +156,36 @@ class Home extends React.Component {
             <div className="ui segment" style={{ height: '20px', padding: '0px' }}>
               Sort
             </div>
+
+            <div className="ui large form" style={{ height: '20px', paddingBottom: '50px' }}>
+              <div className="field">
+                <div
+                  className="ui left input"
+                  style={{zIndex: 1}}
+                  >
+                  <label htmlFor="location" />
+                  <style>
+                    {
+                      `#PlacesAutocomplete__root {
+                        width: 100%;
+                        text-align: left;
+                      }
+                      `
+                    }
+                  </style>
+                  <PlacesAutocomplete
+                    inputProps={{
+                      value: this.state.newAddress,
+                      onChange: this.handleNewAddress,
+                      placeholder: 'Search Places...',
+                      debounce: '100',
+                    }}
+                    />
+                </div>
+              </div>
+            </div>
+
+
             <div style={{ height: '80vh', transform: 'scaleX(-1)', overflowY: 'scroll' }}>
               <div style={{ transform: 'scaleX(-1)' }}>
                 <TaskList

@@ -33,7 +33,7 @@ const UserOrg = db.define('UserOrg', {
 const Task = db.define('Tasks', {
     organization: Sequelize.STRING,
     title: Sequelize.STRING,
-    description: Sequelize.STRING(1234),
+    description: Sequelize.STRING(750),
     location: Sequelize.STRING,
     zip: Sequelize.STRING,
     latitude: Sequelize.FLOAT,
