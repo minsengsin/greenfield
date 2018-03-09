@@ -514,17 +514,17 @@ app.post('/checkDelete', function(req, res) {
       name: req.body.organization
     }
   }).then(org => {
-    UserOrg.find({
+    UserOrg.findAll({
       where: {
         orgId: org.id
       }
     }).then(userorg => {
-      User.find({
+      User.findAll({
         where: {
-          id: userorg.userId
+          id: {[Op.in]: userorg.map(u=>u.userId)}
         }
       }).then(user => {
-        (user.username === req.body.username)
+        (user.map(u=>u.username).includes(req.body.username))
         ? res.send(true)
         : res.send(false)
       })
