@@ -6,7 +6,7 @@ const Sequelize = require('sequelize');
 const axios = require('axios');
 const Op = Sequelize.Op;
 const db = require('./database/models.js').db;
-const {User, Task, UserTasks, Organization, UserOrg} = require('./database/models.js');
+const {User, Task, UserTasks, Organization, UserOrg, UserTaskDist} = require('./database/models.js');
 const session = require('express-session');
 
 let zipKey = ''
@@ -14,6 +14,7 @@ let zipKey = ''
 axios.get('https://www.zipcodeapi.com/API#radius').then((data) => {
   let $ = cheerio.load(data.data);
   zipKey = $('input[name="api_key"]').val();
+  console.log('ZIPPPP KEYY', zipKey);
 });
 
 new CronJob('40 06 18 * * 0-6', function() {
@@ -179,6 +180,52 @@ app.get('/users', function(req, res) {
   });
 });
 
+app.get('/user/zip', (req, res) => {
+  User.find({
+    where: {
+      username: req.query.username
+    }
+  }).then(data => {
+    res.send(data);
+  })
+});
+
+app.post('/user/zip', (req, res) => {
+  User.update({
+    zip: req.body.zip,
+  }, {
+    where: {
+      username: req.body.username,
+    }
+  }).then(d => res.send());
+});
+
+app.post('/userTaskDist', (req, res) => {
+  req.body.dataArr.forEach(d => {
+    UserTaskDist.findOne({
+      where: {
+        userId: d.userId,
+        taskId: d.taskId,
+      }
+    }).then(obj => {
+      if (obj) {
+        obj.update({
+          userId: d.userId,
+          taskId: d.taskId,
+          distance: d.distance,
+        });
+      } else {
+        UserTaskDist.create({
+          userId: d.userId,
+          taskId: d.taskId,
+          distance: d.distance,
+        });
+      }
+    })
+  })
+  res.send('done');
+})
+
 // Returns array of Tasks ID from database by userID.
 app.get('/users/:username', function(req, res) {
   User.find({
@@ -204,18 +251,37 @@ app.get('/users/:username', function(req, res) {
 });
 
 // Returns all tasks from the database.
+app.get('/tasks/all', function(req, res) {
+  Task.findAll().then(results => {
+    res.send(results);
+  });
+});
+
+
 app.get('/tasks', function(req, res) {
-  axios.get(`https://www.zipcodeapi.com/rest/${zipKey}/radius.json/${req.query.zip}/${req.query.radius}/km?minimal`).then((data) => {
-    let zips = data.data.zip_codes;
-    Task.all({
+  User.findOne({
+    where: {
+      username: req.query.username,
+    }
+  }).then(user => {
+    UserTaskDist.findAll({
       where: {
-        zip: {
-          [Op.in]: zips,
+        userId: user.id,
+        distance: {
+          [Op.lte]: req.query.radius*1000,
         }
       }
-    }).then(results => {
-      res.send(results);
-    });
+    }).then(data => {
+      Task.all({
+        where: {
+          id: {
+            [Op.in]: data.map(d => d.taskId),
+          }
+        }
+      }).then(results => {
+        res.send(results);
+      });
+    })
   })
 });
 

@@ -4,8 +4,16 @@ const db = new Sequelize(DB_URL);
 
 const User = db.define('Users', {
     username: Sequelize.STRING,
-    password: Sequelize.STRING
+    password: Sequelize.STRING,
+    zip: Sequelize.STRING
 });
+
+const UserTaskDist = db.define('UserTaskDist', {
+  userId: Sequelize.INTEGER,
+  taskId: Sequelize.INTEGER,
+  distance: Sequelize.INTEGER
+});
+
 //
 const Organization = db.define('Organizations', {
     username: Sequelize.STRING,
@@ -115,3 +123,4 @@ db.sync({force: true}).then(()=>{
  exports.UserTasks = UserTasks;
  exports.Organization = Organization;
  exports.UserOrg = UserOrg;
+ exports.UserTaskDist= UserTaskDist;
