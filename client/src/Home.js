@@ -18,26 +18,23 @@ class Home extends React.Component {
       lngByIP: null,
       zipByIP: null,
       timezoneByIP: null,
+      radius: 5,
     };
     this.selectLocation = this.selectLocation.bind(this);
+    this.getTasks = this.getTasks.bind(this);
   }
 
   componentWillMount() {
-    axios.get(`/tasks`).then(results => {
-      const tasks = results.data;
-      this.setState({
-        tasks,
-      }, () => console.log('\nthis is tasks in home\n', this.state.tasks));
-    });
-
     axios.get('http://ip-api.com/json')
       .then((res) => {
+        console.log(res.data.lat);
         this.setState({
           latByIP: res.data.lat,
           lngByIP: res.data.lon,
+          mapCenter: {lat: res.data.lat, lng: res.data.lon},
           zipByIP: res.data.zip,
           timezoneByIP: res.data.timezone,
-        });
+        }, () => this.getTasks());
       })
       .catch((err) => {
         console.log('ERROR in axios.get to ip-api, error: ', err);
@@ -54,25 +51,26 @@ class Home extends React.Component {
     });
   }
 
+  getTasks() {
+    console.log('gettttt');
+    axios.get(`/tasks`,{
+      params: {
+        radius: this.state.radius,
+        zip: this.state.zipByIP,
+      }
+    }).then(results => {
+      const tasks = results.data;
+      this.setState({
+        tasks,
+      }, () => console.log('\nthis is tasks in home\n', this.state.tasks));
+    });
+  }
+
   selectLocation(loc) {
-    if (this.state.mapCenter) {
-      this.setState({
-        mapCenter: '',
-        mapZoom: '',
-      }, () => {
-        setTimeout(() => {
-          this.setState({
-            mapCenter: loc,
-            mapZoom: 16,
-          });
-        }, 1000);
-      });
-    } else {
-      this.setState({
-        mapCenter: loc,
-        mapZoom: 16,
-      });
-    }
+    this.setState({
+      mapCenter: loc,
+      mapZoom: 16,
+    });
   }
 
   render() {
@@ -83,7 +81,7 @@ class Home extends React.Component {
         onClick={(e) => {
           console.log(e.target.className);
           if (e.target.className && e.target.className !== 'location') {
-            this.setState({ mapCenter: '', mapZoom: '' })
+            this.setState({mapZoom: 11 })
           }
         }}
         className="ui container"
@@ -107,6 +105,16 @@ class Home extends React.Component {
                   tasks={taskList}
                   selectLocation={this.selectLocation}
                 />
+                <button
+                  onClick={() => {
+                    this.setState({
+                      radius: this.state.radius += 1
+                    }, this.getTasks);
+                  }}
+                  class="ui button fluid blue"
+                >
+                  Show More
+                </button>
               </div>
             </div>
           </div>
@@ -127,12 +135,7 @@ class Home extends React.Component {
               containerElement={<div style={{height: `100%`}} />}
               mapElement={<div style={{height: `100%`}} />}
               tasks={this.state.tasks}
-              mapCenter={
-                {
-                  lat: this.state.latByIP,
-                  lng: this.state.lngByIP,
-                }
-              }
+              mapCenter={this.state.mapCenter}
               mapZoom={this.state.mapZoom}
             />
           </div>
