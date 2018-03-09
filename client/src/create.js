@@ -110,9 +110,11 @@ class Create extends React.Component {
   }
 
   handleDesc(e) {
-    this.setState({
-      description: e.target.value,
-    });
+    if (this.state.description.length < 750) {
+      this.setState({
+        description: e.target.value,
+      });
+    }
   }
 
   handleTitle(e) {

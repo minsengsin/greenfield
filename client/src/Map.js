@@ -16,6 +16,7 @@ const GoogleMaps = withScriptjs(withGoogleMap((props) => {
           <Marker
             position={{ lat: marker.latitude, lng: marker.longitude }}
             key={marker.id}
+            onClick={()=>console.log('marker click, marker data: ', marker)}
           />
         ))
       }
