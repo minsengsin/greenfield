@@ -54,7 +54,7 @@ class Home extends React.Component {
       } else {
         this.setState({
           newAddress: userDat.data.address,
-        }, () => this.submitNewAddress({keyCode: 13}));
+        }, () => this.submitNewAddress({keyCode: 13, second: true}));
       }
     })
   }
@@ -159,16 +159,18 @@ class Home extends React.Component {
             address: this.state.newAddress,
             username: this.state.username,
           });
-
           this.setState({
             latByIP: lat,
             lngByIP: lng,
             zipByIP: zip,
             mapCenter: {lat, lng},
             mapZoom: 11,
-            radius: 3,
+            radius: e.second ? this.state.radius : 3,
           }, this.getDistances);
         })
+    }
+    if(!e.second){
+      Auth.radius = 3;
     }
   }
 
@@ -237,7 +239,7 @@ class Home extends React.Component {
                 />
                 <button
                   onClick={() => {
-                    Auth.radius = this.state.radius += 1;
+                    Auth.radius = Auth.radius += 1;
                     this.setState({
                       radius: this.state.radius += 1
                     }, this.getTasks);
