@@ -19,7 +19,7 @@ class Home extends React.Component {
       lngByIP: null,
       zipByIP: null,
       timezoneByIP: null,
-      radius: 3,
+      radius: Auth.radius,
       newAddress: null,
     };
     this.selectLocation = this.selectLocation.bind(this);
@@ -237,6 +237,7 @@ class Home extends React.Component {
                 />
                 <button
                   onClick={() => {
+                    Auth.radius = this.state.radius += 1;
                     this.setState({
                       radius: this.state.radius += 1
                     }, this.getTasks);
