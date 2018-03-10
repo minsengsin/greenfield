@@ -17,6 +17,7 @@ const Auth = {
   isAuthenticated: false,
   username: '',
   password: '',
+  radius: 3,
   authenticate(callback) {
     console.log('Calling Authenticate');
     console.log(`Currently, isAuthenticated == ${this.isAuthenticated}`);
