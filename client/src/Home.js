@@ -25,6 +25,8 @@ class Home extends React.Component {
     this.selectLocation = this.selectLocation.bind(this);
     this.getTasks = this.getTasks.bind(this);
     this.handleNewAddress = this.handleNewAddress.bind(this);
+    this.submitNewAddress = this.submitNewAddress.bind(this);
+    this.getDistances = this.getDistances.bind(this);
   }
 
   componentWillMount() {
@@ -37,56 +39,7 @@ class Home extends React.Component {
           mapCenter: {lat: res.data.lat, lng: res.data.lon},
           zipByIP: res.data.zip,
           timezoneByIP: res.data.timezone,
-        }, () => {
-          axios.get('/user/zip', {
-            params: {
-              username: this.state.username,
-            }
-          }).then((userData) => {
-            console.log(userData.data.zip, this.state.zipByIP);
-            if (userData.data.zip != this.state.zipByIP) {
-              if (typeof(Number.prototype.toRadians) === "undefined") {
-                Number.prototype.toRadians = function() {
-                  return this * Math.PI / 180;
-                }
-              }
-              axios.get('tasks/all').then(taskData => {
-                let userTaskDist = [];
-                taskData.data.forEach(t => {
-
-                  var R = 6371e3; // metres
-                  var φ1 = Number(this.state.latByIP).toRadians();
-                  var φ2 = Number(t.latitude).toRadians();
-                  var Δφ = Number(t.latitude-this.state.latByIP).toRadians();
-                  var Δλ = Number(t.longitude-this.state.lngByIP).toRadians();
-
-                  var a = Math.sin(Δφ/2) * Math.sin(Δφ/2) +
-                          Math.cos(φ1) * Math.cos(φ2) *
-                          Math.sin(Δλ/2) * Math.sin(Δλ/2);
-                  var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
-
-                  var d = R * c;
-
-                  userTaskDist.push({
-                    userId: userData.data.id,
-                    taskId: t.id,
-                    distance: d,
-                  });
-                })
-                axios.post('/userTaskDist', {
-                  dataArr: userTaskDist,
-                })
-              })
-
-              axios.post('/user/zip', {
-                username: this.state.username,
-                zip: this.state.zipByIP,
-              })
-            }
-          })
-          this.getTasks();
-          Auth.timezoneByIP = this.state.timezoneByIP;
-        });
+        }, this.getDistances);
       })
       .catch((err) => {
         console.log('ERROR in axios.get to ip-api, error: ', err);
@@ -109,6 +62,58 @@ class Home extends React.Component {
     });
   }
 
+  getDistances() {
+    axios.get('/user/zip', {
+      params: {
+        username: this.state.username,
+      }
+    }).then((userData) => {
+      console.log(userData.data.zip, this.state.zipByIP);
+      if (userData.data.zip != this.state.zipByIP) {
+        if (typeof(Number.prototype.toRadians) === "undefined") {
+          Number.prototype.toRadians = function() {
+            return this * Math.PI / 180;
+          }
+        }
+        console.log('getting distance');
+        axios.get('tasks/all').then(taskData => {
+          let userTaskDist = [];
+          taskData.data.forEach(t => {
+
+            var R = 6371e3; // metres
+            var φ1 = Number(this.state.latByIP).toRadians();
+            var φ2 = Number(t.latitude).toRadians();
+            var Δφ = Number(t.latitude-this.state.latByIP).toRadians();
+            var Δλ = Number(t.longitude-this.state.lngByIP).toRadians();
+
+            var a = Math.sin(Δφ/2) * Math.sin(Δφ/2) +
+                    Math.cos(φ1) * Math.cos(φ2) *
+                    Math.sin(Δλ/2) * Math.sin(Δλ/2);
+            var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+
+            var d = R * c;
+
+            userTaskDist.push({
+              userId: userData.data.id,
+              taskId: t.id,
+              distance: d,
+            });
+          })
+          axios.post('/userTaskDist', {
+            dataArr: userTaskDist,
+          })
+        })
+
+        axios.post('/user/zip', {
+          username: this.state.username,
+          zip: this.state.zipByIP,
+        })
+      }
+    })
+    this.getTasks();
+    Auth.timezoneByIP = this.state.timezoneByIP;
+  }
+
   getTasks() {
     console.log('gettttt');
     axios.get(`/tasks`,{
@@ -129,6 +134,28 @@ class Home extends React.Component {
       mapCenter: loc,
       mapZoom: 16,
     });
+  }
+
+  submitNewAddress(e) {
+    if (e.keyCode === 13) {
+      console.log('newAddress')
+      var zip = ''
+      geocodeByAddress(this.state.newAddress)
+        .then((results) => {
+          let last = results[0].address_components.length - 1;
+          zip = results[0].address_components[last].short_name
+          //console.log(results[0].address_components[last]);
+          return getLatLng(results[0]);
+        })
+        .then(({ lat, lng }) => {
+          this.setState({
+            latByIP: lat,
+            lngByIP: lng,
+            zipByIP: zip,
+            radius: 1,
+          }, this.getDistances);
+        })
+    }
   }
 
   render() {
@@ -177,7 +204,8 @@ class Home extends React.Component {
                     inputProps={{
                       value: this.state.newAddress,
                       onChange: this.handleNewAddress,
-                      placeholder: 'Search Places...',
+                      onKeyUp: this.submitNewAddress,
+                      placeholder: 'Update Your Address',
                       debounce: '100',
                     }}
                     />
