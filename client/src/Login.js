@@ -81,7 +81,7 @@ class Login extends React.Component {
         <div className="ui middle aligned center aligned grid">
           <div className="column" style={{maxWidth: '450px'}}>
             <h2 className="ui blue image header">
-              <div className="content">Log-in to VolunTinder</div>
+              <div className="content">Log-in to Home To Volunteer</div>
             </h2>
             <div className="ui large form">
               <div className="ui stacked segment">
