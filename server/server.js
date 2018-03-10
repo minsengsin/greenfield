@@ -197,6 +197,17 @@ app.post('/user/zip', (req, res) => {
     where: {
       username: req.body.username,
     }
+  }).then(res.send);
+});
+
+app.post('/user/address', (req, res) => {
+  User.update({
+    //zip: req.body.zip,
+    address: req.body.address,
+  }, {
+    where: {
+      username: req.body.username,
+    }
   }).then(d => res.send());
 });
 

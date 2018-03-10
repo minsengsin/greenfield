@@ -19,7 +19,7 @@ class Home extends React.Component {
       lngByIP: null,
       zipByIP: null,
       timezoneByIP: null,
-      radius: 5,
+      radius: 3,
       newAddress: null,
     };
     this.selectLocation = this.selectLocation.bind(this);
@@ -30,30 +30,32 @@ class Home extends React.Component {
   }
 
   componentWillMount() {
-    axios.get('http://ip-api.com/json')
-      .then((res) => {
-        console.log(res.data.lat);
-        this.setState({
-          latByIP: res.data.lat,
-          lngByIP: res.data.lon,
-          mapCenter: {lat: res.data.lat, lng: res.data.lon},
-          zipByIP: res.data.zip,
-          timezoneByIP: res.data.timezone,
-        }, this.getDistances);
-      })
-      .catch((err) => {
-        console.log('ERROR in axios.get to ip-api, error: ', err);
-      });
-
-    axios.get('/status').then(results => {
-      if (!results.data) {
-        console.log("Session doesn't exist!", results.data);
-        this.props.history.push('/login'); //actual redirection
+    axios.get('/user/zip', {
+      params: {
+        username: this.state.username,
       }
-      this.setState({
-        status: results.data,
-      });
-    });
+    }).then(userDat => {
+      if(!userDat.data.address) {
+        axios.get('http://ip-api.com/json')
+        .then((res) => {
+          console.log(res.data.lat);
+          this.setState({
+            latByIP: res.data.lat,
+            lngByIP: res.data.lon,
+            mapCenter: {lat: res.data.lat, lng: res.data.lon},
+            zipByIP: res.data.zip,
+            timezoneByIP: res.data.timezone,
+          }, this.getDistances);
+        })
+        .catch((err) => {
+          console.log('ERROR in axios.get to ip-api, error: ', err);
+        });
+      } else {
+        this.setState({
+          newAddress: userDat.data.address,
+        }, () => this.submitNewAddress({keyCode: 13}));
+      }
+    })
   }
 
   handleNewAddress(address) {
@@ -101,6 +103,8 @@ class Home extends React.Component {
           })
           axios.post('/userTaskDist', {
             dataArr: userTaskDist,
+          }).then((x) => {
+            this.getTasks();
           })
         })
 
@@ -108,10 +112,11 @@ class Home extends React.Component {
           username: this.state.username,
           zip: this.state.zipByIP,
         })
+      } else {
+        this.getTasks();
       }
+      Auth.timezoneByIP = this.state.timezoneByIP;
     })
-    this.getTasks();
-    Auth.timezoneByIP = this.state.timezoneByIP;
   }
 
   getTasks() {
@@ -148,11 +153,19 @@ class Home extends React.Component {
           return getLatLng(results[0]);
         })
         .then(({ lat, lng }) => {
+          axios.post('/user/address',{
+            zip,
+            address: this.state.newAddress,
+            username: this.state.username,
+          });
+
           this.setState({
             latByIP: lat,
             lngByIP: lng,
             zipByIP: zip,
-            radius: 1,
+            mapCenter: {lat, lng},
+            mapZoom: 11,
+            radius: 3,
           }, this.getDistances);
         })
     }
@@ -175,16 +188,15 @@ class Home extends React.Component {
         <Header name={this.state.username} />
         <div
           className="ui stackable grid"
+          style={{
+            marginTop: '-45px',
+          }}
         >
           <div
             className="six wide column"
             style={{ }}
           >
-            <div className="ui segment" style={{ height: '20px', padding: '0px' }}>
-              Sort
-            </div>
-
-            <div className="ui large form" style={{ height: '20px', paddingBottom: '50px' }}>
+            <div className="ui form">
               <div className="field">
                 <div
                   className="ui left input"
