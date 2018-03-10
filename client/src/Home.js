@@ -133,7 +133,7 @@ class Home extends React.Component {
 
   render() {
     var taskList = this.state.tasks.slice();
-    taskList=taskList.filter(t=>t.completed === false)
+    taskList=taskList.filter(t=>(t.completed === false && t.accepted === false))
     return (
       <div
         onClick={(e) => {
