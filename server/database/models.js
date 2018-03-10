@@ -42,7 +42,6 @@ const Task = db.define('Tasks', {
     needed: Sequelize.INTEGER,
     volunteers: Sequelize.INTEGER,
     completed: {type: Sequelize.BOOLEAN, allowNull: false, defaultValue: false},
-    accepted: {type: Sequelize.BOOLEAN, allowNull: false, defaultValue: false},
     date: Sequelize.STRING(25),
 })
 
@@ -52,7 +51,9 @@ const Task = db.define('Tasks', {
 const UserTasks = db.define('userTasks', {
     UserId: Sequelize.STRING,
     TaskId: Sequelize.STRING,
-    completed: {type: Sequelize.BOOLEAN, allowNull: false, defaultValue: false}
+    completed: {type: Sequelize.BOOLEAN, allowNull: false, defaultValue: false},
+    accepted: {type: Sequelize.BOOLEAN, allowNull: false, defaultValue: false},
+
 });
 
 db.sync({force: true}).then(()=>{

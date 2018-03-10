@@ -29,6 +29,7 @@ class Home extends React.Component {
     this.getDistances = this.getDistances.bind(this);
   }
 
+
   componentWillMount() {
     axios.get('/user/zip', {
       params: {
@@ -173,7 +174,7 @@ class Home extends React.Component {
 
   render() {
     var taskList = this.state.tasks.slice();
-    taskList=taskList.filter(t=>(t.completed === false && t.accepted === false))
+    taskList=taskList.filter(t=>t.completed === false)
     return (
       <div
         onClick={(e) => {
