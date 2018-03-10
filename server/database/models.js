@@ -41,6 +41,7 @@ const Task = db.define('Tasks', {
     needed: Sequelize.INTEGER,
     volunteers: Sequelize.INTEGER,
     completed: {type: Sequelize.BOOLEAN, allowNull: false, defaultValue: false},
+    accepted: {type: Sequelize.BOOLEAN, allowNull: false, defaultValue: false},
     date: Sequelize.STRING(25),
 })
 
@@ -76,12 +77,11 @@ db.sync({force: true}).then(()=>{
 
 
 
-    Task.create({title: 'Mail Sorting', description:'Route internal and external correspondence', organization: 'Human Rights Watch', latitude: 40.748563, longitude: -73.985746, location: '350 5th Ave #34, New York, NY 10118', needed: 10, volunteers: 0, date: '2018-01-01T12:00:00-05:00', zip: 91503})
     Task.create({title: 'Processing Donations', description:'Accepting physical donations of clothes.', organization: 'Salvation Army', latitude: 40.743695, longitude: -73.999210, location: '208 8th Ave, New York, NY 10011', needed: 10, volunteers: 9, date: '2018-01-01T12:00:00-05:00', zip: 10011})
     Task.create({title: 'Answering Phones', description:'Serving at our inbound call center.', organization: 'GLAAD', latitude: 40.746743, longitude: -73.990767, location: '104 W 29th St #4, New York, NY 10001', needed: 10, volunteers: 0, date: '2018-03-04T12:00:00-05:00', zip: 10001})
     Task.create({title: 'Canvassing', description:'Door-to-door fundraising', organization: 'International Womens Health Coalition', latitude: 40.747449, longitude: -73.992823, location: '333 7th Ave #601, New York, NY 10001', needed: 10, volunteers: 0, date: '2018-03-04T12:00:00-05:00', zip: 10001})
     Task.create({title: 'Mail Sorting', description:'Route internal and external correspondence', organization: 'Human Rights Watch', latitude: 40.748563, longitude: -73.985746, location: '350 5th Ave #34, New York, NY 10118', needed: 10, volunteers: 9, date: '2018-03-04T12:00:00-05:00', zip: 10118})
-    Task.create({title: 'Set up city meeting', description:'Help the Mayor', organization: 'Samaritans of New York', latitude: 40.712775, longitude:  -74.005973, location: 'City Hall Park, New York, NY 10007', needed: 6, volunteers: 0, date: '2018-03-04T12:00:00-05:00', zip: 10007})
+    Task.create({title: 'Set up city meeting', description:'Help the Mayor', organization: 'Salvation Army', latitude: 40.712775, longitude:  -74.005973, location: 'City Hall Park, New York, NY 10007', needed: 6, volunteers: 0, date: '2018-03-04T12:00:00-05:00', zip: 10007})
     Task.create({title: 'Wedding Clean Up', description:'Come clean up my wedding', organization: 'NYCares', latitude: 40.715203, longitude: -74.001880, location: '141 Worth St, New York, NY 10007', needed: 35, volunteers: 10, date: '2018-03-04T12:00:00-05:00', zip: 10007})
     Task.create({title: 'Wash Puppies', description:'Come wash the puppies', organization: 'NYCares', latitude: 40.721535, longitude: -74.004111, location: '307 W Broadway, New York, NY 10013', needed: 15, volunteers: 14, date: '2018-03-04T12:00:00-05:00', zip: 10013})
     Task.create({title: 'Walk Dogs', description:'The Dogs need walking, come out for a day of dog walking', organization: 'NYCares', latitude: 40.718814, longitude: -73.999061, location: '200 Centre St, New York, NY 10013', needed: 8, volunteers: 3, date: '2018-03-04T12:00:00-05:00', zip: 10013})
@@ -92,7 +92,7 @@ db.sync({force: true}).then(()=>{
     Task.create({title: 'More Jersey Soup', description:'Jersey SOUP SOUP SOUP SOOOP', organization: 'NYCares', latitude: 40.718724, longitude: -74.052228, location: '420 Grand St, Jersey City, NJ 07302', needed: 6, volunteers: 5, date: '2018-03-04T12:00:00-05:00', zip: 07302})
     Task.create({title: 'Jersey Pancakes', description:'Come help make pancakes', organization: 'NYCares', latitude: 40.716705, longitude: -74.048602, location: '426 Jersey Ave, Jersey City, NJ 07302', needed: 30, volunteers: 29, date: '2018-03-04T12:00:00-05:00', zip: 07302})
     Task.create({title: 'Life is good', description:'come be a loft', organization: 'NYCares', latitude: 40.720551, longitude: -74.043771, location: '146 Newark Ave, Jersey City, NJ 07302', needed: 3, volunteers: 2, date: '2018-03-04T12:00:00-05:00', zip: 07302})
-    Task.create({title: 'Diner life', description:'Come wash dishes', organization: 'GLAAD', latitude: 40.747923, longitude: -73.975152, location: '708 Jersey Ave, Jersey City, NJ 07302', needed: 6, volunteers: 0, date: '2018-03-04T12:00:00-05:00', zip: 07302})
+    Task.create({title: 'Diner life', description:'Come wash dishes', organization: 'GLAAD', latitude: 40.728954, longitude: -74.044677, location: '708 Jersey Ave, Jersey City, NJ 07302', needed: 6, volunteers: 0, date: '2018-03-04T12:00:00-05:00', zip: 07302})
     Task.create({title: 'DMV', description:'Come help the jersey DMV', organization: 'NYCares', latitude: 40.730566, longitude: -74.061159, location: '438 Summit Ave, Jersey City, NJ 07307', needed: 6, volunteers: 5, date: '2018-03-04T12:00:00-05:00', zip: 07307})
     Task.create({title: 'Brooklyn art show', description:'Come show off art', organization: 'Salvation Army', latitude: 40.704560, longitude: -73.916597, location: 'St Nicholas Ave, Brooklyn, NY 11237', needed: 6, volunteers: 0, date: '2018-03-04T12:00:00-05:00', zip: 11237})
     Task.create({title: 'Brooklyn Diner', description:'Come eat brooklyn food', organization: 'NYCares', latitude: 40.705081, longitude: -73.933571, location: '261 Moore St, Brooklyn, NY 11206', needed: 6, volunteers: 5, date: '2018-03-04T12:00:00-05:00', zip: 11206})

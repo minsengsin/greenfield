@@ -252,7 +252,9 @@ app.get('/users/:username', function(req, res) {
 
 // Returns all tasks from the database.
 app.get('/tasks/all', function(req, res) {
-  Task.findAll().then(results => {
+  console.log('tasks/all calling')
+  Task.findAll({where: {accepted: false}}).then(results => {
+    console.log('results in tasks/all', results)
     res.send(results);
   });
 });
@@ -367,6 +369,8 @@ app.post('/tasks/:taskId/accept', function(req, res) {
             Task.findById(TaskID)
             .then(task => {
               task.increment('volunteers', {by: 1})
+              task.accepted = true;
+              task.save();
             }).then(() => {
               res.send('Task is added');
             })
@@ -408,6 +412,8 @@ app.post('/tasks/:taskId/reject', function(req, res) {
         Task.findById(TaskID)
         .then(task => {
           task.increment('volunteers', {by: -1})
+          task.accepted = false;
+          task.save();
         }).then(() => {
           res.send('SHOULD REDIRECT');
         })
