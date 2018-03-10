@@ -155,22 +155,24 @@ app.get('/status', function(req, res) {
 });
 
 app.post('/signup', function(req, res) {
-  User.find({
-    where: {
-      username: req.body.username,
-    },
-  }).then(e => {
-    if (e && e.dataValues.username === req.body.username) {
-      res.redirect('/signup');
-    } else {
-      User.create({
+  if(req.body.username && req.body.password) {
+    User.find({
+      where: {
         username: req.body.username,
-        password: req.body.password,
-      }).then(() => {
-        res.redirect('/login');
-      });
-    }
-  });
+      },
+    }).then(e => {
+      if (e && e.dataValues.username === req.body.username) {
+        res.redirect('/signup');
+      } else {
+        User.create({
+          username: req.body.username,
+          password: req.body.password,
+        }).then(() => {
+          res.redirect('/');
+        });
+      }
+    });
+  }
 });
 
 // Returns a list of all users from the database.
