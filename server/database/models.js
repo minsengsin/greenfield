@@ -1,6 +1,15 @@
 const Sequelize = require('sequelize');
 const DB_URL = process.env.JAWSDB_URL || 'mysql://root@localhost/greenfield';
-const db = new Sequelize(DB_URL);
+const DB_NAME = process.env.DB_NAME;
+const DB_PORT = process.env.DB_PORT;
+const DB_UN = process.env.DB_UN;
+const DB_PW = process.env.DB_PW;
+// const db = new Sequelize(DB_URL);
+const db = new Sequelize(DB_NAME, DB_UN, DB_PW, {
+  host: DB_URL,
+  port: DB_PORT,
+  dialect: 'mysql',
+});
 
 const User = db.define('Users', {
     username: Sequelize.STRING,
