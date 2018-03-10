@@ -23,6 +23,7 @@
     "mysql": "^2.15.0",
     "mysql2": "^1.0.0-rc.10",
     "react": "^16.2.0",
+    "react-add-to-calendar": "^0.1.5",
     "react-datepicker": "^1.2.2",
     "react-dom": "^16.2.0",
     "react-google-login": "^3.0.4",

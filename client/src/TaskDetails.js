@@ -4,6 +4,7 @@ import Traits from './Traits.js';
 import axios from 'axios';
 import GoogleMaps from './Map.js';
 import Auth from './Auth.js';
+import AddToCalendar from 'react-add-to-calendar';
 
 class TaskDetails extends React.Component {
   constructor(props) {
@@ -77,7 +78,6 @@ class TaskDetails extends React.Component {
         this.props.history.push('/');
       });
   }
-  ////////
 
   deleteTask() {
     axios.post(`/tasks/${this.state.taskId}/delete`, {username: Auth.username})
@@ -106,6 +106,8 @@ class TaskDetails extends React.Component {
 
   render() {
     console.log('RENDERING!', this.props);
+    console.log('this is the task object: ', this.state.task);
+    console.log('this is the task array: ', this.state.tasks);
     return (
       <div className="ui container" style={{paddingTop: '100px'}}>
         <Header name={Auth.username} />
@@ -178,6 +180,25 @@ class TaskDetails extends React.Component {
             <div className="ui segment">
               <h3>Further Details</h3>
               {this.state.task ? <Traits task={this.state.task} username={this.state.username} /> : 'Loading'}
+                <div className="ui field left aligned">
+                  <AddToCalendar
+                    event={{
+                      title: this.state.task.title,
+                      description: this.state.task.description,
+                      location: this.state.task.location,
+                      startTime: this.state.task.date,
+                    }}
+                    buttonLabel="Add To My Calendar"
+                    buttonClassClosed="location"
+                    buttonClassOpen="location"
+                    dropdownClass="location"
+                    listItems={[
+                      {google: 'Google'},
+                      {outlook: 'Outlook'},
+                      {apple: 'Apple'},
+                    ]}
+                  />
+                </div>
             </div>
           </div>
         </div>
