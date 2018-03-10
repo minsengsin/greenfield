@@ -177,7 +177,7 @@ class Home extends React.Component {
                     inputProps={{
                       value: this.state.newAddress,
                       onChange: this.handleNewAddress,
-                      placeholder: 'Search Places...',
+                      placeholder: 'Change Location for Opportunity Search',
                       debounce: '100',
                     }}
                     />

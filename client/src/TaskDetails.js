@@ -5,6 +5,7 @@ import axios from 'axios';
 import GoogleMaps from './Map.js';
 import Auth from './Auth.js';
 import AddToCalendar from 'react-add-to-calendar';
+import moment from 'moment-timezone';
 
 class TaskDetails extends React.Component {
   constructor(props) {
@@ -108,6 +109,8 @@ class TaskDetails extends React.Component {
     console.log('RENDERING!', this.props);
     console.log('this is the task object: ', this.state.task);
     console.log('this is the task array: ', this.state.tasks);
+    console.log('this is the date of task: ', this.state.task.date);
+    console.log('this is the date plus 8h: ', moment(this.state.task.date).add(8, 'h').format());
     return (
       <div className="ui container" style={{paddingTop: '100px'}}>
         <Header name={Auth.username} />
@@ -187,6 +190,7 @@ class TaskDetails extends React.Component {
                       description: this.state.task.description,
                       location: this.state.task.location,
                       startTime: this.state.task.date,
+                      endTime: moment(this.state.task.date).add(8, 'h').format(),
                     }}
                     buttonLabel="Add To My Calendar"
                     buttonClassClosed="location"
