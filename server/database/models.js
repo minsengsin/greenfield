@@ -5,7 +5,8 @@ const db = new Sequelize(DB_URL);
 const User = db.define('Users', {
     username: Sequelize.STRING,
     password: Sequelize.STRING,
-    zip: Sequelize.STRING
+    zip: Sequelize.STRING,
+    address: Sequelize.STRING,
 });
 
 const UserTaskDist = db.define('UserTaskDist', {
