@@ -25,7 +25,7 @@ class Login extends React.Component {
 
   responseGoogle(response) {
     console.log(response.profileObj)
-    if (response) {
+    if (response.profileObj) {
       axios.post('/googleLogin', response.profileObj)
       .then((res) => {
         Auth.isAuthenticated = true;
