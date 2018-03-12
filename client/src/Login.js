@@ -25,13 +25,15 @@ class Login extends React.Component {
 
   responseGoogle(response) {
     console.log(response.profileObj)
-    axios.post('/googleLogin', response.profileObj)
-    .then((res) => {
-      Auth.isAuthenticated = true;
-      Auth.username = res.data.username;
-      Auth.password = res.data.password;
-      this.setState({redirectToReferrer: true})
-    })
+    if (response) {
+      axios.post('/googleLogin', response.profileObj)
+      .then((res) => {
+        Auth.isAuthenticated = true;
+        Auth.username = res.data.username;
+        Auth.password = res.data.password;
+        this.setState({redirectToReferrer: true})
+      })
+    }
   }
 
   login() {
