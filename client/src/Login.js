@@ -25,7 +25,7 @@ class Login extends React.Component {
 
   responseGoogle(response) {
     console.log(response.profileObj)
-    if (response.profileObj) {
+
       axios.post('/googleLogin', response.profileObj)
       .then((res) => {
         Auth.isAuthenticated = true;
@@ -33,7 +33,6 @@ class Login extends React.Component {
         Auth.password = res.data.password;
         this.setState({redirectToReferrer: true})
       })
-    }
   }
 
   login() {
@@ -125,7 +124,7 @@ class Login extends React.Component {
               </Link>
             </div>
             <GoogleLogin
-              clientId="328482894747-0eo5s342dm8heupoemvanntj2tqnhfjt.apps.googleusercontent.com"
+              clientId="328482894747-igpb1a9uppg0906r03radh7ll1qlnftm.apps.googleusercontent.com"
               buttonText="Google Login"
               onSuccess={this.responseGoogle}
               onFailure={this.responseGoogle}
